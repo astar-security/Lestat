@@ -19,10 +19,19 @@ Lestat should run out of the box.
 ## Basic Usage
 For pentesters:
 ```
-$ python3 /RobbTheRobber.py --priv result_john domain_users.grep
+$ python3 RobbTheRobber.py --priv result_john domain_users.grep
 ```
 
 For SysAdmin:
+To get stats for active accounts only:  
 ```
-$ python3 /RobbTheRobber.py --stats <OUTPUT_FILENAME> result_john domain_users.grep
+$ python3 RobbTheRobber.py --stats <OUTPUT_FILENAME> result_john domain_users.grep
+```
+To get stats for all the accounts (active and disabled):
+```
+$ python3 RobbTheRobber.py --stats <OUTPUT_FILENAME> --all result_john domain_users.grep
+```
+To get stats if you configured the wordlists (see [here](https://github.com/astar-security/Lestat/wiki/GetWordlists)):
+```
+python3 ~dsoria/Arsenal/Windows/AD/Lestat/RobbTheRobber.py --wordlists <PATH_TO_WORDLISTS> --stats <OUTPUT_FILE> result_john domain_users.grep
 ```
