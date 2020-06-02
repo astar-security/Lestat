@@ -9,15 +9,15 @@ import argparse
 #########
 
 
-# remove domain prefix like mydomain\\user
 def beautifyName(person):
+    """remove domain prefix like mydomain\\user"""
     person = person.lower()
     if '\\' in person:
         person = person.split('\\')[1]
     return person
 
-# check clues about being privileged
 def isPriv(account, groups):
+    """check clues about being privileged"""
     if "adm" in account:
         return 1
     for i in groups:
@@ -25,8 +25,8 @@ def isPriv(account, groups):
             return 1
     return 0
 
-# give the composition of the password : l=lowercase u=uppercase n=numeric s=symbol
 def getCharsets(passwd):
+    """give the composition of the password : l=lowercase u=uppercase n=numeric s=symbol"""
     cs = ''
     if any([i for i in passwd if i in string.ascii_lowercase]):
         cs += 'l'
@@ -38,38 +38,36 @@ def getCharsets(passwd):
         cs += 's'
     return cs
 
-# obtain root of a password or username
 def getRoot(word):
+    """obtain root of a password or username"""
     remove = str.maketrans('', '', string.digits+string.punctuation)
     return word.lower().translate(remove)
 
-# ask for the list of users with a specific level of robustness/reason
 def getThatRobust(compromised, level):
-    criteria = "robustness" if level in [0, 1, 2, 3] else "reason"
+    """ask for the list of users with a specific level of robustness/reason"""
+    criteria = "robustness" if level in range(4) else "reason"
     total = 0
-    for i in compromised:
-        if compromised[i][criteria] == level:
-            print(i, compromised[i]['password'], sep='\t')
+    for acc, info in compromised.items():
+        if info[criteria] == level:
+            print(acc, info['password'], sep='\t')
             total += 1
     print("total:",total)
+
 
 ########
 # Init #
 ########
 
-def initInfo(john_file, user_file):
+
+def initInfo(pass_file, user_file):
+    """verify john file's content and domain users info file's format"""
+    """get the user:pass from john"""
+    """check if the leakTheWeak module was used on the john file"""
     compromised = {}
-    try:
-        f=open(user_file,"r")
-        users = f.read().lower().split('\n')
-        f.close()
-        f = open(john_file, "r")
-        john = f.read().split('\n')
-        f.close()
-    except Exception as e:
-        print('[!] Error during input files import')
-        print(e)
-        exit(1)
+    with open(user_file,"r") as f:
+        users = f.read().lower().splitlines()
+    with open(pass_file, "r") as f:
+        john = f.read().splitlines()
     # check user file content
     if users[0] != 'cn\tname\tsamaccountname\tmemberof\tprimarygroupid\twhencreated\twhenchanged\tlastlogon\tuseraccountcontrol\tpwdlastset\tobjectsid\tdescription':
         print("[!] Bad user file")
@@ -81,16 +79,19 @@ def initInfo(john_file, user_file):
     # check john file content
     for line in john:
         person = line.split(':')
-        if len(person) != 8:
-            print(f"[!] Line ignored in john file (not a valid user): {line}")
+        lpers = len(person)
+        if lpers < 2:
+            print(f"[!] Line ignored in password file (not a valid user:password form): {line}")
             continue
+        if lpers > 2:
+            print(f"[!] Line used but seems to contain more than only a user:password form: {line}")
         # trick to avoid further stats over leaked hashes were password is not known
-        init_reason = "leaked" if person[2]=="LEAK" else "undetermined"
+        init_reason = "leaked" if person[1]=="<LeakTheWeak>" else "undetermined"
         compromised[beautifyName(person[0])] = {"password":person[1], "groups":[], "status":[], "lastchange":"", "lastlogon":"", "robustness":3, "reason":init_reason, "priv":0}
-    return john, users, compromised
+    return users, compromised
 
-# consolider avec les infos du domaine
 def populateUsers(compromised, users):
+    """complete info about users compromised by join using the domain users info file"""
     for i in users:
         p=i.split('\t')
         if p[2] in compromised:
@@ -101,68 +102,70 @@ def populateUsers(compromised, users):
                 compromised[p[2]]["groups"].append(p[4])
                 compromised[p[2]]["status"] = p[8].split(', ')
     # check privilege
-    for account in compromised:
-        if len(compromised[account]["groups"]) == 0:
-            print(f"[!] {account} not consolidated from domain users info")
+    for acc, info in compromised.items():
+        if len(info["groups"]) == 0:
+            print(f"[!] {acc} not consolidated from domain users info")
         else:
-            compromised[account]["priv"] = isPriv(account, compromised[account]['groups'])
+            info["priv"] = isPriv(acc, info['groups'])
 
 ##############
 # Robustness #
 ##############
 
-# find empty passwords
 def testLen(compromised, pool, trigger, rob, reason):
+    """find empty passwords"""
     res = {}
     cpt = 0
-    for p in pool:
-        if len(p) <= trigger:
-            for acc in pool[p]:
+    for passwd, accounts in pool.items():
+        if len(passwd) <= trigger:
+            for acc in accounts:
                 compromised[acc]['robustness'] = rob
                 compromised[acc]['reason'] = reason
                 cpt += 1
         else:
-            res[p] = pool[p]
+            res[passwd] = accounts
     print(f"[*] {cpt} passwords found as {reason}")
     return res
 
-# test passwords which are substring of the login or the opposite
 def testLoginBased(compromised, pool, rob):
+    """test passwords which are substring of the login or the opposite"""
     res = {}
     cpt = 0
-    for p in pool:
-        pl = p.lower()
+    for passwd, accounts in pool.items():
+        pl = passwd.lower()
         rest = []
-        for acc in pool[p]:
+        for acc in accounts:
             if pl in acc or acc in pl:
                 compromised[acc]['robustness'] = rob
                 compromised[acc]['reason'] = "login based"
                 cpt += 1
             else:
                 rest.append(acc)
-        if len(rest) != 0:
-            res[p] = rest
+        if rest:
+            res[passwd] = rest
     print(f"[*] {cpt} passwords found login based")
     return res
 
 def testIsSubstring(compromised, wordlist, pool, rob, reason):
+    """test passwords which are substring of a wordlist"""
     res = {}
     cpt = 0
     f=open(wordlist)
     wl = f.read().lower()
     f.close()
-    for p in pool:
-        if p.lower() in wl:
-            for acc in pool[p]:
+    for passwd, accounts in pool.items():
+        if passwd.lower() in wl:
+            for acc in accounts:
                 compromised[acc]['robustness'] = rob
                 compromised[acc]['reason'] = reason
                 cpt += 1
         else:
-            res[p] = pool[p]
+            res[passwd] = accounts
     print(f"[*] {cpt} passwords found as {reason}")
     return res
 
 def testLoginExtrapolation(compromised, pool, rob):
+    """test if the root of the password is included in the root of the login and the opposite"""
     res = {}
     cpt = 0
     for p in pool:
@@ -177,7 +180,7 @@ def testLoginExtrapolation(compromised, pool, rob):
                     cpt += 1
                 else:
                     rest.append(acc)
-            if len(rest) != 0:
+            if rest:
                 res[p] = rest
         else:
             res[p] = pool[p]
@@ -185,6 +188,7 @@ def testLoginExtrapolation(compromised, pool, rob):
     return res
 
 def testWordlist(compromised, wordlist, pool, rob, reason):
+    """test if a line of a wordlist match a password"""
     cpt = 0
     f=open(wordlist)
     for line in f:
@@ -199,6 +203,7 @@ def testWordlist(compromised, wordlist, pool, rob, reason):
     return pool
 
 def testCharset(compromised, pool, trigger, rob, reason):
+    """test how many charsets are used in the password"""
     res = {}
     cpt = 0
     for p in pool:
@@ -213,6 +218,7 @@ def testCharset(compromised, pool, trigger, rob, reason):
     return res
 
 def computeRobustness(compromised, wordlists):
+    """use the previous tests over a pool of passwords to tag"""
     pool = {}
     for acc in compromised:
         if compromised[acc]['reason'] == "leaked":
@@ -253,11 +259,13 @@ def computeRobustness(compromised, wordlists):
     ## local common
     pool = testWordlist(compromised, wordlists['wl_3_locale'], pool, 3, "present in locale attack wordlist")
 
+
 ##########
 # Groups #
 ##########
 
 def populateGroups(compromised):
+    """from the view 'user -> groups compromised' to the view 'group -> users compromised'""" 
     compromised_groups = {}
     for p in compromised:
         for g in compromised[p]["groups"]:
@@ -274,36 +282,43 @@ def populateGroups(compromised):
                     compromised_groups[g]["robustness"] = compromised[p]["robustness"]
     return compromised_groups
 
+
 ##########
 # Export #
 ##########
 
-def exportUsers(compromised, output):
+def exportUsers(compromised, output, priv):
+    """write consolidated info about users into CSV format with ; separator"""
     f= open(output, "w")
     f.write("name;password;status;lastlogon;lastchange;num groups;groups;sensitive;robustness;reason\n")
-    for i in compromised:
-        psw = compromised[i]['password'] 
-        stat = 'disabled' if 'account_disabled' in compromised[i]['status'] else 'enabled'
-        logn = compromised[i]['lastlogon']
-        lchg = compromised[i]['lastchange']
-        numg = len(compromised[i]['groups'])
-        grp = ', '.join(compromised[i]['groups'])
-        crit = "yes" if compromised[i]['priv'] else "unknwon"
-        robu = ["seconds", "minutes", "hours", "days"][compromised[i]['robustness']]
-        reas = compromised[i]['reason']
-        f.write(f"{i};{psw};{stat};{logn};{lchg};{numg};{grp};{crit};{robu};{reas}\n")
+    if priv:
+        print("[*] Privileged accounts compromised are listed below:")
+    for acc, info in compromised.items():
+        psw = info['password'] 
+        stat = 'disabled' if 'account_disabled' in info['status'] else 'enabled'
+        logn = info['lastlogon']
+        lchg = info['lastchange']
+        numg = len(info['groups'])
+        grp = ', '.join(info['groups'])
+        crit = "likely privileged" if info['priv'] else "unknwon"
+        robu = ["seconds", "minutes", "hours", "days"][info['robustness']]
+        reas = info['reason']
+        f.write(f"{acc};{psw};{stat};{logn};{lchg};{numg};{grp};{crit};{robu};{reas}\n")
+        if priv and stat == 'enabled' and crit == 'likely privileged':
+            print(f"[*]\t{acc}\t{psw}")
     f.close()
 
 def exportGroups(compromised_groups, output):
+    """write consolidated info about groups into CSV format with ; separator"""
     f= open(output, "w")
     f.write("name;num;sensitive;robustness;enabled members;disabled members\n")
-    for i in compromised_groups:
-        memb = len(compromised_groups[i]['disabled']) + len(compromised_groups[i]['enabled'])
-        crit = "yes" if compromised_groups[i]['priv'] else "unknown"
-        robu = ["seconds", "minutes", "hours", "days"][compromised_groups[i]['robustness']]
-        emem = ', '.join(compromised_groups[i]['enabled'])
-        dmem = ', '.join(compromised_groups[i]['disabled'])
-        f.write(f"{i};{memb};{crit};{robu};{emem};{dmem}\n")
+    for gr, info in compromised_groups.items():
+        memb = len(info['disabled']) + len(info['enabled'])
+        crit = "yes" if info['priv'] else "unknown"
+        robu = ["seconds", "minutes", "hours", "days"][info['robustness']]
+        emem = ', '.join(info['enabled'])
+        dmem = ', '.join(info['disabled'])
+        f.write(f"{gr};{memb};{crit};{robu};{emem};{dmem}\n")
     f.close()
 
 
@@ -312,8 +327,8 @@ def exportGroups(compromised_groups, output):
 #########
 
 
-# just create a dict with two lists: one for all the acounts, another for the active accounts only
 def getPass(compromised):
+    """just create a dict with two lists: one for all the acounts, another for the active accounts only"""
     passwords = {"all":[], "active":[]}
     for c in compromised:
         if compromised[c]['reason'] == 'leaked':
@@ -323,8 +338,8 @@ def getPass(compromised):
             passwords["active"].append(compromised[c]['password'])
     return passwords
 
-# produce data for synthesis stats
 def statSynthesis(users, compromised):
+    """produce data for synthesis stats"""
     total = len(users)-1
     unsafe = 0
     active_unsafe = 0
@@ -346,14 +361,15 @@ def statSynthesis(users, compromised):
     active_safe = active_total - active_cracked - active_unsafe
     return (total, cracked, safe, active_total, active_cracked, active_safe, unsafe, active_unsafe)
 
-# produce data about unicity stats
 def statUniq(passwords, active_or_all):
+    """produce data about unicity stats"""
     empty = passwords[active_or_all].count('')
     non_empty = len(passwords[active_or_all]) - empty
     uniq = len(set(passwords[active_or_all]))
     return (empty, non_empty, uniq)
 
 def statSensitive(compromised, active_or_all):
+    """produce data about the privilege of the users"""
     crit = {}
     for u in compromised:
         if active_or_all == "all" or 'account_disabled' not in compromised[u]["status"]:
@@ -364,8 +380,8 @@ def statSensitive(compromised, active_or_all):
                     crit[u] = ('likely', compromised[u]['robustness'], compromised[u]['reason'])
     return crit
 
-# produce data for length stats
 def statLength(passwords, active_or_all):
+    """produce data for length stats"""
     lengths = {}
     for p in passwords[active_or_all]:
         l = len(p)
@@ -374,24 +390,24 @@ def statLength(passwords, active_or_all):
         lengths[l] += 1
     return lengths
 
-# produce data for charset stats
 def statCharset(passwords, active_or_all):
+    """produce data for charset stats"""
     charsets = {'':0, 'l':0, 'u':0, 'n':0, 's':0, 'lu':0, 'ln':0, 'ls':0, 'un':0, 'us':0, 'ns':0, 'lun':0, 'lus':0, 'lns':0, 'uns':0, 'luns':0}
     for p in passwords[active_or_all]:
         c = getCharsets(p)
         charsets[c] +=1
     return charsets
 
-# produce data for most frequent passwords stats
 def statFreq(passwords, active_or_all):
+    """produce data for most frequent passwords stats"""
     occ = {}
     for p in set(passwords[active_or_all]):
         o = passwords[active_or_all].count(p)
         occ[p] = o
     return occ
 
-# produce data for most frequent patterns stats
 def statPattern(passwords, active_or_all):
+    """produce data for most frequent patterns stats"""
     patterns = {}
     digit_isolation = str.maketrans('', '', string.ascii_letters+string.punctuation)
     for p in passwords[active_or_all]:
@@ -407,8 +423,8 @@ def statPattern(passwords, active_or_all):
             patterns[d] += 1
     return patterns
 
-# produce data for robustness stats
 def statRobustness(compromised, active_or_all):
+    """produce data for robustness stats"""
     rob = {0:{"empty":0, "login based":0, "top 10 common":0, "company name":0},
             1:{"top 1000 common":0, "login extrapolation":0, "company context related":0, "4 char or less":0},
             2:{"top 1M common":0, "6 char or less":0, "2 charsets or less":0},
@@ -418,8 +434,8 @@ def statRobustness(compromised, active_or_all):
             rob[compromised[acc]["robustness"]][compromised[acc]["reason"]] += 1
     return rob
 
-# write the stats to a file
 def produceStats(output, users, compromised, active_or_all, trigger_freq, trigger_pat):
+    """ write the stats to a file"""
     f = open(output,"w")
     passwords = getPass(compromised)
     # synthesis
@@ -522,29 +538,42 @@ def main():
             help="The cracked passwords by john (john --show command)")
     parser.add_argument('USERS_FILE', action="store",
             help="The file containing the Domain users info (from ldapdomaindump: domain_users.grep)")
-    parser.add_argument('--wordlists', action="store", dest="path", default='.', 
-            help='A path to the wordlists used for robustness analysis')
+    parser.add_argument('--wordlists', action="store", dest="wpath", default=None, 
+            help='Specify a path to the wordlists for robustness analysis')
+    parser.add_argument('--priv', action="store_true", default=False,
+            help='Specify that you want to display the list of privileged users at the end of the process')
     parser.add_argument('--all', action="store_true", default=False,
             help='Specify that you want passwords stats about all the accounts and not ENABLED ones only')
+    parser.add_argument('--stats', action="store", dest="spath", default=None,
+            help='Specify a filename for the passwords stats results')
     args = parser.parse_args()
 
-    wordlists = {}
-    wordlists['wl_0_top10'] = args.path+"/wl_0_top10"
-    wordlists['wl_0_company'] = args.path+"/wl_0_company_name"
-    wordlists['wl_1_top1000'] = args.path+"/wl_1_top1000"
-    wordlists['wl_1_company_context'] = args.path+"/wl_1_company_context_related"
-    wordlists['wl_2_top1M'] = args.path+"/wl_2_top1M"
-    wordlists['wl_3_all'] = args.path+"/wl_3_all_common"
-    wordlists['wl_3_locale'] = args.path+"/wl_3_french_common"
+    user_out = "users_compromised.csv"
+    group_out = "group_compromised.csv"
 
-    john, users, cu = initInfo(args.JOHN_FILE, args.USERS_FILE)   
+    print(f"[*] Importing john result from {args.JOHN_FILE} and domain info from {args.USERS_FILE}")
+    users, cu = initInfo(args.JOHN_FILE, args.USERS_FILE)   
     populateUsers(cu, users)
-    computeRobustness(cu, wordlists)
+    if args.wpath:
+        print("[*] Computing robustness, could be long if the wordlists are huge...")
+        wordlists = {}
+        wordlists['wl_0_top10'] = args.wpath+"/wl_0_top10"
+        wordlists['wl_0_company'] = args.wpath+"/wl_0_company_name"
+        wordlists['wl_1_top1000'] = args.wpath+"/wl_1_top1000"
+        wordlists['wl_1_company_context'] = args.wpath+"/wl_1_company_context_related"
+        wordlists['wl_2_top1M'] = args.wpath+"/wl_2_top1M"
+        wordlists['wl_3_all'] = args.wpath+"/wl_3_all_common"
+        wordlists['wl_3_locale'] = args.wpath+"/wl_3_french_common"
+        computeRobustness(cu, wordlists)
+    print("[*] Computing groups information")
     cg = populateGroups(cu)
-    exportUsers(cu, "users_compromised")
-    exportGroups(cg, "groups_compromised")
-    filt = "all" if args.all else "active"
-    produceStats("lestat", users, cu, filt, 2, 3)
+    print(f"[*] Exporting data to {user_out} and {group_out}")
+    exportUsers(cu, user_out, args.priv)
+    exportGroups(cg, group_out)
+    if args.spath:
+        print(f"[*] Computing stats and exporting to {args.spath}")
+        filt = "all" if args.all else "active"
+        produceStats(args.spath, users, cu, filt, 2, 3)
 
 if __name__ == '__main__':
     main()
