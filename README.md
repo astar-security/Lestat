@@ -17,12 +17,12 @@ It will give you:
 Lestat should run out of the box.  
 
 ## Basic Usage
-For pentesters:
+### For pentesters:
 ```
 $ python3 RobbTheRobber.py --priv result_john domain_users.grep
 ```
 
-For SysAdmin:
+### For SysAdmin:
 To get stats for active accounts only:  
 ```
 $ python3 RobbTheRobber.py --stats <OUTPUT_FILENAME> result_john domain_users.grep
