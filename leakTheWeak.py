@@ -37,7 +37,7 @@ def export(ntlm, john_result_file='', output=''):
         f = open(output, "a+")
     cpt = 0
     for c in ntlm["cracked"]:
-        line = f"{ntlm['cracked'][c]}:{c}:LEAK:NOLM:{c}:::"
+        line = f"{ntlm['cracked'][c]}:<LeakTheWeak>:LEAK:NOLM:{c}:::"
         if ntlm["cracked"][c] not in john:
             if output :
                 f.write(line+'\n')
