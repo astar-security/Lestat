@@ -17,17 +17,12 @@ It will give you:
 Lestat should run out of the box.  
 
 ## Basic Usage
+For pentesters:
+```
+$ python3 /RobbTheRobber.py --priv result_john domain_users.grep
+```
 
-## Advanced usage
-Look for presence of users in the HaveIBeenPwned list (optionnal):  
+For SysAdmin:
 ```
-python3 leakTheWeak.py --verbose <HASHES_FILE> <HAVEIBEENPWNED_LIST>
-```
-Look only for users not already cracked by john:
-```
-python3 leakTheWeak.py --john <JOHN_RESULT_FILE> <HASHES_FILE> <HAVEIBEENPWNED_LIST>
-```
-Append those users to the same john result file:
-```
-python3 leakTheWeak.py --john <JOHN_RESULT_FILE> -w <JOHN_RESULT_FILE> <HASHES_FILE> <HAVEIBEENPWNED_LIST>
+$ python3 /RobbTheRobber.py --stats <OUTPUT_FILENAME> result_john domain_users.grep
 ```
