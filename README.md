@@ -5,7 +5,7 @@ Check robustness of your (their) Active Directory accounts passwords
 See the wiki for the complete guide : https://github.com/astar-security/Lestat/wiki  
 
 ## What it does
-You give it the john-the-ripper file result of the accounts you cracked.  
+You give it a file of `user:password` lines that you cracked.  
 It will give you:
 - the list of the domain groups of each craked account
 - an indicator about whether a cracked account is admin or not
