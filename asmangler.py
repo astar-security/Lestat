@@ -44,8 +44,9 @@ common_suffix = [
 common_numeric = [str(i) for i in range(2010,int(time.strftime("%Y"))+1)] + [str(i)[-2:] for i in range(2000,int(time.strftime("%Y"))+1)] + ["2k"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))+1)] + ["2K"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))+1)] + [str(i) for i in range(10)] + ['123', '1234'] + ['']
 
 def leet_substitution(words):
+    res = []
+    tot = len(words)
     """take two depth of l33t substitution"""
-    res = set()
     for word in words:
         for key, values in leet_swap.items():
             for value in values:
@@ -53,36 +54,49 @@ def leet_substitution(words):
                     for value2 in values2:
                         first = re.sub(key, value, word, flags=re.I)
                         sec = re.sub(key2, value2, first, flags=re.I)
-                        res.add(first)
-                        res.add(sec)
+                        res.append(first)
+                        res.append(sec)
+                        tot += 2
+    sys.stderr.write(f"[*] {tot} with leet substitution\n")
     return res
 
 def common_variation(words):
-    res = set()
+    res = []
+    tot = len(words)
     for word in words:
         for i in common_words:
             for j in common_numeric:
                 for k in common_suffix:
-                    res.add(i + word + j + k)
-                    res.add(word + i + j + k)
+                    tot += 2
+                    res.append(i + word + j + k)
+                    res.append(word + i + j + k)
+    sys.stderr.write(f"[*] {tot} with suffix/prefix\n")
     return res
 
 def combine(words, perm):
-    res = set()
+    res = []
+    tot = len(words)
     # add each word, its capitalized version and its short name
+    sys.stderr.write(f"[*] {tot} base words\n")
     for word in words:
-        res.add(word)
-        res.add(word.capitalize())
-        res.add(word.upper())
+        res.append(word)
+        res.append(word.capitalize())
+        res.append(word.upper())
         l = len(word)
         mid = word[0:l//2+l%2]
-        res.add(mid)
-        res.add(mid.capitalize())
-        res.add(mid.upper())
+        res.append(mid)
+        res.append(mid.capitalize())
+        res.append(mid.upper())
+    tot *= 6
+    sys.stderr.write(f"[*] {tot} with case variations\n")
     # add each 2 words permutations
     if perm:
-        for p in itertools.product(res, repeat=2):
-            res.add(''.join(p))
+        for p in itertools.permutations(words, 2):
+            res.append(''.join(p))
+            res.append(''.join(map(str.capitalize,p)))
+            res.append(''.join(map(str.upper,p)))
+            tot += 3
+    sys.stderr.write(f"[*] {tot} with permutations\n")
     return res
 
 def mangle(words_file, perm):
@@ -91,7 +105,7 @@ def mangle(words_file, perm):
     words = combine(words_file.read().lower().splitlines(), perm)
     words = common_variation(words)
     words = leet_substitution(words)
-    print(*(words), sep='\n')
+    print(*(set(words)),sep='\n')
 
 def main():    
     parser = argparse.ArgumentParser(description='Derivation of a wordlist to make a efficient crack dictionnary', add_help=True)
