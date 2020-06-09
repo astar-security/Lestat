@@ -17,6 +17,13 @@ It will give you:
 Lestat should run out of the box.  
 
 ## Basic Usage
+Take 2 or 3 days cracking with `john-the-ripper` (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)) over [the hashes file of your domain](https://github.com/astar-security/Lestat/wiki/GetTheHash).  
+Then, get the raw result:
+```
+john --format=nt --show <HASHES_FILE> | cut -d: -f 1,2 > result_file
+```
+[Dump the users info](https://github.com/astar-security/Lestat/wiki/GetUsersInfo) from the domain to get the `domain_users.grep` file.
+
 ### For pentesters:
 ```
 $ python3 RobbTheRobber.py --priv result_file domain_users.grep
