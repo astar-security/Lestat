@@ -17,7 +17,7 @@ It will give you:
 Lestat should run out of the box.  
 
 ## Basic Usage
-Take 2 or 3 days cracking with `john-the-ripper` (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)) over [the hashes file of your domain](https://github.com/astar-security/Lestat/wiki/GetTheHash).  
+Take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) with `john-the-ripper` (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)) over [the hashes file of your domain](https://github.com/astar-security/Lestat/wiki/GetTheHash).  
 Then, get the raw result:
 ```
 john --format=nt --show <HASHES_FILE> | cut -d: -f 1,2 > result_file
