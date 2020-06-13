@@ -1,10 +1,7 @@
 # Wordlist How to
-Only the small wordlists are stored here.  
-You can find the others there:
-- [wl_3_all_common.txt](https://bonny.astar.org/wl_3_all_common.zip)
-- [wl_3_locale_common.txt](https://bonny.astar.org/wl_3_locale_common.zip)
+Some wordlists can be downloaded from [here](https://bonny.astar.org/wordlist.zip)  
 
-Some other wordlists must be generated.  
+Two other wordlists must be generated.  
 
 ### creating wl_0_company_name.txt
 Simply put the name of your company inside (don't worry about the lowercase/uppercase).
