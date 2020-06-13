@@ -3,6 +3,17 @@
 import string
 import argparse
 
+#########
+# Const #
+#########
+
+PRIVILEGED_GROUPS = [
+        "admins du domaine",
+        "administrateurs du schéma",
+        "administrateurs de l’entreprise",
+        "administrateurs",
+        "propriétaires créateurs de la stratégie de groupe"
+        ]
 
 #########
 # Utils #
@@ -16,14 +27,28 @@ def beautifyName(person):
         person = person.split('\\')[1]
     return person
 
-def isPriv(account, groups):
-    """check clues about being privileged"""
-    if "adm" in account:
-        return 1
-    for i in groups:
-        if "adm" in i:
-            return 1
-    return 0
+def isPriv(elem, groups=None):
+    """check clues about an element (user or group) being privileged"""
+    suspected_admin = "adm" in elem
+    # if elem is a user and groups a list
+    if groups:
+        for i in groups:
+            if i in PRIVILEGED_GROUPS:
+                return i
+            if "adm" in i:
+                suspected_admin = True
+        if suspected_admin:
+           return "likely admin"
+        else:
+            return None
+    # if elem is a group and groups is empty
+    else:
+        if elem in PRIVILEGED_GROUPS:
+            return elem
+        elif suspected_admin:
+            return "likely"
+        else:
+            return None
 
 def getCharsets(passwd):
     """give the composition of the password : l=lowercase u=uppercase n=numeric s=symbol"""
@@ -81,13 +106,13 @@ def initInfo(pass_file, user_file):
         person = line.split(':')
         lpers = len(person)
         if lpers < 2:
-            print(f"[!] Line ignored in password file (not a valid user:password form): {line}")
+            print(f"[!] Line ignored in {pass_file} file (not a valid user:password form): {line}")
             continue
         if lpers > 2:
             print(f"[!] Line used but seems to contain more than only a user:password form: {line}")
         # trick to avoid further stats over leaked hashes were password is not known
         init_reason = "leaked" if person[1]=="<LeakTheWeak>" else "undetermined"
-        compromised[beautifyName(person[0])] = {"password":person[1], "groups":[], "status":[], "lastchange":"", "lastlogon":"", "robustness":3, "reason":init_reason, "priv":0}
+        compromised[beautifyName(person[0])] = {"password":person[1], "groups":[], "status":[], "lastchange":"", "lastlogon":"", "robustness":3, "reason":init_reason, "priv":None}
     return users, compromised
 
 def populateUsers(compromised, users):
@@ -170,11 +195,11 @@ def testLoginExtrapolation(compromised, pool, rob):
     cpt = 0
     for p in pool:
         root_p = getRoot(p)
-        if len(root_p) > 1:
+        if len(root_p) > 2:
             rest = []
             for acc in pool[p]:
                 root_n = getRoot(acc)
-                if len(root_n) > 1 and (root_p in root_n or root_n in root_p):
+                if len(root_n) > 2 and (root_p in root_n or root_n in root_p):
                     compromised[acc]['robustness'] = rob
                     compromised[acc]['reason'] = "login extrapolation"
                     cpt += 1
@@ -272,7 +297,7 @@ def populateGroups(compromised):
             if g == '':
                 continue
             if g not in compromised_groups:
-                priv = [0,1]['adm' in g]
+                priv = isPriv(g)
                 compromised_groups[g] = {"enabled":[], "disabled":[], "robustness":3, "priv":priv}
             if "account_disabled" in compromised[p]["status"]:
                 compromised_groups[g]["disabled"].append(p)
@@ -300,12 +325,12 @@ def exportUsers(compromised, output, priv):
         lchg = info['lastchange']
         numg = len(info['groups'])
         grp = ', '.join(info['groups'])
-        crit = "likely privileged" if info['priv'] else "unknwon"
+        crit = info['priv'] if info['priv'] else "unknown"
         robu = ["seconds", "minutes", "hours", "days"][info['robustness']]
         reas = info['reason']
         f.write(f"{acc};{psw};{stat};{logn};{lchg};{numg};{grp};{crit};{robu};{reas}\n")
-        if priv and stat == 'enabled' and crit == 'likely privileged':
-            print(f"[*]\t{acc}\t{psw}")
+        if priv and stat == 'enabled' and crit != 'unknown':
+            print(f"[*]\t{acc}\t{psw}\t{crit}")
     f.close()
 
 def exportGroups(compromised_groups, output):
@@ -314,7 +339,7 @@ def exportGroups(compromised_groups, output):
     f.write("name;num;sensitive;robustness;enabled members;disabled members\n")
     for gr, info in compromised_groups.items():
         memb = len(info['disabled']) + len(info['enabled'])
-        crit = "yes" if info['priv'] else "unknown"
+        crit = info['priv'] if info['priv'] else "unknown"
         robu = ["seconds", "minutes", "hours", "days"][info['robustness']]
         emem = ', '.join(info['enabled'])
         dmem = ', '.join(info['disabled'])
@@ -373,11 +398,11 @@ def statSensitive(compromised, active_or_all):
     crit = {}
     for u in compromised:
         if active_or_all == "all" or 'account_disabled' not in compromised[u]["status"]:
-            if compromised[u]['priv'] > 0:
-                if 'admins du domaine' in compromised[u]['groups'] or 'domain admins' in compromised[u]['groups']:
-                    crit[u] = ('domain admin', compromised[u]['robustness'], compromised[u]['reason'])
-                else:
+            if compromised[u]['priv'] :
+                if 'likely' in compromised[u]['priv']:
                     crit[u] = ('likely', compromised[u]['robustness'], compromised[u]['reason'])
+                else:
+                    crit[u] = ('admin', compromised[u]['robustness'], compromised[u]['reason'])
     return crit
 
 def statLength(passwords, active_or_all):
@@ -541,7 +566,7 @@ def main():
     parser.add_argument('--wordlists', action="store", dest="wpath", default=None, 
             help='Specify a path to the wordlists for robustness analysis')
     parser.add_argument('--priv', action="store_true", default=False,
-            help='Specify that you want to display the list of privileged users at the end of the process')
+            help='Specify that you want to display the list of enabled privileged users at the end of the process')
     parser.add_argument('--all', action="store_true", default=False,
             help='Specify that you want passwords stats about all the accounts and not ENABLED ones only')
     parser.add_argument('--stats', action="store", dest="spath", default=None,
@@ -557,13 +582,13 @@ def main():
     if args.wpath:
         print("[*] Computing robustness, could be long if the wordlists are huge...")
         wordlists = {}
-        wordlists['wl_0_top10'] = args.wpath+"/wl_0_top10"
-        wordlists['wl_0_company'] = args.wpath+"/wl_0_company_name"
-        wordlists['wl_1_top1000'] = args.wpath+"/wl_1_top1000"
-        wordlists['wl_1_company_context'] = args.wpath+"/wl_1_company_context_related"
-        wordlists['wl_2_top1M'] = args.wpath+"/wl_2_top1M"
-        wordlists['wl_3_all'] = args.wpath+"/wl_3_all_common"
-        wordlists['wl_3_locale'] = args.wpath+"/wl_3_french_common"
+        wordlists['wl_0_top10'] = args.wpath+"/wl_0_top10.txt"
+        wordlists['wl_0_company'] = args.wpath+"/wl_0_company_name.txt"
+        wordlists['wl_1_top1000'] = args.wpath+"/wl_1_top1000.txt"
+        wordlists['wl_1_company_context'] = args.wpath+"/wl_1_company_context_related.txt"
+        wordlists['wl_2_top1M'] = args.wpath+"/wl_2_top1M.txt"
+        wordlists['wl_3_all'] = args.wpath+"/wl_3_all_common.txt"
+        wordlists['wl_3_locale'] = args.wpath+"/wl_3_locale_common.txt"
         computeRobustness(cu, wordlists)
     print("[*] Computing groups information")
     cg = populateGroups(cu)
