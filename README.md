@@ -50,13 +50,13 @@ Use passphrase:
 - If you can avoid words from th same dictionnay
 
 Examples:
-- good:
- - GoodStationPoloKilo
- - HistoryNimbusJudo
- - QuanticAbstractSkywalker
-- bad:
- - ~~FootballZidane1998~~
- - ~~RaceCarMonaco~~
- - ~~BaconEggMuffin~~
+* good:
+  * GoodStationPoloKilo
+  * HistoryNimbusJudo
+  * QuanticAbstractSkywalker
+* bad:
+  * ~~FootballZidane1998~~
+  * ~~RaceCarMonaco~~
+  * ~~BaconEggMuffin~~
 
 ![](https://bonny.astar.org/triangle_incompat.png)
