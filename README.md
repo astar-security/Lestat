@@ -42,3 +42,21 @@ To get stats if you configured the wordlists (see [here](https://github.com/asta
 ```
 python3 RobbTheRobber.py --wordlists <PATH_TO_WORDLISTS> --stats <OUTPUT_FILE> result_file domain_users.grep
 ```
+
+## Do better
+Use passphrase:
+- Take 3 or 4 words which do not have obvious link among themselves
+- And no link with yourself
+- If you can avoid words from th same dictionnay
+
+Examples:
+- good:
+ - GoodStationPoloKilo
+ - HistoryNimbusJudo
+ - QuanticAbstractSkywalker
+- bad:
+ - ~~FootballZidane1998~~
+ - ~~RaceCarMonaco~~
+ - ~~BaconEggMuffin~~
+
+![](https://bonny.astar.org/triangle_incompat.png)
