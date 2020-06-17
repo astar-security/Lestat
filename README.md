@@ -59,4 +59,4 @@ Examples:
   * ~~RaceCarMonaco~~
   * ~~BaconEggMuffin~~
 
-![](https://bonny.astar.org/triangle_incompat.png)
+![](https://bonny.astar.org/triangle_incompat_en.png)
