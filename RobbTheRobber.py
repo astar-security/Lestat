@@ -329,8 +329,8 @@ def exportUsers(compromised, output, priv):
         robu = ["seconds", "minutes", "hours", "days"][info['robustness']]
         reas = info['reason']
         f.write(f"{acc};{psw};{stat};{logn};{lchg};{numg};{grp};{crit};{robu};{reas}\n")
-        if priv and stat == 'enabled' and crit != 'unknown':
-            print(f"[*]\t{acc}\t{psw}\t{crit}")
+        if priv and crit != 'unknown':
+            print(f"[*]\t{stat}\t{acc}\t{psw}\t{crit}")
     f.close()
 
 def exportGroups(compromised_groups, output):
