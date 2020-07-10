@@ -22,7 +22,11 @@ Then, get the raw result:
 ```
 john --format=nt --show <HASHES_FILE> | cut -d: -f 1,2 > result_file
 ```
-[Dump the users info](https://github.com/astar-security/Lestat/wiki/GetUsersInfo) from the domain to get the `domain_users.grep` file.
+[Dump the users info](https://github.com/astar-security/Lestat/wiki/GetUsersInfo) from the domain to get the `domain_users.grep` file.  
+Main way is:
+```
+ldapdomaindump -u <DOMAIN>\\<USER> -p <PASSWORD> ldap://<DC_IP>:389
+```
 
 ### For pentesters:
 ```
@@ -34,7 +38,7 @@ To get stats for active accounts only:
 ```
 $ python3 RobbTheRobber.py --stats <OUTPUT_FILENAME> result_file domain_users.grep
 ```
-To get stats for all the accounts (active and disabled):
+To get stats for all the accounts (enabled and disabled):
 ```
 $ python3 RobbTheRobber.py --stats <OUTPUT_FILENAME> --all result_file domain_users.grep
 ```
