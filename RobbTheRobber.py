@@ -301,7 +301,7 @@ def computeRobustness(compromised, wordlists):
 ##########
 
 def populateGroups(compromised):
-    """from the view 'user -> groups compromised' to the view 'group -> users compromised'""" 
+    """from the view 'user -> groups compromised' to the view 'group -> users compromised'"""
     compromised_groups = {}
     for p in compromised:
         for g in compromised[p]["groups"]:
@@ -330,7 +330,7 @@ def exportUsers(compromised, output, priv):
     if priv:
         print("[*] Privileged accounts compromised are listed below:")
     for acc, info in compromised.items():
-        psw = info['password'] 
+        psw = info['password']
         stat = 'disabled' if 'account_disabled' in info['status'] else 'enabled'
         logn = info['lastlogon']
         lchg = info['lastchange']
@@ -409,14 +409,17 @@ def statUniq(passwords):
 
 def statSensitive(compromised):
     """produce data about the privilege of the users"""
-    crit = {}
+    crit = {"all": {"likely":{}, "admin": {}}, "active": {"likely":{}, "admin": {}}}
     for u in compromised:
-        if active_or_all == "all" or 'account_disabled' not in compromised[u]["status"]:
-            if compromised[u]['priv'] :
-                if 'likely' in compromised[u]['priv']:
-                    crit[u] = ('likely', compromised[u]['robustness'], compromised[u]['reason'])
-                else:
-                    crit[u] = ('admin', compromised[u]['robustness'], compromised[u]['reason'])
+        if compromised[u]['priv'] :
+            if 'likely' in compromised[u]['priv']:
+                crit['all']['likely'][u] = (compromised[u]['robustness'], compromised[u]['reason'])
+                if 'account_disabled' not in compromised[u]["status"]:
+                    crit['active']['likely'][u] = (compromised[u]['robustness'], compromised[u]['reason'])
+            else:
+                crit['all']['admin'][u] = (compromised[u]['robustness'], compromised[u]['reason'])
+                if 'account_disabled' not in compromised[u]["status"]:
+                    crit['active']['admin'][u] = (compromised[u]['robustness'], compromised[u]['reason'])
     return crit
 
 def statLength(passwords):
@@ -428,26 +431,26 @@ def statLength(passwords):
             lengths["all"][15] += 1
         else:
             lengths["all"][l] += 1
-     for p in passwords["active"]:
+    for p in passwords["active"]:
         l = len(p)
         if l >= 15:
             lengths["active"][15] += 1
         else:
-            lengths["active"][l] += 1   
+            lengths["active"][l] += 1
     return lengths
 
 def statCharset(passwords):
     """produce data for charset stats"""
-    cs = {'':0, 
-            'l':0, 'u':0, 'd':0, 'p':0,
-            'lu':0, 'ld':0, 'lp':0, 'ud':0, 'up':0, 'dp':0, 
-            'lud':0, 'lup':0, 'ldp':0, 'udp':0, 
-            'ludp':0}
+    cs = {'':0,
+        'l':0, 'u':0, 'd':0, 'p':0,
+        'lu':0, 'ld':0, 'lp':0, 'ud':0, 'up':0, 'dp':0,
+        'lud':0, 'lup':0, 'ldp':0, 'udp':0,
+        'ludp':0}
     charsets = {"all": dict(cs), "active": dict(cs)}
     for p in passwords["active"]:
         c = getCharsets(p)
         charsets['active'][c] +=1
-     for p in passwords["all"]:
+    for p in passwords["all"]:
         c = getCharsets(p)
         charsets['all'][c] +=1
     return charsets
@@ -459,7 +462,7 @@ def statFreq(passwords):
     occ["active"] = Counter(passwords["active"])
     return occ
 
-def statPattern(passwords, active_or_all):
+def statPattern(passwords):
     """produce data for most frequent patterns stats"""
     patterns = {"all": {}, "active": {}}
     digit_isolation = str.maketrans('', '', string.ascii_letters+string.punctuation)
@@ -468,268 +471,259 @@ def statPattern(passwords, active_or_all):
             r = getRoot(p)
             d = p.translate(digit_isolation)
             if len(r) > 3 :
-                if r not in patterns:
+                if r not in patterns[field]:
                     patterns[field][r] = 0
                 patterns[field][r] += 1
             if len(d) > 1 :
-                if d not in patterns:
+                if d not in patterns[field]:
                     patterns[field][d] = 0
                 patterns[field][d] += 1
     return patterns
 
-def statRobustness(compromised):
+def statRobustness(compromised, status):
     """produce data for robustness stats"""
     rob = {0:{"empty":0, "login based":0, "top 10 common":0, "company name":0},
             1:{"top 1000 common":0, "login extrapolation":0, "company context related":0, "4 char or less":0},
             2:{"top 1M common":0, "6 char or less":0, "2 charsets or less":0},
             3:{"present in attack wordlist":0, "present in locale attack wordlist":0, "leaked":0, "undetermined":0}}
-    robust = {"all": dict(rob), "active": dict(rob)}
     for acc in compromised:
-        robust["all"][compromised[acc]["robustness"]][compromised[acc]["reason"]] += 1
-        if 'account_disabled' not in compromised[acc]["status"]:
-            robust["active"][compromised[acc]["robustness"]][compromised[acc]["reason"]] += 1
-    return robust
+        if status == 'all' or 'account_disabled' not in compromised[acc]["status"]:
+            rob[compromised[acc]["robustness"]][compromised[acc]["reason"]] += 1
+    return rob
 
 def produceStats(output, users, compromised):
     """ write the stats to a file"""
     f = open(output,"w")
-    f.write("total accounts;\
-            compromised accounts;\
-            unsafe accounts;\
-            safe accounts;\
-            total accounts (active);\
-            compromised accounts (active);\
-            unsafe active accounts (active);\
-            safe active accounts (active);\
-            unique passwords compromised;\
-            unique passwords compromised (active);\
-            likely sensitive users compromised;\
-            firm sensitive users compromised;\
-            likely sensitive users compromised (active);\
-            firm sensitive users compromised (active);\
-            password length:0;\
-            password length:1;\
-            password length:2;\
-            password length:3;\
-            password length:4;\
-            password length:5;\
-            password length:6;\
-            password length:7;\
-            password length:8;\
-            password length:9;\
-            password length:10;\
-            password length:11;\
-            password length:12;\
-            password length:13;\
-            password length:14;\
-            password length:15 or more;\
-            password length:0 (active);\
-            password length:1 (active);\
-            password length:2 (active);\
-            password length:3 (active);\
-            password length:4 (active);\
-            password length:5 (active);\
-            password length:6 (active);\
-            password length:7 (active);\
-            password length:8 (active);\
-            password length:9 (active);\
-            password length:10 (active);\
-            password length:11 (active);\
-            password length:12 (active);\
-            password length:13 (active);\
-            password length:14 (active);\
-            password length:15 or more (active);\
-            passwords with 1 charset;\
-            passwords with 2 charsets;\
-            passwords with 3 charsets;\
-            passwords all the charsets;\
-            passwords with 1 charset (active);\
-            passwords with 2 charsets (active);\
-            passwords with 3 charsets (active);\
-            passwords all the charsets (active);\
-            empty passwords;\
-            lowercase passwords;\
-            uppercase passwords;\
-            digit passwords;\
-            punctuation passwords;\
-            lower-upper passwords;\
-            lower-digit passwords;\
-            lower-punct passwords;\
-            upper-digit passwords;\
-            upper-punct passwords;\
-            digit-punct passwords;\
-            lower-upper-digit passwords;\
-            lower-upper-punct passwords;\
-            lower-digit-punct passwords;\
-            upper-digit-punct passwords;\
-            lower-upper-digit-punct passwords;\
-            empty passwords (active);\
-            lowercase passwords (active);\
-            uppercase passwords (active);\
-            digit passwords (active);\
-            punctuation passwords (active);\
-            lower-upper passwords (active);\
-            lower-digit passwords (active);\
-            lower-punct passwords (active);\
-            upper-digit passwords (active);\
-            upper-punct passwords (active);\
-            digit-punct passwords (active);\
-            lower-upper-digit passwords (active);\
-            lower-upper-punct passwords (active);\
-            lower-digit-punct passwords (active);\
-            upper-digit-punct passwords (active);\
-            lower-upper-digit-punct passwords (active);\
-            1st frequent password;\
-            2nd frequent password;\
-            3rd frequent password;\
-            4th frequent password;\
-            5th frequent password;\
-            6th frequent password;\
-            7th frequent password;\
-            8th frequent password;\
-            9th frequent password;\
-            10th frequent password;\
-            1st password occurrence;\
-            2nd password occurrence;\
-            3rd password occurrence;\
-            4th password occurrence;\
-            5th password occurrence;\
-            6th password occurrence;\
-            7th password occurrence;\
-            8th password occurrence;\
-            9th password occurrence;\
-            10th password occurrence;\
-            1st frequent password (active);\
-            2nd frequent password (active);\
-            3rd frequent password (active);\
-            4th frequent password (active);\
-            5th frequent password (active);\
-            6th frequent password (active);\
-            7th frequent password (active);\
-            8th frequent password (active);\
-            9th frequent password (active);\
-            10th frequent password (active);\
-            1st password occurrence (active);\
-            2nd password occurrence (active);\
-            3rd password occurrence (active);\
-            4th password occurrence (active);\
-            5th password occurrence (active);\
-            6th password occurrence (active);\
-            7th password occurrence (active);\
-            8th password occurrence (active);\
-            9th password occurrence (active);\
-            10th password occurrence (active);\
-            1rst frequent pattern;\
-            2nd frequent pattern;\
-            3rd frequent pattern;\
-            4th frequent pattern;\
-            5th frequent pattern;\
-            6th frequent pattern;\
-            7th frequent pattern;\
-            8th frequent pattern;\
-            9th frequent pattern;\
-            10th frequent pattern;\
-            1st pattern occurrence;\
-            2nd pattern occurrence;\
-            3rd pattern occurrence;\
-            4th pattern occurrence;\
-            5th pattern occurrence;\
-            6th pattern occurrence;\
-            7th pattern occurrence;\
-            8th pattern occurrence;\
-            9th pattern occurrence;\
-            10th pattern occurrence;\
-            1st frequent pattern (active);\
-            2nd frequent pattern (active);\
-            3rd frequent pattern (active);\
-            4th frequent pattern (active);\
-            5th frequent pattern (active);\
-            6th frequent pattern (active);\
-            7th frequent pattern (active);\
-            8th frequent pattern (active);\
-            9th frequent pattern (active);\
-            10th frequent pattern (active);\
-            1st pattern occurrence (active);\
-            2nd pattern occurrence (active);\
-            3rd pattern occurrence (active);\
-            4th pattern occurrence (active);\
-            5th pattern occurrence (active);\
-            6th pattern occurrence (active);\
-            7th pattern occurrence (active);\
-            8th pattern occurrence (active);\
-            9th pattern occurrence (active);\
-            10th pattern occurrence (active);\
-            passwords resist some seconds;\
-            passwords resist some minutes;\
-            passwords resist some hours;\
-            passwords resist some days;\
-            passwords resist some years;\
-            passwords resist some seconds (active);\
-            passwords resist some minutes (active);\
-            passwords resist some hours (active);\
-            passwords resist some days (active);\
-            passwords resist some years (active);\
-            passwords empty;\
-            passwords based on username;\
-            passwords in top 10 most common;\
-            passwords based on company name;\
-            passwords in top 1000 most common;\
-            passwords as username extrapolation;\
-            passwords related to company context;\
-            passwords with 4 characters or less;\
-            passwords in top 1M most common;\
-            passwords with 6 characters or less;\
-            passwords with 2 charsets or less;\
-            passwords present in global wordlists;\
-            passwords present in locale wordlists;\
-            passwords leaked;\
-            passwords weakness undetermined;\
-            passwords empty (active);\
-            passwords based on username (active);\
-            passwords in top 10 most common (active);\
-            passwords based on company name (active);\
-            passwords in top 1000 most common (active);\
-            passwords as username extrapolation (active);\
-            passwords related to company context (active);\
-            passwords with 4 characters or less (active);\
-            passwords in top 1M most common (active);\
-            passwords with 6 characters or less (active);\
-            passwords with 2 charsets or less (active);\
-            passwords present in global wordlists (active);\
-            passwords present in locale wordlists (active);\
-            passwords leaked (active);\
-            passwords weakness undetermined (active);\n")
+    f.write("total accounts;"\
+           "compromised accounts;"\
+           "unsafe accounts;"\
+           "safe accounts;"\
+           "total accounts (active);"\
+           "compromised accounts (active);"\
+           "unsafe active accounts (active);"\
+           "safe active accounts (active);"\
+           "unique passwords compromised;"\
+           "unique passwords compromised (active);"\
+           "likely sensitive users compromised;"\
+           "firm sensitive users compromised;"\
+           "likely sensitive users compromised (active);"\
+           "firm sensitive users compromised (active);"\
+           "password length 0;"\
+           "password length 1;"\
+           "password length 2;"\
+           "password length 3;"\
+           "password length 4;"\
+           "password length 5;"\
+           "password length 6;"\
+           "password length 7;"\
+           "password length 8;"\
+           "password length 9;"\
+           "password length 10;"\
+           "password length 11;"\
+           "password length 12;"\
+           "password length 13;"\
+           "password length 14;"\
+           "password length 15 or more;"\
+           "password length 0 (active);"\
+           "password length 1 (active);"\
+           "password length 2 (active);"\
+           "password length 3 (active);"\
+           "password length 4 (active);"\
+           "password length 5 (active);"\
+           "password length 6 (active);"\
+           "password length 7 (active);"\
+           "password length 8 (active);"\
+           "password length 9 (active);"\
+           "password length 10 (active);"\
+           "password length 11 (active);"\
+           "password length 12 (active);"\
+           "password length 13 (active);"\
+           "password length 14 (active);"\
+           "password length 15 or more (active);"\
+           "passwords with 1 charset;"\
+           "passwords with 2 charsets;"\
+           "passwords with 3 charsets;"\
+           "passwords all the charsets;"\
+           "passwords with 1 charset (active);"\
+           "passwords with 2 charsets (active);"\
+           "passwords with 3 charsets (active);"\
+           "passwords all the charsets (active);"\
+           "empty passwords;"\
+           "lowercase passwords;"\
+           "uppercase passwords;"\
+           "digit passwords;"\
+           "punctuation passwords;"\
+           "lower-upper passwords;"\
+           "lower-digit passwords;"\
+           "lower-punct passwords;"\
+           "upper-digit passwords;"\
+           "upper-punct passwords;"\
+           "digit-punct passwords;"\
+           "lower-upper-digit passwords;"\
+           "lower-upper-punct passwords;"\
+           "lower-digit-punct passwords;"\
+           "upper-digit-punct passwords;"\
+           "lower-upper-digit-punct passwords;"\
+           "empty passwords (active);"\
+           "lowercase passwords (active);"\
+           "uppercase passwords (active);"\
+           "digit passwords (active);"\
+           "punctuation passwords (active);"\
+           "lower-upper passwords (active);"\
+           "lower-digit passwords (active);"\
+           "lower-punct passwords (active);"\
+           "upper-digit passwords (active);"\
+           "upper-punct passwords (active);"\
+           "digit-punct passwords (active);"\
+           "lower-upper-digit passwords (active);"\
+           "lower-upper-punct passwords (active);"\
+           "lower-digit-punct passwords (active);"\
+           "upper-digit-punct passwords (active);"\
+           "lower-upper-digit-punct passwords (active);"\
+           "1st frequent password;"\
+           "2nd frequent password;"\
+           "3rd frequent password;"\
+           "4th frequent password;"\
+           "5th frequent password;"\
+           "6th frequent password;"\
+           "7th frequent password;"\
+           "8th frequent password;"\
+           "9th frequent password;"\
+           "10th frequent password;"\
+           "1st password occurrence;"\
+           "2nd password occurrence;"\
+           "3rd password occurrence;"\
+           "4th password occurrence;"\
+           "5th password occurrence;"\
+           "6th password occurrence;"\
+           "7th password occurrence;"\
+           "8th password occurrence;"\
+           "9th password occurrence;"\
+           "10th password occurrence;"\
+           "1st frequent password (active);"\
+           "2nd frequent password (active);"\
+           "3rd frequent password (active);"\
+           "4th frequent password (active);"\
+           "5th frequent password (active);"\
+           "6th frequent password (active);"\
+           "7th frequent password (active);"\
+           "8th frequent password (active);"\
+           "9th frequent password (active);"\
+           "10th frequent password (active);"\
+           "1st password occurrence (active);"\
+           "2nd password occurrence (active);"\
+           "3rd password occurrence (active);"\
+           "4th password occurrence (active);"\
+           "5th password occurrence (active);"\
+           "6th password occurrence (active);"\
+           "7th password occurrence (active);"\
+           "8th password occurrence (active);"\
+           "9th password occurrence (active);"\
+           "10th password occurrence (active);"\
+           "1rst frequent pattern;"\
+           "2nd frequent pattern;"\
+           "3rd frequent pattern;"\
+           "4th frequent pattern;"\
+           "5th frequent pattern;"\
+           "6th frequent pattern;"\
+           "7th frequent pattern;"\
+           "8th frequent pattern;"\
+           "9th frequent pattern;"\
+           "10th frequent pattern;"\
+           "1st pattern occurrence;"\
+           "2nd pattern occurrence;"\
+           "3rd pattern occurrence;"\
+           "4th pattern occurrence;"\
+           "5th pattern occurrence;"\
+           "6th pattern occurrence;"\
+           "7th pattern occurrence;"\
+           "8th pattern occurrence;"\
+           "9th pattern occurrence;"\
+           "10th pattern occurrence;"\
+           "1st frequent pattern (active);"\
+           "2nd frequent pattern (active);"\
+           "3rd frequent pattern (active);"\
+           "4th frequent pattern (active);"\
+           "5th frequent pattern (active);"\
+           "6th frequent pattern (active);"\
+           "7th frequent pattern (active);"\
+           "8th frequent pattern (active);"\
+           "9th frequent pattern (active);"\
+           "10th frequent pattern (active);"\
+           "1st pattern occurrence (active);"\
+           "2nd pattern occurrence (active);"\
+           "3rd pattern occurrence (active);"\
+           "4th pattern occurrence (active);"\
+           "5th pattern occurrence (active);"\
+           "6th pattern occurrence (active);"\
+           "7th pattern occurrence (active);"\
+           "8th pattern occurrence (active);"\
+           "9th pattern occurrence (active);"\
+           "10th pattern occurrence (active);"\
+           "passwords resist some seconds;"\
+           "passwords resist some minutes;"\
+           "passwords resist some hours;"\
+           "passwords resist some days;"\
+           "passwords resist some years;"\
+           "passwords resist some seconds (active);"\
+           "passwords resist some minutes (active);"\
+           "passwords resist some hours (active);"\
+           "passwords resist some days (active);"\
+           "passwords resist some years (active);"\
+           "passwords empty;"\
+           "passwords based on username;"\
+           "passwords in top 10 most common;"\
+           "passwords based on company name;"\
+           "passwords in top 1000 most common;"\
+           "passwords as username extrapolation;"\
+           "passwords related to company context;"\
+           "passwords with 4 characters or less;"\
+           "passwords in top 1M most common;"\
+           "passwords with 6 characters or less;"\
+           "passwords with 2 charsets or less;"\
+           "passwords present in global wordlists;"\
+           "passwords present in locale wordlists;"\
+           "passwords leaked;"\
+           "passwords weakness undetermined;"\
+           "passwords empty (active);"\
+           "passwords based on username (active);"\
+           "passwords in top 10 most common (active);"\
+           "passwords based on company name (active);"\
+           "passwords in top 1000 most common (active);"\
+           "passwords as username extrapolation (active);"\
+           "passwords related to company context (active);"\
+           "passwords with 4 characters or less (active);"\
+           "passwords in top 1M most common (active);"\
+           "passwords with 6 characters or less (active);"\
+           "passwords with 2 charsets or less (active);"\
+           "passwords present in global wordlists (active);"\
+           "passwords present in locale wordlists (active);"\
+           "passwords leaked (active);"\
+           "passwords weakness undetermined (active)\n")
     passwords = getPass(compromised)
-    
+
     # synthesis
     synth = statSynthesis(users, compromised)
-    f.write(f"{synth[0]};{synth[1]};{synth[6]};{synth[2]};\
-            {synth[3]};{synth[4]};{synth[7]};{synth[5]};")
+    f.write(f"{synth[0]};{synth[1]};{synth[6]};{synth[2]};"\
+            f"{synth[3]};{synth[4]};{synth[7]};{synth[5]};")
 
     # unicity
     unicity = statUniq(passwords)
     f.write(f"{unicity[2]};{unicity[5]};")
-    
+
     # Sensitive
     crit = statSensitive(compromised)
-    tot_crit = len(crit)
-    f.write(f"\n# Sensitive users in {active_or_all} accounts\n\n")
-    f.write(f"total:{tot_crit}:{round(100*tot_crit/[synth[1],synth[4]][active_or_all=='active'],1)}%\n")
-    f.write("account:sensitive:robustness:reason\n")
-    for u in crit:
-        f.write(f"{u}:{crit[u][0]}:{['seconds','minutes','hours','days'][crit[u][1]]}:{crit[u][2]}\n")
+    f.write(f"{len(crit['all']['likely']) + len(crit['all']['admin'])};")
+    f.write(f"{len(crit['all']['admin'])};")
+    f.write(f"{len(crit['active']['likely']) + len(crit['active']['admin'])};")
+    f.write(f"{len(crit['active']['admin'])};")
+
     # lengths:
     lengths = statLength(passwords)
     for i in range(16):
-        if i in lengths["all"]:
-            f.write(f"{lengths['all'][i]};")
-        else:
-            f.write("0;")
+        f.write(f"{lengths['all'][i]};")
     for i in range(16):
-        if i in lengths["active"]:
-            f.write(f"{lengths['active'][i]};")
-        else:
-            f.write("0;")
+        f.write(f"{lengths['active'][i]};")
 
     # charset
     charsets = statCharset(passwords)
@@ -747,44 +741,55 @@ def produceStats(output, users, compromised):
     # freq
     occ = statFreq(passwords)
     occ_all = sorted(occ["all"].items(), key=lambda x: x[1], reverse=True)
-    for i in range(min(10, len(occ_all))):
-        f.write(f"{occ_all[i][0]};")
-    for i in range(min(10, len(occ_all))):
-        f.write(f"{occ_all[i][1]};")
+    l = len(occ_all)
+    for i in range(10):
+        f.write([";", f"{occ_all[i][0]};"][i<l])
+    for i in range(10):
+        f.write([";", f"{occ_all[i][1]};"][i<l])
     occ_act = sorted(occ["active"].items(), key=lambda x: x[1], reverse=True)
-    for i in range(min(10, len(occ_act))):
-        f.write(f"{occ_act[i][0]};")
-    for i in range(min(10, len(occ_act))):
-        f.write(f"{occ_act[i][1]};")
+    l = len(occ_act)
+    for i in range(10):
+        f.write([";", f"{occ_act[i][0]};"][i<l])
+    for i in range(10):
+        f.write([";", f"{occ_act[i][1]};"][i<l])
 
     # pattern
     patterns = statPattern(passwords)
     pat_all = sorted(patterns["all"].items(), key=lambda x: x[1], reverse=True)
-    for i in range(min(10, len(pat_all))):
-        f.write(f"{pat_all[i][0]};")
-    for i in range(min(10, len(pat_all))):
-        f.write(f"{pat_all[i][1]};")
+    l = len(pat_all)
+    for i in range(10):
+        f.write([";", f"{pat_all[i][0]};"][i<l])
+    for i in range(10):
+        f.write([";", f"{pat_all[i][1]};"][i<l])
     pat_act = sorted(patterns["active"].items(), key=lambda x: x[1], reverse=True)
-    for i in range(min(10, len(pat_act))):
-        f.write(f"{pat_act[i][0]};")
-    for i in range(min(10, len(occ_act))):
-        f.write(f"{pat_act[i][1]};")
+    l = len(pat_act)
+    for i in range(10):
+        f.write([";", f"{pat_act[i][0]};"][i<l])
+    for i in range(10):
+        f.write([";", f"{pat_act[i][1]};"][i<l])
 
     # robustness
-    rob = statRobustness(compromised)
-    f.write(f"{sum(rob['all'][0].values())};{sum(rob['all'][1].values())};{sum(rob['all'][2].values())};{sum(rob['all'][3].values())};{synth[2]};")
-    f.write(f"{sum(rob['active'][0].values())};{sum(rob['active'][1].values())};{sum(rob['active'][2].values())};{sum(rob['active'][3].values())};{synth[5]};")
-
+    rob_all = statRobustness(compromised, 'all')
+    rob_act = statRobustness(compromised, 'active')
+    f.write(f"{sum(rob_all[0].values())};{sum(rob_all[1].values())};{sum(rob_all[2].values())};{sum(rob_all[3].values())};{synth[2]};")
+    f.write(f"{sum(rob_act[0].values())};{sum(rob_act[1].values())};{sum(rob_act[2].values())};{sum(rob_act[3].values())};{synth[5]};")
+    f.write(f"{rob_all[0]['empty']};{rob_all[0]['login based']};{rob_all[0]['top 10 common']};{rob_all[0]['company name']};"\
+        f"{rob_all[1]['top 1000 common']};{rob_all[1]['login extrapolation']};{rob_all[1]['company context related']};{rob_all[1]['4 char or less']};"\
+        f"{rob_all[2]['top 1M common']};{rob_all[2]['6 char or less']};{rob_all[2]['2 charsets or less']};"\
+        f"{rob_all[3]['present in attack wordlist']};{rob_all[3]['present in locale attack wordlist']};{rob_all[3]['leaked']};{rob_all[3]['undetermined']};")
+    f.write(f"{rob_act[0]['empty']};{rob_act[0]['login based']};{rob_act[0]['top 10 common']};{rob_act[0]['company name']};"\
+        f"{rob_act[1]['top 1000 common']};{rob_act[1]['login extrapolation']};{rob_act[1]['company context related']};{rob_act[1]['4 char or less']};"\
+        f"{rob_act[2]['top 1M common']};{rob_act[2]['6 char or less']};{rob_act[2]['2 charsets or less']};"\
+        f"{rob_act[3]['present in attack wordlist']};{rob_act[3]['present in locale attack wordlist']};{rob_act[3]['leaked']};{rob_act[3]['undetermined']}")
     f.close()
 
-
-def main():    
+def main():
     parser = argparse.ArgumentParser(description='Analysis of cracked domain accounts', add_help=True)
-    parser.add_argument('JOHN_FILE', action="store", 
+    parser.add_argument('JOHN_FILE', action="store",
             help="The cracked passwords by john (john --show command)")
     parser.add_argument('USERS_FILE', action="store",
             help="The file containing the Domain users info (from ldapdomaindump: domain_users.grep)")
-    parser.add_argument('--wordlists', action="store", dest="wpath", default=None, 
+    parser.add_argument('--wordlists', action="store", dest="wpath", default=None,
             help='Specify a path to the wordlists for robustness analysis')
     parser.add_argument('--priv', action="store_true", default=False,
             help='Specify that you want to display the list of enabled privileged users at the end of the process')
@@ -797,7 +802,7 @@ def main():
     spath = "lestat.csv"
 
     print(f"[*] Importing john result from {args.JOHN_FILE} and domain info from {args.USERS_FILE}")
-    users, cu = initInfo(args.JOHN_FILE, args.USERS_FILE)   
+    users, cu = initInfo(args.JOHN_FILE, args.USERS_FILE)
     populateUsers(cu, users)
     if args.wpath:
         print("[*] Computing robustness, could be long if the wordlists are huge...")
@@ -816,9 +821,8 @@ def main():
     exportUsers(cu, user_out, args.priv)
     exportGroups(cg, group_out)
     if args.stats:
-        print(f"[*] Computing stats and exporting to {args.spath}")
-        produceStats(spath, users, cu, 2, 3)
+        print(f"[*] Computing stats and exporting to lestat.csv")
+        produceStats(spath, users, cu)
 
 if __name__ == '__main__':
     main()
-
