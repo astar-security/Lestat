@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
+import sys
 
 def readHashFile(hashfile):
     f = open(hashfile)
@@ -8,15 +9,17 @@ def readHashFile(hashfile):
     ntlm ={"cracked":{}, "safe":{}}
     f.close()
     for i in hashes:
-        h = i.split(':')
-        if len(h) != 7:
-            print(f"error with {i}")
-        ntlm["safe"][h[3].upper()] = h[0].lower()
+        try:
+            h = i.split(':')
+            ntlm["safe"][h[3].upper()] = h[0].lower()
+        except Exception as e:
+            pass
     return hashes, ntlm
 
 def searchLeaked(leakfile, ntlm, verbose):
     leak = open(leakfile,"r")
     cpt = 0
+    print("[*] Checking leaked database against hashes (long) ...", file=sys.stderr)
     for line in leak:
         if line[:-1] in ntlm["safe"]:
             ntlm["cracked"][line[:-1]] = ntlm["safe"][line[:-1]]
@@ -24,7 +27,7 @@ def searchLeaked(leakfile, ntlm, verbose):
             del(ntlm["safe"][line[:-1]])
             if verbose:
                 print(line[:-1], ntlm["cracked"][line[:-1]])
-    print(f"{cpt} compromised")
+    print(f"{cpt} compromised", file=sys.stderr)
     leak.close()
 
 def export(ntlm, john_result_file='', output=''):

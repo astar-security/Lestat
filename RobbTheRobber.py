@@ -12,7 +12,17 @@ PRIVILEGED_GROUPS = [
         "administrateurs du schéma",
         "administrateurs de l’entreprise",
         "administrateurs",
-        "propriétaires créateurs de la stratégie de groupe"
+        "propriétaires créateurs de la stratégie de groupe",
+        "account operators",
+        "administrators",
+        "backup operators",
+        "certificate operators",
+        "domain administrators",
+        "enterprise administrators",
+        "print operators",
+        "replicator",
+        "schema administrators",
+        "server operators"
         ]
 
 #########
@@ -336,7 +346,7 @@ def exportUsers(compromised, output, priv):
 def exportGroups(compromised_groups, output):
     """write consolidated info about groups into CSV format with ; separator"""
     f= open(output, "w")
-    f.write("name;num;sensitive;robustness;enabled members;disabled members\n")
+    f.write("name;num;sensitive;robustness;enabled members compromised;disabled members compromised\n")
     for gr, info in compromised_groups.items():
         memb = len(info['disabled']) + len(info['enabled'])
         crit = info['priv'] if info['priv'] else "unknown"
