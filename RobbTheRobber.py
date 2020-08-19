@@ -620,7 +620,7 @@ def produceStats(output, users, compromised):
 
         # robustness
         rob = statRobustness(compromised, status)
-        f.write(f"{sum(rob[0].values())};{sum(rob[1].values())};{sum(rob[2].values())};{sum(rob[3].values())};{synth[2]};")
+        f.write(f"{sum(rob[0].values())};{sum(rob[1].values())};{sum(rob[2].values())};{sum(rob[3].values())};{synth[3]};")
         f.write(f"{rob[0]['empty']};{rob[0]['login based']};{rob[0]['top 10 common']};{rob[0]['company name']};"\
             f"{rob[1]['top 1000 common']};{rob[1]['login extrapolation']};{rob[1]['company context related']};{rob[1]['4 char or less']};"\
             f"{rob[2]['top 1M common']};{rob[2]['6 char or less']};{rob[2]['2 charsets or less']};"\
