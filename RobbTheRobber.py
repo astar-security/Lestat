@@ -2,6 +2,7 @@
 
 import string
 import argparse
+import csv
 from collections import Counter
 
 #########
@@ -25,6 +26,7 @@ PRIVILEGED_GROUPS = [
         "schema administrators",
         "server operators"
         ]
+
 
 #########
 # Utils #
@@ -325,38 +327,45 @@ def populateGroups(compromised):
 
 def exportUsers(compromised, output, priv):
     """write consolidated info about users into CSV format with ; separator"""
-    f= open(output, "w")
-    f.write("name;password;status;lastlogon;lastchange;num groups;groups;sensitive;robustness;reason\n")
-    if priv:
+    if priv :
         print("[*] Privileged accounts compromised are listed below:")
-    for acc, info in compromised.items():
-        psw = info['password']
-        stat = 'disabled' if 'account_disabled' in info['status'] else 'enabled'
-        logn = info['lastlogon']
-        lchg = info['lastchange']
-        numg = len(info['groups'])
-        grp = ', '.join(info['groups'])
-        crit = info['priv'] if info['priv'] else "unknown"
-        robu = ["seconds", "minutes", "hours", "days"][info['robustness']]
-        reas = info['reason']
-        f.write(f"{acc};{psw};{stat};{logn};{lchg};{numg};{grp};{crit};{robu};{reas}\n")
-        if priv and crit != 'unknown':
-            print(f"[*]\t{stat}\t{acc}\t{psw}\t{crit}")
-    f.close()
+    with open(output, 'w') as f:
+        w = None
+        for acc, info in compromised.items() :
+            user = {"name": acc}
+            user['password'] = info['password']
+            user['status'] = 'disabled' if 'account_disabled' in info['status'] else 'enabled'
+            user['lastlogon'] = info['lastlogon']
+            user['lastchange'] = info['lastchange']
+            user['num groups'] = len( info['groups'] )
+            user['groups'] = ', '.join( info['groups'] )
+            user['sensitive'] = info['priv'] if info['priv'] else "unknown"
+            user['robustness'] = ["seconds", "minutes", "hours", "days"][info['robustness']]
+            user['reason'] = info['reason']
+            if priv and user['sensitive'] != 'unknown':
+                print(f"[*]\t{stat}\t{acc}\t{psw}\t{crit}")
+
+            if not w:
+                w = csv.DictWriter(f, user.keys(), delimiter=";")
+                w.writeheader()
+            w.writerow(user)
 
 def exportGroups(compromised_groups, output):
     """write consolidated info about groups into CSV format with ; separator"""
-    f= open(output, "w")
-    f.write("name;num;sensitive;robustness;enabled members compromised;disabled members compromised\n")
-    for gr, info in compromised_groups.items():
-        memb = len(info['disabled']) + len(info['enabled'])
-        crit = info['priv'] if info['priv'] else "unknown"
-        robu = ["seconds", "minutes", "hours", "days"][info['robustness']]
-        emem = ', '.join(info['enabled'])
-        dmem = ', '.join(info['disabled'])
-        f.write(f"{gr};{memb};{crit};{robu};{emem};{dmem}\n")
-    f.close()
+    with open(output, 'w') as f:
+        w = None
+        for gr, info in compromised_groups.items() :
+            group = {"name": gr}
+            group['members compromised'] = len( info['disabled'] ) + len( info['enabled'] )
+            group['sensitive'] = info['priv'] if info['priv'] else "unknown"
+            group['robustness'] = ["seconds", "minutes", "hours", "days"][info['robustness']]
+            group['enabled members compromised'] = ', '.join( info['enabled'] )
+            group['disabled members compromised'] = ', '.join( info['disabled'] )
 
+            if not w:
+                w = csv.DictWriter(f, group.keys(), delimiter=";")
+                w.writeheader()
+            w.writerow(group)
 
 #########
 # Stats #
@@ -376,27 +385,26 @@ def getPass(compromised):
 
 def statSynthesis(users, compromised, status):
     """produce data for synthesis stats"""
-    unsafe = 0
-    cracked = 0
+    synth = {"total": -1, "cracked": 0, "unsafe": 0, "safe":0}
     for i in compromised:
         if status == 'all' or 'account_disabled' not in compromised[i]['status']:
             if compromised[i]['reason'] == 'leaked':
-                unsafe += 1
-            cracked += 1
-    cracked -= unsafe
-    total = -1
+                synth['unsafe'] += 1
+            synth['cracked'] += 1
+    synth['cracked'] -= synth['unsafe']
     for i in users:
         if status == 'all' or 'account_disabled' not in i.split('\t')[8]:
-            total += 1
-    safe = total - cracked - unsafe
-    return (total, cracked, unsafe, safe)
+            synth['total'] += 1
+    synth['safe'] = synth['total'] - synth['cracked'] - synth['unsafe']
+    return synth
 
 def statUniq(passwords, status):
     """produce data about unicity stats"""
-    empty = passwords[status].count('')
-    non_empty = len(passwords[status]) - empty
-    uniq = len(set(passwords[status]))
-    return (empty, non_empty, uniq)
+    unicity = {"empty":0, "non empty": 0, "unique": 0}
+    unicity['empty'] = passwords[status].count('')
+    unicity['non empty'] = len( passwords[status] ) - unicity['empty']
+    unicity['unique'] = len( set( passwords[status] ))
+    return unicity
 
 def statSensitive(compromised, status):
     """produce data about the privilege of the users"""
@@ -466,166 +474,100 @@ def statRobustness(compromised, status):
 
 def produceStats(output, users, compromised):
     """ write the stats to a file"""
-    f = open(output,"w")
-    f.write("field;"\
-           "total accounts;"\
-           "compromised accounts;"\
-           "unsafe accounts;"\
-           "safe accounts;"\
-           "unique passwords compromised;"\
-           "likely sensitive users compromised;"\
-           "firm sensitive users compromised;"\
-           "password length 0;"\
-           "password length 1;"\
-           "password length 2;"\
-           "password length 3;"\
-           "password length 4;"\
-           "password length 5;"\
-           "password length 6;"\
-           "password length 7;"\
-           "password length 8;"\
-           "password length 9;"\
-           "password length 10;"\
-           "password length 11;"\
-           "password length 12;"\
-           "password length 13;"\
-           "password length 14;"\
-           "password length 15 or more;"\
-           "passwords with 1 charset;"\
-           "passwords with 2 charsets;"\
-           "passwords with 3 charsets;"\
-           "passwords all the charsets;"\
-           "empty passwords;"\
-           "lowercase passwords;"\
-           "uppercase passwords;"\
-           "digit passwords;"\
-           "punctuation passwords;"\
-           "lower-upper passwords;"\
-           "lower-digit passwords;"\
-           "lower-punct passwords;"\
-           "upper-digit passwords;"\
-           "upper-punct passwords;"\
-           "digit-punct passwords;"\
-           "lower-upper-digit passwords;"\
-           "lower-upper-punct passwords;"\
-           "lower-digit-punct passwords;"\
-           "upper-digit-punct passwords;"\
-           "lower-upper-digit-punct passwords;"\
-           "1st frequent password;"\
-           "2nd frequent password;"\
-           "3rd frequent password;"\
-           "4th frequent password;"\
-           "5th frequent password;"\
-           "6th frequent password;"\
-           "7th frequent password;"\
-           "8th frequent password;"\
-           "9th frequent password;"\
-           "10th frequent password;"\
-           "1st password occurrence;"\
-           "2nd password occurrence;"\
-           "3rd password occurrence;"\
-           "4th password occurrence;"\
-           "5th password occurrence;"\
-           "6th password occurrence;"\
-           "7th password occurrence;"\
-           "8th password occurrence;"\
-           "9th password occurrence;"\
-           "10th password occurrence;"\
-           "1rst frequent pattern;"\
-           "2nd frequent pattern;"\
-           "3rd frequent pattern;"\
-           "4th frequent pattern;"\
-           "5th frequent pattern;"\
-           "6th frequent pattern;"\
-           "7th frequent pattern;"\
-           "8th frequent pattern;"\
-           "9th frequent pattern;"\
-           "10th frequent pattern;"\
-           "1st pattern occurrence;"\
-           "2nd pattern occurrence;"\
-           "3rd pattern occurrence;"\
-           "4th pattern occurrence;"\
-           "5th pattern occurrence;"\
-           "6th pattern occurrence;"\
-           "7th pattern occurrence;"\
-           "8th pattern occurrence;"\
-           "9th pattern occurrence;"\
-           "10th pattern occurrence;"\
-           "passwords resist some seconds;"\
-           "passwords resist some minutes;"\
-           "passwords resist some hours;"\
-           "passwords resist some days;"\
-           "passwords resist some years;"\
-           "passwords empty;"\
-           "passwords based on username;"\
-           "passwords in top 10 most common;"\
-           "passwords based on company name;"\
-           "passwords in top 1000 most common;"\
-           "passwords as username extrapolation;"\
-           "passwords related to company context;"\
-           "passwords with 4 characters or less;"\
-           "passwords in top 1M most common;"\
-           "passwords with 6 characters or less;"\
-           "passwords with 2 charsets or less;"\
-           "passwords present in global wordlists;"\
-           "passwords present in locale wordlists;"\
-           "passwords leaked;"\
-           "passwords weakness undetermined;")
-    passwords = getPass(compromised)
+    with open(output, 'w') as f:
 
-    for status in ["all", "active"]:
-        f.write(f"\n{status} accounts;")
+        w = None
+        passwords = getPass(compromised)
 
-        # synthesis
-        synth = statSynthesis(users, compromised, status)
-        f.write(f"{synth[0]};{synth[1]};{synth[2]};{synth[3]};")
+        for status in ["all", "active"]:
+            stats = {}
+            stats['field'] = f"{status} accounts"
 
-        # unicity
-        unicity = statUniq(passwords, status)
-        f.write(f"{unicity[2]};")
+            # synthesis
+            synth = statSynthesis(users, compromised, status)
+            stats['total accounts'] = synth['total']
+            stats['compromised accounts'] = synth['cracked']
+            stats['unsafe accounts'] = synth['unsafe']
+            stats['safe accounts'] = synth['safe']
 
-        # Sensitive
-        crit = statSensitive(compromised, status)
-        f.write(f"{len(crit['likely']) + len(crit['admin'])};")
-        f.write(f"{len(crit['admin'])};")
+            # unicity
+            unicity = statUniq(passwords, status)
+            stats['unique passwords compromised'] = unicity['unique']
 
-        # lengths:
-        lengths = statLength(passwords, status)
-        for i in range(16):
-            f.write(f"{lengths[i]};")
+            # Sensitive
+            crit = statSensitive(compromised, status)
+            stats['likely sensitive users compromised'] = len( crit['likely'] ) + len( crit['admin'] )
+            stats['firm sensitive users compromised'] = len( crit['admin'] )
 
-        # charset
-        charsets = statCharset(passwords, status)
-        f.write(f"{charsets[''] + charsets['l'] + charsets['u'] + charsets['d'] + charsets['p']};")
-        f.write(f"{charsets['lu'] + charsets['ld'] + charsets['lp'] + charsets['ud'] + charsets['up'] + charsets['dp']};")
-        f.write(f"{charsets['lud'] + charsets['lup'] + charsets['ldp'] + charsets['udp']};")
-        f.write(f"{charsets['ludp']};")
-        f.write(f"{charsets['']};{charsets['l']};{charsets['u']};{charsets['d']};{charsets['p']};{charsets['lu']};{charsets['ld']};{charsets['lp']};{charsets['ud']};{charsets['up']};{charsets['dp']};{charsets['lud']};{charsets['lup']};{charsets['ldp']};{charsets['udp']};{charsets['ludp']};")
+            # lengths:
+            lengths = statLength(passwords, status)
+            for i in range(15):
+                stats[f"password length {i}"] = lengths[i]
+            stats["password length 15 or more"] = lengths[15]
 
-        # freq
-        occ = sorted(statFreq(passwords, status).items(), key=lambda x: x[1], reverse=True)
-        l = len(occ)
-        for i in range(10):
-            f.write([";", f"{occ[i][0]};"][i<l])
-        for i in range(10):
-            f.write([";", f"{occ[i][1]};"][i<l])
+            # charset
+            charsets = statCharset(passwords, status)
+            stats['passwords with 1 charset'] = charsets[''] + charsets['l'] + charsets['u'] + charsets['d'] + charsets['p']
+            stats['passwords with 2 charsets'] = charsets['lu'] + charsets['ld'] + charsets['lp'] + charsets['ud'] + charsets['up'] + charsets['dp']
+            stats['password with 3 charsets'] = charsets['lud'] + charsets['lup'] + charsets['ldp'] + charsets['udp']
+            stats['passwords with all the charsets'] = charsets['ludp']
+            stats['empty password'] = charsets['']
+            stats['lowercase passwords'] = charsets['l']
+            stats['uppercase passwords'] = charsets['u']
+            stats['digit passwords'] = charsets['d']
+            stats['punctuation passwords'] = charsets['p']
+            stats['lower-upper passwords'] = charsets['lu']
+            stats['lower-digit passwords'] = charsets['ld']
+            stats['lower-punct passwords'] = charsets['lp']
+            stats['upper-digit passwords'] = charsets['ud']
+            stats['upper-punct passwords'] = charsets['up']
+            stats['digit-punct passwords'] = charsets['dp']
+            stats['lower-upper-digit passwords'] = charsets['lud']
+            stats['lower-upper-punct passwords'] = charsets['lup']
+            stats['lower-digit-punct passwords'] = charsets['ldp']
+            stats['upper-digit-punct passwords'] = charsets['udp']
+            stats['lower-upper-digit-punct passwords'] = charsets['ludp']
 
-        # pattern
-        pat = sorted(statPattern(passwords, status).items(), key=lambda x: x[1], reverse=True)
-        l = len(pat)
-        for i in range(10):
-            f.write([";", f"{pat[i][0]};"][i<l])
-        for i in range(10):
-            f.write([";", f"{pat[i][1]};"][i<l])
+            # freq
+            occ = sorted(statFreq(passwords, status).items(), key=lambda x: x[1], reverse=True)
+            l = len(occ)
+            for i in range(10):
+                stats[f"{i+1}th frequent password"] = [":", f"{occ[i][1]}:{occ[i][0].replace(';','[semicolon]')}"][i<l]
 
-        # robustness
-        rob = statRobustness(compromised, status)
-        f.write(f"{sum(rob[0].values())};{sum(rob[1].values())};{sum(rob[2].values())};{sum(rob[3].values())};{synth[3]};")
-        f.write(f"{rob[0]['empty']};{rob[0]['login based']};{rob[0]['top 10 common']};{rob[0]['company name']};"\
-            f"{rob[1]['top 1000 common']};{rob[1]['login extrapolation']};{rob[1]['company context related']};{rob[1]['4 char or less']};"\
-            f"{rob[2]['top 1M common']};{rob[2]['6 char or less']};{rob[2]['2 charsets or less']};"\
-            f"{rob[3]['present in attack wordlist']};{rob[3]['present in locale attack wordlist']};{rob[3]['leaked']};{rob[3]['undetermined']}")
-    f.close()
+            # pattern
+            pat = sorted(statPattern(passwords, status).items(), key=lambda x: x[1], reverse=True)
+            l = len(pat)
+            for i in range(10):
+                stats[f"{i+1}th frequent pattern"] = [":", f"{pat[i][1]}:{pat[i][0].replace(';','[semicolon]')}"][i<l]
+            
+            # robustness
+            rob = statRobustness(compromised, status)
+            stats['passwords resist some seconds'] = sum( rob[0].values() )
+            stats['passwords resist some minutes'] = sum( rob[1].values() )
+            stats['passwords resist some hours']   = sum( rob[2].values() )
+            stats['passwords resist some days']    = sum( rob[3].values() )
+            stats['passwords resist some years']   = synth['safe']
+            stats['passwords empty'] = rob[0]['empty']
+            stats['passwords based on username'] = rob[0]['login based']
+            stats['passwords in top 10 most common'] = rob[0]['top 10 common']
+            stats['passwords based on company name'] = rob[0]['company name']
+            stats['passwords in top 1000 most common'] = rob[1]['top 1000 common']
+            stats['passwords as username extrapolation'] = rob[1]['login extrapolation']
+            stats['passwords related to company context'] = rob[1]['company context related']
+            stats['passwords with 4 characters or less'] = rob[1]['4 char or less']
+            stats['passwords in top 1M most common'] = rob[2]['top 1M common']
+            stats['passwords with 6 characters or less'] = rob[2]['6 char or less']
+            stats['passwords with 2 charsets or less'] = rob[2]['2 charsets or less']
+            stats['passwords present in global wordlists'] = rob[3]['present in attack wordlist']
+            stats['passwords present in locale wordlists'] = rob[3]['present in locale attack wordlist']
+            stats['passwords leaked'] = rob[3]['leaked']
+            stats['passwords weakness undetermined'] = rob[3]['undetermined']
+            
+            if not w :
+                w = csv.DictWriter(f, stats.keys(), delimiter=";")
+                w.writeheader()
+            
+            w.writerow(stats)
 
 def main():
     parser = argparse.ArgumentParser(description='Analysis of cracked domain accounts', add_help=True)
