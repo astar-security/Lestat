@@ -377,6 +377,10 @@ def exportStats(stats, spath):
             w.writerow(stat)
 
 def exportCharts(st, chartpath):
+    max_length = 0
+    max_top = 0
+    max_top_p = 0
+    max_charset = 0
     for field in st:
         # main chart
         name = field['field']
@@ -390,9 +394,59 @@ def exportCharts(st, chartpath):
             colors.append( '#ff0000' )
         ax.pie(values, labels=labels, colors=colors, autopct='%1i%%' )
         ax.set_title(f"Overall results for {name}")
-        plt.savefig(f"main_{name}.png")
+        plt.tight_layout()
+        plt.savefig(f"main_{name}.png", bbox_inches="tight", transparent=True)
+
+        # reason of compromise
+        fig, ax = plt.subplots()
+        reasons = [('passwords empty', '#bb0000'), 
+            ('passwords based on username', '#bb0000'),
+            ('passwords in top 10 most common', '#bb0000'),
+            ('passwords based on company name', '#bb0000'),
+            ('passwords in top 1000 most common', '#ff0000'),
+            ('passwords as username extrapolation', '#ff0000'),
+            ('passwords related to company context', '#ff0000'),
+            ('passwords with 4 characters or less', '#ff0000'),
+            ('passwords in top 1M most common', '#ff6400'),
+            ('passwords with 6 characters or less', '#ff6400'),
+            ('passwords with 2 charsets or less', '#ff6400'),
+            ('passwords present in global wordlists', '#ffc800'),
+            ('passwords present in locale wordlists', '#ffc800'),
+            ('passwords leaked', '#ffc800'),
+            ('passwords weakness undetermined', '#ffc800')]
+        values = []
+        labels = []
+        colors = []
+        for r in reasons:
+            if field[r[0]] != 0:
+                values.append( field[r[0]] )
+                labels.append( r[0][9:] )
+                colors.append( r[1] )
+        ax.pie(values, labels=labels, colors=colors, autopct='%1i%%' )
+        ax.set_title(f"Reasons of weakness for {name}")
+        plt.tight_layout()
+        plt.savefig(f"weaknesses_{name}.png", bbox_inches='tight', transparent=True)
+
+        # cracked passwords by charset
+        fig, ax = plt.subplots()
+        values = [ field['passwords with 1 charset'], field['passwords with 2 charsets'], field['passwords with 3 charsets'], field['passwords with all charsets']]
+        if max_charset == 0:
+            max_charset = max(values)
+        ax.barh('1 charset', field['passwords with 1 charset'], color='#ff0000')
+        ax.barh('2 charsets', field['passwords with 2 charsets'], color='#ff6400')
+        ax.barh('3 charsets', field['passwords with 3 charsets'], color='#ffc800')
+        ax.barh('all charsets', field['passwords with all charsets'], color='#00c800')
+
+        ax.set_title(f"Cracked passwords by charset ({name})")
+        plt.xlim(0, max_charset +10)
+        for ind, val in enumerate(values):
+            plt.text(val, ind, str(val), ha="left", va="center")
+        for spine in plt.gca().spines.values():
+            spine.set_visible(False)
+        plt.savefig(f"pass_by_charset_{name}.png", bbox_inches="tight", transparent=True) 
 
         # cracked passwords by length
+        # voir pour virer le cadre
         fig, ax = plt.subplots()
         values = []
         labels = []
@@ -400,19 +454,75 @@ def exportCharts(st, chartpath):
             values.append( field[f"password length {i}"] )
             labels.append( str(i) )
         values.append( field['password length 15 or more'] )
+        if max_length == 0:
+            max_length = max(values)
         labels.append('15+')
-        
         ax.bar(labels[0], values[0], color='#bb0000')
         ax.bar(labels[1:5], values[1:5], color='#ff0000')
         ax.bar(labels[5:8], values[5:8], color='#ff6400')
         ax.bar(labels[8:13], values[8:13], color='#ffc800')
         ax.bar(labels[13:], values[13:], color='#00c800')
         ax.set_title(f"Cracked passwords per length ({name})")
-        plt.savefig(f"pass_by_length_{name}.png")
-  
+        plt.ylim(0, max_length +10)
+        for ind, val in enumerate(values):
+            plt.text(ind, val, str(val), ha="center", va="bottom")
+        for spine in plt.gca().spines.values():
+            spine.set_visible(False)
+        plt.savefig(f"pass_by_length_{name}.png", bbox_inches="tight", transparent=True)
+        
+        # robustness
+        fig, ax = plt.subplots()
+        ax.barh( [""], [ field['passwords resist some seconds'] ], height=0.05, color='#bb0000', label='seconds' )
+        ax.barh( [""], [ field['passwords resist some minutes'] ], height=0.05, color='#ff0000', label='minutes', left=field['passwords resist some seconds'] )
+        ax.barh( [""], [ field['passwords resist some hours'] ], height=0.05, color='#ff6400', label='hours', left=field['passwords resist some minutes'] )
+        ax.barh( [""], [ field['passwords resist some days'] ], height=0.05, color='#ffc800', label='days', left=field['passwords resist some hours'] )
+        ax.barh( [""], [ field['passwords resist some years'] ], height=0.05, color='#00c800', label='years', left=field['passwords resist some days'] )
+        ax.set_title(f"Password resistance against hacker ({name})")
+        ax.legend(bbox_to_anchor=(0.5, -0.2), loc="lower center", ncol=5)
+        for spine in plt.gca().spines.values():
+            spine.set_visible(False)
+        plt.savefig(f"pass_resistance_{name}.png", bbox_inches="tight", transparent=True)
 
-
-
+        # most frequent passwords
+        fig, ax = plt.subplots()
+        values = []
+        labels = []
+        for i in range(10):
+            values.append(int(field[f"{i+1}th frequent password"].split(':',1)[0]))
+            labels.append(field[f"{i+1}th frequent password"].split(':',1)[1])
+        if max_top == 0:
+            max_top = max(values)
+        values.reverse()
+        labels.reverse()
+        ax.barh(labels, values)
+        ax.set_title(f"Top cracked passwords for {name}")
+        plt.xlim(0, max_top +5)
+        for ind, val in enumerate(values):
+            plt.text(val, ind, str(val), ha="left", va="center")
+        for spine in plt.gca().spines.values():
+            spine.set_visible(False)
+        plt.savefig(f"top_passwords_{name}.png", bbox_inches="tight", transparent=True)
+        
+        # most frequent patterns
+        fig, ax = plt.subplots()
+        values = []
+        labels = []
+        for i in range(10):
+            values.append(int(field[f"{i+1}th frequent pattern"].split(':',1)[0]))
+            labels.append(field[f"{i+1}th frequent pattern"].split(':',1)[1])
+        if max_top_p == 0:
+            max_top_p = max(values)
+        values.reverse()
+        labels.reverse()
+        ax.barh(labels, values, color = "cyan")
+        ax.set_title(f"Top patterns in cracked passwords for {name}")
+        plt.xlim(0, max_top_p +5)
+        for ind, val in enumerate(values):
+            plt.text(val, ind, str(val), ha="left", va="center")
+        for spine in plt.gca().spines.values():
+            spine.set_visible(False)
+        plt.savefig(f"top_patterns_{name}.png", bbox_inches="tight", transparent=True)
+ 
 
 #########
 # Stats #
@@ -555,8 +665,8 @@ def produceStats(users, compromised):
         charsets = statCharset(passwords, status)
         stat['passwords with 1 charset'] = charsets[''] + charsets['l'] + charsets['u'] + charsets['d'] + charsets['p']
         stat['passwords with 2 charsets'] = charsets['lu'] + charsets['ld'] + charsets['lp'] + charsets['ud'] + charsets['up'] + charsets['dp']
-        stat['password with 3 charsets'] = charsets['lud'] + charsets['lup'] + charsets['ldp'] + charsets['udp']
-        stat['passwords with all the charsets'] = charsets['ludp']
+        stat['passwords with 3 charsets'] = charsets['lud'] + charsets['lup'] + charsets['ldp'] + charsets['udp']
+        stat['passwords with all charsets'] = charsets['ludp']
         stat['empty password'] = charsets['']
         stat['lowercase passwords'] = charsets['l']
         stat['uppercase passwords'] = charsets['u']
