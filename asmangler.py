@@ -84,17 +84,23 @@ def combine(words, perm, full):
     sys.stderr.write(f"[*] {tot} base words\n")
     with click.progressbar(words, label="Mix case and combine base words") as wordsbar:
         for word in wordsbar:
-            res.append(word)
-            res.append(word.capitalize())
-            res.append(word.upper())
-            tot += 2
-            if full:
-                l = len(word)
-                mid = word[0:l//2+l%2]
-                res.append(mid)
-                res.append(mid.capitalize())
-                res.append(mid.upper())
-                tot += 3
+            # if one of the words is a number
+            if word.isdigit():
+                common_numeric.append(word)
+            else:
+                res.append(word)
+                res.append(word.capitalize())
+                res.append(word.upper())
+                tot += 2
+                if full:
+                    l = len(word)
+                    mid = word[0:l//2+l%2]
+                    res.append(mid)
+                    res.append(mid.capitalize())
+                    res.append(mid.upper())
+                    res.append(word[0] + word[-1])
+                    res.append(word[0].upper() + word[-1].upper())
+                    tot += 5
     #sys.stderr.write(f"[*] {tot} with case variations\n")
     # add each 2 words permutations
     if perm:
@@ -122,9 +128,9 @@ def mangle(words_file, perm, full):
 
 
 
-def main():    
+def main():
     parser = argparse.ArgumentParser(description='Derivation of a wordlist to make a efficient crack dictionnary', add_help=True)
-    parser.add_argument('-f', action="store", dest="input_file", default=None, 
+    parser.add_argument('-f', action="store", dest="input_file", default=None,
             help='Specify a wordlist file, if not, stdin is read')
     parser.add_argument('--no-perm', action="store_false", dest="perm", default=True,
             help='Do not mix words 2 by 2, only perform variations over unique words')
