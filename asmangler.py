@@ -25,6 +25,7 @@ common_words = [
         "pass",
         "Pass",
         "Admin",
+        "adm",
         "Adm",
         ""
         ]
@@ -36,96 +37,175 @@ common_suffix = [
         "%",
         "&",
         "*",
-        "/",
         "?",
         ".",
         ""
         ]
 
-common_numeric = [str(i) for i in range(2010,int(time.strftime("%Y"))+1)] + [str(i)[-2:] for i in range(2000,int(time.strftime("%Y"))+1)] + ["2k"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))+1)] + ["2K"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))+1)] + [str(i) for i in range(10)] + ['123', '1234'] + ['']
+# 2010 -> now
+common_numeric  = [str(i) for i in range(2010,int(time.strftime("%Y"))+1)]
+# 00 -> 20
+common_numeric += [str(i)[-2:] for i in range(2000,int(time.strftime("%Y"))+1)]
+# 2k10 -> now
+common_numeric += ["2k"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))+1)]
+# 2K10 -> now
+common_numeric += ["2K"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))+1)]
+# 0 -> 9
+common_numeric += [str(i) for i in range(10)]
+common_numeric += ['123', '1234'] + ['']
 
-def leet_variation(words, full):
+
+def leet_variation(words):
+    global leet_swap
     res = set()
-    """take two depth of l33t substitution"""
-    for word in words:
+    first_pass = []
+    for word in words: 
         res.add(word)
-        for key, values in leet_swap.items():
-            for value in values:
-                if full:
-                    for key2, values2 in leet_swap.items():
-                        for value2 in values2:
-                            first = re.sub(key, value, word, flags=re.I)
-                            sec = re.sub(key2, value2, first, flags=re.I)
-                            res.add(first)
-                            res.add(sec)
-                else:
-                    res.add(re.sub(key, value, word, flags=re.I))
+        needles = [c for c in leet_swap.keys() if c in word.lower()]
+        for i in range(len(needles)):
+            nee1 = needles[i]
+            for sub in leet_swap[nee1]:
+                first_pass.append(re.sub(nee1, sub, word, flags=re.I))
+            res |= set(first_pass)
+            
+            for j in range(i+1,len(needles)):
+                nee2 = needles[j]
+                for word2 in first_pass:
+                    for sub in leet_swap[nee2]:
+                        res.add(re.sub(nee2, sub, word2, flags=re.I))
+            first_pass = []
+
     return res
 
-def common_variation(word, full):
+def common_variation(word):
+    global common_numeric
+    global common_suffix
+    global common_words
     res = set()
     for i in common_suffix:
-        if full:
-            for j in common_numeric:
-                for k in common_words:
-                    res.add(k + word + j + i)
-                    res.add(word + k + j + i)
-        else:
-            for j in common_numeric:
-                res.add(word + j + i)
+        for j in common_numeric:
             for k in common_words:
-                res.add(word + k + i)
+                # common + root + numeric + suffix
+                res.add(k + word + j + i)
+                # root + common + numeric + suffix
+                res.add(word + k + j + i)
     return res
 
-def combine(words, perm, full):
-    res = []
-    tot = len(words)
-    # add each word, its capitalized version and its short name
-    sys.stderr.write(f"[*] {tot} base words\n")
-    with click.progressbar(words, label="Mix case and combine base words") as wordsbar:
-        for word in wordsbar:
-            # if one of the words is a number
+def nickname_variation(word): 
+    res = set()
+    res.add( word )
+    l = len( word )
+
+    # if compound name
+    if re.match(r'.*[-\ \._]', word): 
+        parts = re.split(r'[\-\ \._]',word)
+        # j-l.melenchon => jlm; general electric => ge
+        res.add( ''.join([i[0:1] for i in parts]) )
+        # jc-decaud => jcd; fx.demaison => fxd
+        if len(parts) == 2:
+            res.add( parts[0]+parts[1][0] )
+        # d.soria => soria; ch-pasteur => ch, pasteur
+        for part in parts:
+            if len(part) > 1:
+                res.add( part )
+        # ch-toulouse => chtoulouse
+        res.add( ''.join(parts) )
+
+    else:
+        # first and last char
+        if l > 2 and word.isalpha() and word[-1] not in 'aeiou':
+            res.add(word[0] + word[-1])
+
+        # first half 
+        if l > 3 and word.isalpha() :    
+            res.add(word[0:l//2+l%2])
+
+        # if doesn't start with vowel
+        if word[0] not in 'aeiouy' and word.isalpha():
+            # sub vowels
+            subbled = re.sub(r'[aeiouyAEIOUY]','',word)
+            l_subbled = len(subbled)
+            if l_subbled > 1 :
+                res.add(subbled)
+            # first half of vowels subbing 
+            if l_subbled > 3 :
+                res.add(subbled[0:l_subbled//2+l_subbled%2])
+
+    return list(res)
+
+def join_variation(word1, word2):
+    res = set()
+    # lower lower
+    res.add(f'{word1}{word2}')
+    # lower Capi
+    res.add(f'{word1}{word2.capitalize()}')
+    # lower UPPER
+    res.add(f'{word1}{word2.upper()}')
+    # Capi lower
+    res.add(f'{word1.capitalize()}{word2}')
+    # Capi Capi
+    res.add(f'{word1.capitalize()}{word2.capitalize()}')
+    # Capi UPPER
+    res.add(f'{word1.capitalize()}{word2.upper()}')
+    # UPPER lower
+    res.add(f'{word1.upper()}{word2}')
+    # UPPER Capi
+    res.add(f'{word1.upper()}{word2.capitalize()}')
+    # UPPER UPPER
+    res.add(f'{word1.upper()}{word2.upper()}')   
+    return res
+
+
+def combine(words, perm):
+    global common_numeric
+    res = set()
+
+    if perm:
+        selection = []
+        # To change (only first word)
+        nicknames = nickname_variation(words.pop(0))
+
+        for word in words:
             if word.isdigit():
                 common_numeric.append(word)
             else:
-                res.append(word)
-                res.append(word.capitalize())
-                res.append(word.upper())
-                tot += 2
-                if full:
-                    l = len(word)
-                    mid = word[0:l//2+l%2]
-                    res.append(mid)
-                    res.append(mid.capitalize())
-                    res.append(mid.upper())
-                    res.append(word[0] + word[-1])
-                    res.append(word[0].upper() + word[-1].upper())
-                    tot += 5
-    #sys.stderr.write(f"[*] {tot} with case variations\n")
-    # add each 2 words permutations
-    if perm:
-        for p in itertools.permutations(words, 2):
-            res.append(''.join(p))
-            res.append(''.join(map(str.capitalize,p)))
-            res.append(''.join(map(str.upper,p)))
-            tot += 3
-    res = set(res)
-    sys.stderr.write(f"[*] {len(res)} unique words after mixing case and combinations\n")
+                selection.append(word)
+        selection.append('')
+
+        for p in itertools.permutations(selection, 2): 
+            res |= join_variation(*p)
+        
+        for nick in nicknames: 
+            for word in selection: 
+                res |= join_variation(nick, word)
+                res |= join_variation(word, nick)
+
+    else:
+        for word in words:
+            nicknames = nickname_variation(word)
+            for nick in nicknames:
+                res.add( nick )
+                res.add( nick.upper() )
+                res.add( nick.capitalize() )
+
+    sys.stderr.write(f"[*] {len(res)} unique words after mixing case and combinations: {res}\n")
     return res
 
-def mangle(words_file, perm, full):
+def mangle(words_file, perm):
     """get the base words then apply variations"""
-    # combine the base words
-    words = combine(words_file.read().lower().splitlines(), perm, full)
+    words = words_file.read().lower().splitlines() 
+    sys.stderr.write(f"[*] {len(words)} base words: {words}\n")
+    # combine words
+    words = combine(words, perm)
     tot = 0
     with click.progressbar(words, label="[*] Computing variations ...", file=sys.stderr) as wordsbar:
         for word in wordsbar:
-            mangled = common_variation(word, full)
-            mangled = leet_variation(mangled, full)
+            mangled = common_variation(word)
+            mangled = leet_variation(mangled)
             tot += len(mangled)
             print(*(mangled), sep='\n')
-    sys.stderr.write(f"[*] {tot} candidates computed after variations\n")
 
+    sys.stderr.write(f"[*] {tot} candidates computed after variations\n")
 
 
 def main():
@@ -134,16 +214,14 @@ def main():
             help='Specify a wordlist file, if not, stdin is read')
     parser.add_argument('--no-perm', action="store_false", dest="perm", default=True,
             help='Do not mix words 2 by 2, only perform variations over unique words')
-    parser.add_argument('--light', action="store_false", dest="full", default=True,
-            help='Limit processing to the quick wins')
     args = parser.parse_args()
 
     if args.input_file:
         with open(args.input_file, "r") as words_file:
-            mangle(words_file, args.perm, args.full)
+            mangle(words_file, args.perm)
     else:
         words_file = sys.stdin
-        mangle(words_file, args.perm, args.full)
+        mangle(words_file, args.perm)
 
 if __name__ == '__main__':
     main()
