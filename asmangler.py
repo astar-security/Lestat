@@ -6,6 +6,7 @@ import itertools
 import time
 import re
 import click
+import select
 
 leet_swap = {
         's':['5','$'],
@@ -16,19 +17,6 @@ leet_swap = {
         'g':['9'],
         't':['7']
         }
-
-common_words = [
-        "pw",
-        "pwd",
-        "sys",
-        "admin",
-        "pass",
-        "Pass",
-        "Admin",
-        "adm",
-        "Adm",
-        ""
-        ]
 
 common_suffix = [
         "!",
@@ -42,6 +30,27 @@ common_suffix = [
         ""
         ]
 
+list_profile = {
+    "default": {
+        "nickname": False,
+        "permutation" : True, 
+        "numeric_conv" : True, 
+        "birthdate" : False,
+        "nickname_user" : False
+    }, 
+    "user": {
+        "nickname": True, 
+        "permutation" : False,
+        "numeric_conv" : False,
+        "birthdate" : True, 
+        "nickname_user" : True
+    }
+}
+
+profile = "default"
+config = list_profile[profile]
+
+
 # 2010 -> now
 common_numeric  = [str(i) for i in range(2010,int(time.strftime("%Y"))+1)]
 # 00 -> 20
@@ -54,6 +63,28 @@ common_numeric += ["2K"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))
 common_numeric += [str(i) for i in range(10)]
 common_numeric += ['123', '1234'] + ['']
 
+def common_words(): 
+    result = [""]
+    if profile != "user": 
+        result += [
+            "pw",
+            "pwd",
+            "sys",
+            "admin",
+            "pass",
+            "Pass",
+            "Admin",
+            "adm",
+            "Adm"
+            ]
+    return result
+
+def birth_date(): 
+    result = []
+    for day in range(1,31): 
+        for month in range(1,12): 
+            result.append(f'{day:02}{month:02}')
+    return result
 
 def leet_variation(words):
     global leet_swap
@@ -80,18 +111,23 @@ def leet_variation(words):
 def common_variation(word):
     global common_numeric
     global common_suffix
-    global common_words
+    words = common_words()
+    if config["birthdate"] : 
+        common_numeric += birth_date()
     res = set()
     for i in common_suffix:
         for j in common_numeric:
-            for k in common_words:
+            for k in words:
                 # common + root + numeric + suffix
                 res.add(k + word + j + i)
-                # root + common + numeric + suffix
-                res.add(word + k + j + i)
+                if word != "": 
+                    # root + common + numeric + suffix
+                    res.add(word + k + j + i)
     return res
 
-def nickname_variation(word): 
+
+
+def nickname_variation(word, company=False): 
     res = set()
     res.add( word )
     l = len( word )
@@ -101,35 +137,45 @@ def nickname_variation(word):
         parts = re.split(r'[\-\ \._]',word)
         # j-l.melenchon => jlm; general electric => ge
         res.add( ''.join([i[0:1] for i in parts]) )
-        # jc-decaud => jcd; fx.demaison => fxd
-        if len(parts) == 2:
-            res.add( parts[0]+parts[1][0] )
-        # d.soria => soria; ch-pasteur => ch, pasteur
-        for part in parts:
-            if len(part) > 1:
-                res.add( part )
-        # ch-toulouse => chtoulouse
-        res.add( ''.join(parts) )
+        if len(parts[0]) < 3 :
+            # jc-decaud => jcd; fx.demaison => fxd
+            if len(parts) == 2 :
+                res.add( parts[0]+parts[1][0] )
+            # ch-toulouse => chtoulouse
+            res.add( ''.join(parts) )
 
-    else:
-        # first and last char
-        if l > 2 and word.isalpha() and word[-1] not in 'aeiou':
-            res.add(word[0] + word[-1])
+        if config["nickname_user"] and not company: 
+            # d.soria => soria; 
+            for part in parts:
+                if len(part) > 1:
+                    res.add( part )
+                    res.update(nickname_variation(part))
+            
+            # Gustave Limace => GLI; 
+            if len(parts) == 2 :
+                res.add(parts[0][0]+parts[1][:2])
+
+    else: 
+        if not config["nickname_user"] or company: 
+            # first and last char
+            if l > 2 and word.isalpha() and word[-1] not in 'aeiou':
+                res.add(word[0] + word[-1])
+            # if doesn't start with vowel
+            if word[0] not in 'aeiouy' and word.isalpha():
+                # sub vowels
+                subbled = re.sub(r'[aeiouyAEIOUY]','',word)
+                l_subbled = len(subbled)
+                if l_subbled > 1 :
+                    res.add(subbled)
+                # first half of vowels subbing : nikolas => NK
+                if l_subbled > 3 :
+                    res.add(subbled[0:l_subbled//2+l_subbled%2])
 
         # first half 
         if l > 3 and word.isalpha() :    
             res.add(word[0:l//2+l%2])
 
-        # if doesn't start with vowel
-        if word[0] not in 'aeiouy' and word.isalpha():
-            # sub vowels
-            subbled = re.sub(r'[aeiouyAEIOUY]','',word)
-            l_subbled = len(subbled)
-            if l_subbled > 1 :
-                res.add(subbled)
-            # first half of vowels subbing 
-            if l_subbled > 3 :
-                res.add(subbled[0:l_subbled//2+l_subbled%2])
+
 
     return list(res)
 
@@ -156,32 +202,38 @@ def join_variation(word1, word2):
     return res
 
 
-def combine(words, perm):
+def combine(words):
     global common_numeric
     res = set()
+    tmp_res = set()
+    selection = []
+    tmp_selection = []
+    company_nicks = None 
+    for word in words:
+        if word.isdigit() and config["numeric_conv"] :
+            common_numeric.append(word)
+        else:
+            selection.append(word)
 
-    if perm:
-        selection = []
-        # To change (only first word)
-        nicknames = nickname_variation(words.pop(0))
+    if config["nickname"] : 
+        for word in selection: 
+            tmp_selection += list(nickname_variation(word))
+        selection = tmp_selection
 
-        for word in words:
-            if word.isdigit():
-                common_numeric.append(word)
-            else:
-                selection.append(word)
-        selection.append('')
-
-        for p in itertools.permutations(selection, 2): 
-            res |= join_variation(*p)
-        
+    if config["company"] : 
+        nicknames = nickname_variation(config["company"], True)
         for nick in nicknames: 
-            for word in selection: 
+            for word in selection + ['']: 
                 res |= join_variation(nick, word)
                 res |= join_variation(word, nick)
 
-    else:
-        for word in words:
+    if config["permutation"] : 
+        selection.append('')
+        for p in itertools.permutations(selection, 2): 
+            res |= join_variation(*p)
+
+    else : 
+        for word in selection:
             nicknames = nickname_variation(word)
             for nick in nicknames:
                 res.add( nick )
@@ -191,12 +243,24 @@ def combine(words, perm):
     sys.stderr.write(f"[*] {len(res)} unique words after mixing case and combinations: {res}\n")
     return res
 
-def mangle(words_file, perm):
+def load_profile(args): 
+    global config
+    global profile
+    if args.users : 
+        profile = "user"
+        config = list_profile[profile]
+
+    config["company"] = False
+    if args.company : 
+        config["company"] = args.company.lower()
+
+def mangle(words_file, args):
     """get the base words then apply variations"""
+    load_profile(args)
     words = words_file.read().lower().splitlines() 
     sys.stderr.write(f"[*] {len(words)} base words: {words}\n")
     # combine words
-    words = combine(words, perm)
+    words = combine(words)
     tot = 0
     with click.progressbar(words, label="[*] Computing variations ...", file=sys.stderr) as wordsbar:
         for word in wordsbar:
@@ -207,21 +271,27 @@ def mangle(words_file, perm):
 
     sys.stderr.write(f"[*] {tot} candidates computed after variations\n")
 
+def gotSTDIN():
+    return select.select([sys.stdin,],[],[],0.0)[0];
 
 def main():
+    stdin_mode = gotSTDIN()
     parser = argparse.ArgumentParser(description='Derivation of a wordlist to make a efficient crack dictionnary', add_help=True)
-    parser.add_argument('-f', action="store", dest="input_file", default=None,
-            help='Specify a wordlist file, if not, stdin is read')
-    parser.add_argument('--no-perm', action="store_false", dest="perm", default=True,
-            help='Do not mix words 2 by 2, only perform variations over unique words')
+    if not stdin_mode: 
+        parser.add_argument('input_file', action="store", help='Specify a wordlist file, if not, stdin is read')
+    parser.add_argument('--users', action="store_true", dest="users", default=False, 
+    help='Treat the input as a list of user, (limit the variations and add specifics ones like birth date)')
+    parser.add_argument('--company', dest="company", 
+    help='More variations are apply to the company name (do not add it to your list)')
     args = parser.parse_args()
 
-    if args.input_file:
-        with open(args.input_file, "r") as words_file:
-            mangle(words_file, args.perm)
-    else:
+    if stdin_mode:
         words_file = sys.stdin
-        mangle(words_file, args.perm)
+        mangle(words_file, args)
+    else: 
+        with open(args.input_file, "r") as words_file:
+            mangle(words_file, args)
+
 
 if __name__ == '__main__':
     main()
