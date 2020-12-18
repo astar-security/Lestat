@@ -21,11 +21,11 @@ PRIVILEGED_GROUPS = [
         "administrators",
         "backup operators",
         "certificate operators",
-        "domain administrators",
-        "enterprise administrators",
+        "domain admins",
+        "enterprise admins",
         "print operators",
         "replicator",
-        "schema administrators",
+        "schema admins",
         "server operators"
         ]
 
