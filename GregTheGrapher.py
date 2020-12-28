@@ -19,12 +19,15 @@ def exportCharts(csvfilename, chartpath, transparency):
     max_top_p = 0
     max_charset = 0
 
+    print("[*] Reading the CSV input file")
     with open(csvfilename, newline='') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
+        print("[+] Input file imported and parsed")
         for field in reader:
         
             name = field['field']
-            
+            print(f"[*] Making the charts for {name}...")
+
             # main chart
             fig, ax = plt.subplots()
             values = [ int(field['compromised accounts']), int(field['safe accounts']) ]
@@ -38,7 +41,8 @@ def exportCharts(csvfilename, chartpath, transparency):
             ax.set_title(f"Overall results for {name}")
             plt.tight_layout()
             plt.savefig(f"{chartpath}/main_{name}.png", bbox_inches="tight", transparent=transparency)
-            
+            print("[+] Overall results chart created")
+
             # reason of compromise
             if 'passwords in top 10 most common' in field:
                 fig, ax = plt.subplots()
@@ -70,6 +74,7 @@ def exportCharts(csvfilename, chartpath, transparency):
                 ax.set_title(f"Reasons of weakness for {name}")
                 plt.tight_layout()
                 plt.savefig(f"{chartpath}/weaknesses_{name}.png", bbox_inches='tight', transparent=transparency)
+                print("[+] Reasons of weakness chart created")
 
             # cracked passwords by charset
             fig, ax = plt.subplots()
@@ -87,6 +92,7 @@ def exportCharts(csvfilename, chartpath, transparency):
             for spine in plt.gca().spines.values():
                 spine.set_visible(False)
             plt.savefig(f"{chartpath}/pass_by_charset_{name}.png", bbox_inches="tight", transparent=transparency) 
+            print("[+] Cracked passwords by charset chart created")
 
             # cracked passwords by length
             fig, ax = plt.subplots()
@@ -111,7 +117,8 @@ def exportCharts(csvfilename, chartpath, transparency):
             for spine in plt.gca().spines.values():
                 spine.set_visible(False)
             plt.savefig(f"{chartpath}/pass_by_length_{name}.png", bbox_inches="tight", transparent=transparency)
-            
+            print("[+] Cracked passwords per length chart created")
+
             # robustness
             if 'passwords in top 10 most common' in field:
                 fig, ax = plt.subplots()
@@ -139,6 +146,7 @@ def exportCharts(csvfilename, chartpath, transparency):
                 for spine in plt.gca().spines.values():
                     spine.set_visible(False)
                 plt.savefig(f"{chartpath}/pass_resistance_{name}.png", bbox_inches="tight", transparent=transparency)
+                print("[+] Password resistance chart created")
 
             # most frequent passwords
             fig, ax = plt.subplots()
@@ -159,7 +167,8 @@ def exportCharts(csvfilename, chartpath, transparency):
             for spine in plt.gca().spines.values():
                 spine.set_visible(False)
             plt.savefig(f"{chartpath}/top_passwords_{name}.png", bbox_inches="tight", transparent=transparency)
-            
+            print("[+] Top cracked passwords chart created")
+
             # most frequent patterns
             fig, ax = plt.subplots()
             values = []
@@ -179,6 +188,8 @@ def exportCharts(csvfilename, chartpath, transparency):
             for spine in plt.gca().spines.values():
                 spine.set_visible(False)
             plt.savefig(f"{chartpath}/top_patterns_{name}.png", bbox_inches="tight", transparent=transparency)
+            print("[+] Top patterns in cracked passwords chart created")
+
 
 def main():
     parser = argparse.ArgumentParser(description='Produce charts from passwords stats', add_help=True)
@@ -192,6 +203,7 @@ def main():
     args = parser.parse_args()
 
     exportCharts(args.STATS_FILE, args.wpath, args.transparent)
+    print("[*] Finished")
 
 if __name__ == '__main__':
     main()
