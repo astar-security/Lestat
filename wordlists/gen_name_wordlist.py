@@ -53,7 +53,7 @@ birthdates = set(birthdates)
 log.info("[*] Computing combination for each name...")
 
 with click.progressbar(names) as namesbar:
-     for name in names:
+     for name in namesbar:
         name = name.lower()
         # prefix for eg Nicolas: nicolas, nic, nico, nini, ncls
         prefix = [name, name[:3], name[:4], name[:2] + name[:2], name.translate(root)]
