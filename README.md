@@ -30,15 +30,15 @@ ldapdomaindump -u <DOMAIN>\\<USER> -p <PASSWORD> ldap://<DC_IP>:389
 
 ### For pentesters:
 ```
-$ python3 RobbTheRobber.py --priv result_file domain_users.grep
+$ python3 LesterTheLooter.py --priv result_file domain_users.grep
 ```
 
 ### For SysAdmin:
 To get minimal stats :  
 ```
-$ python3 RobbTheRobber.py --stats result_file domain_users.grep
+$ python3 LesterTheLooter.py --stats result_file domain_users.grep
 ```
 To get comprehensive stats if you configured the wordlists (see [here](https://github.com/astar-security/Lestat/wiki/GetWordlists)):
 ```
-python3 RobbTheRobber.py --wordlists <PATH_TO_WORDLISTS> --stats result_file domain_users.grep
+python3 LesterTheLooter.py --wordlists <PATH_TO_WORDLISTS> --stats result_file domain_users.grep
 ```
