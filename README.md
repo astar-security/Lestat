@@ -42,3 +42,7 @@ To get comprehensive stats if you configured the wordlists (see [here](https://g
 ```
 python3 LesterTheLooter.py --wordlists <PATH_TO_WORDLISTS> --stats result_file domain_users.grep
 ```
+PNG charts can be generated from the lestat.csv file:  
+```
+python3 GregTheGrapher.py -w charts --transparent lestat.csv 
+```
