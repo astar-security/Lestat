@@ -14,7 +14,8 @@ It will give you:
 - a comprehensive set of stats about the passwords cracked (length distribution, charset, robustness evaluation, most frequent pattern, ...)
 
 ## Requirement
-Lestat should run out of the box.  
+`ldapdomaindump` is required.  
+`crackmapexec` is recommended for remote hash extraction.
 
 ## Basic Usage
 Take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) with `john-the-ripper` (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)) over [the hashes file of your domain](https://github.com/astar-security/Lestat/wiki/GetTheHash).  
