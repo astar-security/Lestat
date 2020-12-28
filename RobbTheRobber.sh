@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+# $1=username $2=password $3=domain name
+# yes I know it's very ugly
+
 IP=$(host $3 | grep "has address" | head -n1 | cut -d ' ' -f 4)
 echo "we will use user: $1 with password: $2 on domain: $3"
 echo "getting users details..."
