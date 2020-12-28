@@ -3,7 +3,6 @@
 import string
 import argparse
 import csv
-import matplotlib.pyplot as plt
 from collections import Counter
 from termcolor import colored
 
@@ -379,169 +378,6 @@ def exportStats(stats, spath):
         w.writeheader()
         for stat in stats :
             w.writerow(stat)
-
-def exportCharts(st, chartpath, wordlist):
-    """produce charts in PNG format"""
-    # used to maintain the same scale between all accounts and active only
-    max_length = 0
-    max_top = 0
-    max_top_p = 0
-    max_charset = 0
-    for field in st:
-        name = field['field']
-        
-        # main chart
-        fig, ax = plt.subplots()
-        values = [ field['compromised accounts'], field['safe accounts'] ]
-        labels = [ 'compromised accounts', 'safe accounts' ]
-        colors = [ '#dd0000', '#00c800' ]
-        if field['unsafe accounts'] != 0 :
-            values.append( field['unsafe accounts'] )
-            labels.append( 'unsafe accounts' )
-            colors.append( '#ff0000' )
-        ax.pie(values, labels=labels, colors=colors, autopct=lambda p : '{:,.0f}% ({:,.0f})'.format(p,p * sum(values)/100), wedgeprops={"edgecolor":"white",'linewidth': 1, 'linestyle': 'solid', 'antialiased': True} )
-        ax.set_title(f"Overall results for {name}")
-        plt.tight_layout()
-        plt.savefig(f"main_{name}.png", bbox_inches="tight", transparent=True)
-
-        # reason of compromise
-        if wordlist:
-            fig, ax = plt.subplots()
-            reasons = [('passwords empty', '#bb0000'), 
-                ('passwords based on username', '#bb0000'),
-                ('passwords in top 10 most common', '#bb0000'),
-                ('passwords based on company name', '#bb0000'),
-                ('passwords in top 1000 most common', '#ff0000'),
-                ('passwords as username extrapolation', '#ff0000'),
-                ('passwords related to company context', '#ff0000'),
-                ('passwords with 4 characters or less', '#ff0000'),
-                ('passwords in top 1M most common', '#ff6400'),
-                ('passwords with 6 characters or less', '#ff6400'),
-                ('passwords with 2 charsets or less', '#ff6400'),
-                ('passwords present in global wordlists', '#ffc800'),
-                ('passwords present in locale wordlists', '#ffc800'),
-                ('passwords leaked', '#ffc800'),
-                ('passwords weakness undetermined', '#ffc800')]
-            values = []
-            labels = []
-            colors = []
-            for r in reasons:
-                if field[r[0]] / (field['compromised accounts']+field['unsafe accounts'])*100 >=1:
-                    values.append( field[r[0]] )
-                    labels.append( r[0][9:] )
-                    colors.append( r[1] )
-            ax.pie(values, labels=labels, colors=colors, autopct='%1i%%', wedgeprops={"edgecolor":"white",'linewidth': 1, 'linestyle': 'solid', 'antialiased': True} )
-            ax.set_title(f"Reasons of weakness for {name}")
-            plt.tight_layout()
-            plt.savefig(f"weaknesses_{name}.png", bbox_inches='tight', transparent=True)
-
-        # cracked passwords by charset
-        fig, ax = plt.subplots()
-        values = [ field['passwords with 1 charset'], field['passwords with 2 charsets'], field['passwords with 3 charsets'], field['passwords with all charsets']]
-        if max_charset == 0:
-            max_charset = max(values)
-        ax.barh('1 charset', field['passwords with 1 charset'], color='#ff0000')
-        ax.barh('2 charsets', field['passwords with 2 charsets'], color='#ff6400')
-        ax.barh('3 charsets', field['passwords with 3 charsets'], color='#ffc800')
-        ax.barh('all charsets', field['passwords with all charsets'], color='#00c800')
-        ax.set_title(f"Cracked passwords by charset ({name})")
-        plt.xlim(0, max_charset +10)
-        for ind, val in enumerate(values):
-            plt.text(val, ind, str(val), ha="left", va="center")
-        for spine in plt.gca().spines.values():
-            spine.set_visible(False)
-        plt.savefig(f"pass_by_charset_{name}.png", bbox_inches="tight", transparent=True) 
-
-        # cracked passwords by length
-        fig, ax = plt.subplots()
-        values = []
-        labels = []
-        for i in range(15):
-            values.append( field[f"password length {i}"] )
-            labels.append( str(i) )
-        values.append( field['password length 15 or more'] )
-        if max_length == 0:
-            max_length = max(values)
-        labels.append('15+')
-        ax.bar(labels[0], values[0], color='#bb0000')
-        ax.bar(labels[1:5], values[1:5], color='#ff0000')
-        ax.bar(labels[5:8], values[5:8], color='#ff6400')
-        ax.bar(labels[8:13], values[8:13], color='#ffc800')
-        ax.bar(labels[13:], values[13:], color='#00c800')
-        ax.set_title(f"Cracked passwords per length ({name})")
-        plt.ylim(0, max_length +10)
-        for ind, val in enumerate(values):
-            plt.text(ind, val, str(val), ha="center", va="bottom")
-        for spine in plt.gca().spines.values():
-            spine.set_visible(False)
-        plt.savefig(f"pass_by_length_{name}.png", bbox_inches="tight", transparent=True)
-        
-        # robustness
-        if wordlist:
-            fig, ax = plt.subplots()
-            resist = [ 'passwords resist some seconds', 
-                        'passwords resist some minutes', 
-                        'passwords resist some hours',
-                        'passwords resist some days',
-                        'passwords resist some years' ]
-            start = [ 0, field[resist[0]] ]
-            ax.barh( [""], [ field[resist[0]] ], height=0.1, color='#bb0000', label='seconds' )
-            ax.barh( [""], [ field[resist[1]] ], height=0.1, color='#ff0000', label='minutes', left=start[-1] )
-            start.append( start[-1] + field[resist[1]] )
-            ax.barh( [""], [ field[resist[2]] ], height=0.1, color='#ff6400', label='hours', left=start[-1] )
-            start.append( start[-1] + field[resist[2]] )
-            ax.barh( [""], [ field[resist[3]] ], height=0.1, color='#ffc800', label='days', left=start[-1] )
-            start.append( start[-1] + field[resist[3]] )
-            ax.barh( [""], [ field[resist[4]] ], height=0.1, color='#00c800', label='years', left=start[-1] )
-            # the following line is juste here because this is the only way I found to not have
-            # a very thick horizontal bar : if every bar is 0.1 height, they take all the place
-            # shame on me
-            ax.barh( [""], [0], height=0.5)
-            ax.set_title(f"Password resistance against hacker ({name})")
-            ax.legend(bbox_to_anchor=(0.5, -0.2), loc="lower center", ncol=5)
-            for spine in plt.gca().spines.values():
-                spine.set_visible(False)
-            plt.savefig(f"pass_resistance_{name}.png", bbox_inches="tight", transparent=True)
-
-        # most frequent passwords
-        fig, ax = plt.subplots()
-        values = []
-        labels = []
-        for i in range(10):
-            values.append(int(field[f"{i+1}th frequent password"].split(':',1)[0]))
-            labels.append(field[f"{i+1}th frequent password"].split(':',1)[1])
-        if max_top == 0:
-            max_top = max(values)
-        values.reverse()
-        labels.reverse()
-        ax.barh(labels, values)
-        ax.set_title(f"Top cracked passwords for {name}")
-        plt.xlim(0, max_top +5)
-        for ind, val in enumerate(values):
-            plt.text(val, ind, str(val), ha="left", va="center")
-        for spine in plt.gca().spines.values():
-            spine.set_visible(False)
-        plt.savefig(f"top_passwords_{name}.png", bbox_inches="tight", transparent=True)
-        
-        # most frequent patterns
-        fig, ax = plt.subplots()
-        values = []
-        labels = []
-        for i in range(10):
-            values.append(int(field[f"{i+1}th frequent pattern"].split(':',1)[0]))
-            labels.append(field[f"{i+1}th frequent pattern"].split(':',1)[1])
-        if max_top_p == 0:
-            max_top_p = max(values)
-        values.reverse()
-        labels.reverse()
-        ax.barh(labels, values, color = "cyan")
-        ax.set_title(f"Top patterns in cracked passwords for {name}")
-        plt.xlim(0, max_top_p +5)
-        for ind, val in enumerate(values):
-            plt.text(val, ind, str(val), ha="left", va="center")
-        for spine in plt.gca().spines.values():
-            spine.set_visible(False)
-        plt.savefig(f"top_patterns_{name}.png", bbox_inches="tight", transparent=True)
  
 
 #########
@@ -761,7 +597,6 @@ def main():
     user_out = "users_compromised.csv"
     group_out = "group_compromised.csv"
     stat_out = "lestat.csv"
-    chart_out = "charts/"
 
     print(f"[*] Importing john result from {args.JOHN_FILE} and domain info from {args.USERS_FILE}")
     users, cu = initInfo(args.JOHN_FILE, args.USERS_FILE)
@@ -786,7 +621,6 @@ def main():
         print(f"[*] Computing stats and exporting to lestat.csv")
         st = produceStats(users, cu, args.wpath)
         exportStats(st, stat_out)
-        exportCharts(st, chart_out, args.wpath)
 
 if __name__ == '__main__':
     main()
