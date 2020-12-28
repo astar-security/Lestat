@@ -38,9 +38,11 @@ words = set()
 birthdates = []
 for m in [str(i).zfill(2) for i in range(1,13)]:
     for d in [str(i).zfill(2) for i in range(1,32)]:
+        # combinations of the form DDMM or MMDD: 3112, 3112!, 1231, 1231!
         birthdates += [ d+m, d+m+'!', m+d, m+d+'!' ]
 
 for y in map(str, range(1913, int(time.strftime("%Y"))+1)):
+    # combinations for years: 1988, 1988!, 88, 88!
     birthdates += ['', y, y + '!', y[2:], y[2:] + '!']
 
 birthdates = set(birthdates)
@@ -60,6 +62,7 @@ with click.progressbar(names) as namesbar:
         for p in prefix:
             for s in birthdates:
                 # derivate each candidate with various case
+                # the firstname without any date will be tested as birthdates contains the empty case
                 words.add( p+s )
                 words.add( p.upper()+s )
                 words.add( p.capitalize()+s )
