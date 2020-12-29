@@ -30,7 +30,9 @@ It will produce two files:
 - DOMAIN_HASHES.txt
 - USERS_INFO.txt
 
-#### Workaround
+---
+#### /!\ Workaround /!\
+
 Some antivirus could block the remote execution needed to get these data (how to blame them). If it happens, you can get the required data manually.  
 
 3 files are needed, first the domain users info in a grepable format. You must use `ldapdomaindump`:
@@ -52,6 +54,8 @@ Finally, parse the NTDS.dit file with `secretsdump`:
 ```
 impacket-secretsdump -system SYSTEM -ntds ntds.dit LOCAL > DOMAIN_HASHES.txt
 ```
+---
+
 ### Hack with your favorite tool
 Take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) the `DOMAIN_HASHES.txt` file with you favorite tool (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)).  
 Here are examples with `john-the-ripper`:
