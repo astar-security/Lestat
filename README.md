@@ -18,32 +18,90 @@ It will give you:
 `impacket` is required for remote hash extraction.
 
 ## Basic Usage
-Take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) with `john-the-ripper` (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)) over [the hashes file of your domain](https://github.com/astar-security/Lestat/wiki/GetTheHash).  
-Then, get the raw result:
+### Get the data
+
+Use the automated script with a domain admin account to dump the required data:
 ```
-john --format=nt --show <HASHES_FILE> | cut -d: -f 1,2 > result_file
+python3 RobbTheRobber.py --user <USERNAME> --password <PASSWORD> --domain <DOMAIN>
+# the --password can be omitted, then it will be prompted
+# eg. python3 RobbTheRobber.py --user Administrator --domain astar.org
 ```
-[Dump the users info](https://github.com/astar-security/Lestat/wiki/GetUsersInfo) from the domain to get the `domain_users.grep` file.  
-Main way is:
+It will produce two files:
+- DOMAIN_HASHES.txt
+- USERS_INFO.txt
+
+#### Workaround
+Some antivirus could block the remote execution needed to get these data (how to blame them). if it happens, you can get the required data manually.  
+
+3 files are needed, first the domain users info in a grepable format. You must use `ldapdomaindump`:
 ```
-ldapdomaindump -u <DOMAIN>\\<USER> -p <PASSWORD> ldap://<DC_IP>:389
+ldapdomaindump -u <DOMAIN>\\<USER> -p <PASSWORD> --no-html --no-json ldap://<DC_IP>:389
+```
+Only the `domain_users.grep` file is needed (you can rename it `USERS_INFO.txt` to comply with the examples of this documentation).
+
+Second, we need the NTDS.dit file of the Domain Controller with its SYSTEM key.  
+If the AV prevent the automated script to run, connect with RDP to the DC and run:
+```
+cmd.exe /c ntdsutil "ac i ntds" "ifm" "create full c:\temp\robb" q q
+```
+Then, copy these two files to your machine:
+- C:\temp\robb\Active Directory\ntds.dit
+- C:\temp\robb\registry\SYSTEM
+
+Finally, parse the NTDS.dit file with `secretsdump`:
+```
+impacket-secretsdump -system SYSTEM -ntds ntds.dit LOCAL > DOMAIN_HASHES.txt
+```
+### Hack with your favorite tool
+Take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) the `DOMAIN_HASHES.txt` file with you favorite tool (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)).  
+Here are examples with `john-the-ripper`:
+```
+john --format=NT --wordlist=rockyou.txt DOMAIN_HASHES.txt
+john --format=NT --fork=8 DOMAIN_HASHES.txt
 ```
 
-### For pentesters:
+When finished, get the raw result in the form of a login:password file (one per line):
 ```
-$ python3 LesterTheLooter.py --priv result_file domain_users.grep
+john --format=NT --show DOMAIN_HASHES.txt> | cut -d: -f 1,2 > JOHN_RESULT.txt
 ```
 
-### For SysAdmin:
-To get minimal stats :  
+### Loot for pentesters:
+Directly see if you cracked enabled admin accounts :
 ```
-$ python3 LesterTheLooter.py --stats result_file domain_users.grep
+$ python3 LesterTheLooter.py --priv JOHN_RESULT.txt USERS_INFO.txt
+[*] Importing john result from JOHN_RESULT.txt and domain info from USERS_INFO.txt
+[!] Line ignored in JOHN_RESULT.txt file (not a valid user:password form): 
+[!] Line ignored in JOHN_RESULT.txt file (not a valid user:password form): 124 password hashes cracked, 589 left
+[*] Computing groups information
+[*] Exporting data to users_compromised.csv and group_compromised.csv
+[*] Privileged accounts compromised are listed below:
+[+]	disabled     domain admins        n.sarko                  Cecilia<3
+[+]	enabled      likely admin         f.maçon                  NOMondial2020!
+[+]	enabled      enterprise admins    adm.boloré               Y4tch4life
+[+]	enabled      domain admins        e.macron                 Macron2022!!!
+[+]	enabled      enterprise admins    b.gates                  VaccineApple!
+[+]	disabled     account operators    e.philippe               Prosac2k19
 ```
-To get comprehensive stats if you configured the wordlists (see [here](https://github.com/astar-security/Lestat/wiki/GetWordlists)):
+Two CSV files are produced: `users_compromised.csv` and `group_compromised.csv`. They contain the full results.
+
+### Loot for SysAdmin:
+Get some stats in addition of the CSV files :  
 ```
-python3 LesterTheLooter.py --wordlists <PATH_TO_WORDLISTS> --stats result_file domain_users.grep
+$ python3 LesterTheLooter.py --stats JOHN_RESULT.txt USERS_INFO.txt
 ```
-PNG charts can be generated from the lestat.csv file:  
+A CSV file `lestat.csv` is produced.
+
+You can get comprehensive stats if you configured the wordlists (see [here](https://github.com/astar-security/Lestat/wiki/GetWordlists)):
+```
+python3 LesterTheLooter.py --wordlists <PATH_TO_WORDLISTS> --stats JOHN_RESULT.txt USERS_INFO.txt
+```
+
+### Be proud
+PNG charts can be generated from the `lestat.csv` file:  
 ```
 python3 GregTheGrapher.py -w charts --transparent lestat.csv 
 ```
+
+it is recommended to present the result in a Excel file. Import `users_compromised.csv` in one sheet, `group_compromised.csv` in a second one and use the pictures for a dedicated summary sheet:
+
+https://camo.githubusercontent.com/aa8c35cdb071322f9c0e0d3c0dae9d5bef295cfabaa01115159e640badafffde/68747470733a2f2f626f6e6e792e61737461722e6f72672f6578616d706c655f6c65737461742e706e67
