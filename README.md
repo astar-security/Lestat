@@ -31,7 +31,7 @@ It will produce two files:
 - USERS_INFO.txt
 
 #### Workaround
-Some antivirus could block the remote execution needed to get these data (how to blame them). if it happens, you can get the required data manually.  
+Some antivirus could block the remote execution needed to get these data (how to blame them). If it happens, you can get the required data manually.  
 
 3 files are needed, first the domain users info in a grepable format. You must use `ldapdomaindump`:
 ```
@@ -39,12 +39,12 @@ ldapdomaindump -u <DOMAIN>\\<USER> -p <PASSWORD> --no-html --no-json ldap://<DC_
 ```
 Only the `domain_users.grep` file is needed (you can rename it `USERS_INFO.txt` to comply with the examples of this documentation).
 
-Second, we need the NTDS.dit file of the Domain Controller with its SYSTEM key.  
+Second, we need the `NTDS.dit` file of the Domain Controller with its `SYSTEM` key.  
 If the AV prevent the automated script to run, connect with RDP to the DC and run:
 ```
 cmd.exe /c ntdsutil "ac i ntds" "ifm" "create full c:\temp\robb" q q
 ```
-Then, copy these two files to your machine:
+Then, move these two files to your machine:
 - C:\temp\robb\Active Directory\ntds.dit
 - C:\temp\robb\registry\SYSTEM
 
@@ -102,6 +102,6 @@ PNG charts can be generated from the `lestat.csv` file:
 python3 GregTheGrapher.py -w charts --transparent lestat.csv 
 ```
 
-it is recommended to present the result in a Excel file. Import `users_compromised.csv` in one sheet, `group_compromised.csv` in a second one and use the pictures for a dedicated summary sheet:
+It is recommended to present the result in a Excel file. Import `users_compromised.csv` in one sheet, `group_compromised.csv` in a second one and use the pictures for a dedicated summary sheet:
 
-https://camo.githubusercontent.com/aa8c35cdb071322f9c0e0d3c0dae9d5bef295cfabaa01115159e640badafffde/68747470733a2f2f626f6e6e792e61737461722e6f72672f6578616d706c655f6c65737461742e706e67
+![](https://camo.githubusercontent.com/aa8c35cdb071322f9c0e0d3c0dae9d5bef295cfabaa01115159e640badafffde/68747470733a2f2f626f6e6e792e61737461722e6f72672f6578616d706c655f6c65737461742e706e67)
