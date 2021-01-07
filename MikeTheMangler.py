@@ -81,8 +81,8 @@ def common_words():
 
 def birth_date(): 
     result = []
-    for day in range(1,31): 
-        for month in range(1,12): 
+    for day in range(1,32): 
+        for month in range(1,13): 
             result.append(f'{day:02}{month:02}')
     return result
 
