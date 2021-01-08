@@ -5,6 +5,7 @@ import re
 import logging as log
 import click
 import string
+import itertools
 
 #########
 # CONST #
@@ -18,15 +19,12 @@ leet_swap = {
         'a':['4','@'],
         'o':['0'],
         'i':['1','!'],
-        'g':['9'],
         't':['7']
         }
 
 common_special = [
         "!",
-        "@",
         "$",
-        "%",
         "&",
         "*",
         "?",
@@ -44,8 +42,8 @@ common_words = [
         ]
 
 common_numeric = set([''])
-# 60 years ago -> now
-common_numeric.update( [str(i) for i in range(int(time.strftime("%Y"))-60, int(time.strftime("%Y"))+1)] )
+# 50 years ago -> now
+common_numeric.update( [str(i) for i in range(int(time.strftime("%Y"))-50, int(time.strftime("%Y"))+1)] )
 # 2k10 -> now
 common_numeric.update( ["2k"+str(i)[-2:] for i in range(2010,int(time.strftime("%Y"))+1)] )
 # 2K10 -> now
@@ -54,13 +52,13 @@ common_numeric.update( ["2K"+str(i)[-2:] for i in range(2010,int(time.strftime("
 common_numeric.update( [str(i) for i in range(10)] )
 # 00 -> 99
 common_numeric.update( [str(i).zfill(2) for i in range(100)] )
-# birthdates
+# common numbers
 common_numeric.update( ['123', '1234'] )
+# birthdates
 for day in range(1,32):
     for month in range(1,13):
         common_numeric.add( f"{day:02}{month:02}" )
         common_numeric.add( f"{month:02}{day:02}" )
-
 
 common_prefix = set()
 common_suffix = set()
@@ -97,7 +95,6 @@ def nickname_variation(word):
         for part in parts:
             if len(part) > 1:
                 # d.soria => soria
-                res.add( part )
                 res.update( nickname_variation(part) )
 
     # if the word is atomic
@@ -115,8 +112,8 @@ def nickname_variation(word):
             res.add( word[:4] )
             # nicolas => nini
             res.add( word[:2] + word[:2] )
-            # nicolas => ncls
-            cons = word.translate(consonants)
+            # nicolas => nc
+            cons = word.translate(consonants)[0:2]
             if len(cons) > 1:
                 res.add( cons )
 
@@ -155,7 +152,8 @@ def leet_variation(words):
 # pre compute the lists of prefixes and suffixes
 common_prefix = set(case_variation(leet_variation(common_words)))
 common_suffix = [n + s for n in common_numeric for s in common_special]
-common_complete = [p + s for p in common_prefix for s in common_suffix]
+common_complete = list(itertools.product(common_prefix, common_suffix))
+# common_complete = [p + s for p in common_prefix for s in common_suffix]
 
 print(f"{len(common_prefix)} prefix computed")
 print(f"{len(common_suffix)} suffix computed")
@@ -168,7 +166,9 @@ def common_variation(words, f):
 
     with click.progressbar(words) as wordsbar:
         for word in wordsbar:
-            print(*[word + s for s in common_complete], sep='\n', file=f)
+            #print(*[i[0]+i[1]+i[2]+'\n'+i[1]+i[0]+i[2] for i in itertools.product(common_prefix, [word], common_suffix)], sep='\n', file=f)
+            print(*[word + fix[0] + fix[1] + '\n' + fix[0] + word + fix[1] for fix in common_complete], sep='\n', file=f)
+            #print(*[word + s for s in common_complete], sep='\n', file=f)
             #print(*[p + word + s for p in common_prefix for s in common_suffix], sep='\n', file=f)
 
 ########
