@@ -107,6 +107,8 @@ def nickname_variation(word):
             res.add( word[:3] )
             # nicolas => nico
             res.add( word[:4] )
+            # ffuyons => fuyons
+            res.add( word[1:] )
             # if the name start with a consonant and a voyel
             if word[0] not in 'aeiou' and word[1] in 'aeiou':
                 # nicolas => nini
