@@ -54,11 +54,6 @@ common_numeric.update( [str(i) for i in range(10)] )
 common_numeric.update( [str(i).zfill(2) for i in range(100)] )
 # common numbers
 common_numeric.update( ['123', '1234'] )
-# birthdates
-for day in range(1,32):
-    for month in range(1,13):
-        common_numeric.add( f"{day:02}{month:02}" )
-        common_numeric.add( f"{month:02}{day:02}" )
 
 common_prefix = set()
 common_suffix = set()
@@ -154,16 +149,26 @@ def leet_variation(words):
                 first_pass = []
     return res
 
+def compute_fix(birthdate):
+    global common_prefix
+    global common_suffix
+    global common_complete
+    global common_numeric
+    global common_special
+    global common_words
 
-# pre compute the lists of prefixes and suffixes
-common_prefix = set(case_variation(leet_variation(common_words)))
-common_suffix = [n + s for n in common_numeric for s in common_special]
-common_complete = list(itertools.product(common_prefix, common_suffix))
-# common_complete = [p + s for p in common_prefix for s in common_suffix]
+    if birthdate:
+        for day in range(1,32):
+            for month in range(1,13):
+                common_numeric.add(f"{day:02}{month:02}" if birthdate == "DDMM" else f"{month:02}{day:02}")
 
-print(f"{len(common_prefix)} prefix computed")
-print(f"{len(common_suffix)} suffix computed")
-print(f"{len(common_complete)} prefix+suffix computed")
+    # pre compute the lists of prefixes and suffixes
+    common_prefix = set(case_variation(leet_variation(common_words)))
+    common_suffix = [n + s for n in common_numeric for s in common_special]
+    common_complete = list(itertools.product(common_prefix, common_suffix))
+    
+    log.info(f"[*] {len(common_prefix)} prefix computed, {len(common_suffix)} suffix computed, {len(common_complete)} prefix+suffix computed")
+
 
 def common_variation(words, f):
     global common_complete
@@ -172,10 +177,9 @@ def common_variation(words, f):
 
     with click.progressbar(words) as wordsbar:
         for word in wordsbar:
-            #print(*[i[0]+i[1]+i[2]+'\n'+i[1]+i[0]+i[2] for i in itertools.product(common_prefix, [word], common_suffix)], sep='\n', file=f)
-            print(*[word + fix[0] + fix[1] + '\n' + fix[0] + word + fix[1] for fix in common_complete], sep='\n', file=f)
-            #print(*[word + s for s in common_complete], sep='\n', file=f)
-            #print(*[p + word + s for p in common_prefix for s in common_suffix], sep='\n', file=f)
+            print(*[word + fix[0] + fix[1] + '\n' + fix[0] + word + fix[1] for fix in common_complete], 
+                    sep='\n', file=f)
+
 
 ########
 # MAIN #
@@ -201,11 +205,15 @@ def import_users(f, raw, enabled):
 @click.command()
 @click.option('-r/--raw-input', default=False, help='If you want tu submit a file with only the raw usernames instead of a domain_users.grep file')
 @click.option('-e/--enabled-only', default=False, help="Do not compute disabled account names")
-@click.argument('userfile') #,help='the grepable domain users file from ldapdomaindump')
-def main(userfile, r, e):
+@click.option('--birthdates', type=click.Choice(['DDMM', 'MMDD'], case_sensitive=False), help="Add birthdates to the common numeric suffixes") 
+@click.argument('userfile') 
+def main(userfile, r, e, birthdates):
     """Mangle users from a ldapdomaindump file (domain_users.grep) to create a wordlist"""
     words = set()
     log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
+
+    log.info("[*] Computing prefixes and suffixes...")
+    compute_fix(birthdates)
 
     with open(userfile) as f:
         # the first line is the names of the column, we omit it, the SAMACCountName is the 3rd column
