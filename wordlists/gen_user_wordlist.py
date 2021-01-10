@@ -80,18 +80,20 @@ def nickname_variation(word):
     # if compound name
     if re.match(r'.*[-\ \._]', word):
         parts = re.split(r'[\-\ \._]',word)
-        # j-l.lemenchon => jll; paul.bismuth => pb
-        res.add( ''.join([i[0:1] for i in parts]) )
-        # if there is two parts
-        if len(parts) ==2:
-            # trigram: gustave.limace => gli
-            res.add( parts[0][0:1] + parts[1][0:2] )
-            # if the 1st part is made of initials
-            if len(parts[0]) < 3 :
-                # jm-levag => jml; fx.demaison => fxd
-                res.add( parts[0] + parts[1][0] )
-                # ch-toulouse => chtoulouse
-                res.add( ''.join(parts) )
+        # if all the part are made of letters
+        if all([i.isalpha() for i in parts]):
+            # j-l.lemenchon => jll; paul.bismuth => pb
+            res.add( ''.join([i[0:1] for i in parts]) )
+            # if there is two parts
+            if len(parts) ==2:
+                # trigram: gustave.limace => gli
+                res.add( parts[0][0:1] + parts[1][0:2] )
+                # if the 1st part is made of initials
+                if len(parts[0]) < 3 :
+                    # jm-levag => jml; fx.demaison => fxd
+                    res.add( parts[0] + parts[1][0] )
+                    # ch-toulouse => chtoulouse
+                    res.add( ''.join(parts) )
         for part in parts:
             if len(part) > 1:
                 # d.soria => soria
@@ -110,19 +112,23 @@ def nickname_variation(word):
             res.add( word[:3] )
             # nicolas => nico
             res.add( word[:4] )
-            # nicolas => nini
-            res.add( word[:2] + word[:2] )
+            # if the name start with a consonant and a voyel
+            if word[0] not in 'aeiou' and word[1] in 'aeiou':
+                # nicolas => nini
+                res.add( word[:2] + word[:2] )
+            # if the name start with a consonant
+            if word[0] not in 'aeiou':
             # nicolas => nc
-            cons = word.translate(consonants)[0:2]
-            if len(cons) > 1:
-                res.add( cons )
+                cons = word.translate(consonants)[0:2]
+                if len(cons) > 1:
+                    res.add( cons )
 
     return res
 
 def case_variation(words):
-    res = []
+    res = set()
     for word in words:
-        res += [word, word.upper(), word.capitalize()]
+        res.update( [word, word.upper(), word.capitalize()] )
     return res
 
 
@@ -133,7 +139,7 @@ def leet_variation(words):
 
     for word in words:
         res.add(word)
-        if word.isalpha():
+        if word.isalpha() and len(set(word)) > 1 and len(word) > 2:
             needles = [c for c in leet_swap.keys() if c in word.lower()]
             for i in range(len(needles)):
                 nee1 = needles[i]
@@ -175,33 +181,52 @@ def common_variation(words, f):
 # MAIN #
 ########
 
+def import_users(f, raw, enabled):
+    if raw and enabled:
+        log.error("[!] --raw-input and --enabled-only options are mutually exclusive")
+        exit(1)
+    if raw:
+        return [line.lower() for line in f.read().splitlines()]
+    if enabled:
+        users = []
+        for line in f.read().splitlines()[1:]:
+            l = line.split('\t')
+            if "ACCOUNT_DISABLED" not in l[8].upper():
+                users.append(l[2].lower())
+        return users
+    else:
+        return [line.split('\t')[2].lower() for line in f.read().splitlines()[1:]]
+
 
 @click.command()
-@click.option('--userfile', help='the grepable domain users file from ldapdomaindump')
-def main(userfile):
+@click.option('-r/--raw-input', default=False, help='If you want tu submit a file with only the raw usernames instead of a domain_users.grep file')
+@click.option('-e/--enabled-only', default=False, help="Do not compute disabled account names")
+@click.argument('userfile') #,help='the grepable domain users file from ldapdomaindump')
+def main(userfile, r, e):
+    """Mangle users from a ldapdomaindump file (domain_users.grep) to create a wordlist"""
     words = set()
     log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
 
     with open(userfile) as f:
         # the first line is the names of the column, we omit it, the SAMACCountName is the 3rd column
-        users = [line.split('\t')[2] for line in f.read().splitlines()[1:]]
-        log.info(f"[*] {len(users)} users loaded")
+        users = import_users(f, r, e)
+        log.info(f"[*] {len(users)} users loaded\n{users}")
         mangling = set()
         # first we derivate nicknames from sam account names
         with click.progressbar(users) as usersbar:
             log.info("[*] Computing nicknames...")
             for line in usersbar:
                 mangling |= nickname_variation(line)
-        log.info(f"[+] {len(mangling)} nicknames computed")
+        log.info(f"[+] {len(mangling)} nicknames computed\n{list(mangling)[:50]}...")
 
         # second we compute leet and case variations
         log.info("[*] Computing leet variations...")
         mangling = leet_variation(mangling)
-        log.info(f"[+] {len(mangling)} leet variations computed")
+        log.info(f"[+] {len(mangling)} leet variations computed\n{list(mangling)[:50]}...")
 
         log.info("[*] Computing case variations...")
         mangling = case_variation(mangling)
-        log.info(f"[+] {len(mangling)} case variations computed")
+        log.info(f"[+] {len(mangling)} case variations computed\n{list(mangling)[:50]}...")
 
         # opening the output file for writing
         with open(export_filename, 'w') as f:
