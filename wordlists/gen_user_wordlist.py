@@ -239,10 +239,10 @@ def main(userfile, r, e, birthdates):
         log.info(f"[+] {len(mangling)} case variations computed\n{list(mangling)[:50]}...")
 
         # opening the output file for writing
-        with open(export_filename, 'w') as f:
+        with open(export_filename, 'w') as fo:
             # finally we add prefixes and suffixes
             log.info("[*] Adding prefixes and suffixes...")
-            common_variation(mangling, f)
+            common_variation(mangling, fo)
             log.info(f"[+] {len(users)*len(common_complete)*2} prefixes and suffixes added")
 
         log.info("[+] Export complete, all is finished")
