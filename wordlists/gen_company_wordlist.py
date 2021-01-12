@@ -66,28 +66,89 @@ common_complete = set()
 # COOK #
 ########
 
-def combine(words):
+def nickname_variation(word):
     res = set()
+    l = len( word )
+
+    # usefull for shortnames and cleaned names
+    consonants = str.maketrans('','','aeiouy')
+
+    # if compound name
+    if re.match(r'.*[-\ \._]', word):
+        parts = re.split(r'[\-\ \._]',word)
+        # general electric => ge
+        res.add( ''.join([i[0:1] for i in parts]) )
+        # if there is two parts
+        if len(parts) ==2:
+            # jc-decaud => jcd
+            res.add( parts[0] + parts[1][0] )
+            # ch-toulouse => chtoulouse
+            res.add( ''.join(parts) )
+        for part in parts:
+            if len(part) > 1:
+                # treat each part as a specific word
+                res.update( nickname_variation(part) )
+
+    # if the word is atomic
+    else:
+        res.add( word )
+        # shortnames
+        if l > 3 and word.isalpha() :
+            # airbus => air
+            res.add( word[:3] )
+            # goldman => gold
+            res.add( word[:4] )
+            # microsoft => micro
+            res.add( word[0:l//2+l%2] )
+            # chrysler => cr
+            res.add( word[0] + word[-1] )
+            # if the name start with a consonant
+        if word[0] not in 'aeiou':
+            # remove voyels
+            cons = word.translate(consonants)
+            l_cons = len(cons)
+            if l_cons > 1:
+                # tetrapak => ttrpk
+                res.add( cons )
+            if l_cons > 3:
+                # tetrapak => ttr
+                res.add( cons[0:(l_cons//2)+(l_cons%2)] )
+
+    return res
+
+def combine(words, nicks):
+    res = set()
+    if len(nicks) != 0:
+        for n in nicks:
+            for p in itertools.product([n], words):
+                res |= case_combination(p)
+            for p in itertools.product(words, [n]):
+                res |= case_combination(p)
     for p in itertools.permutations(words, 2):
-        word1, word2 = p
-        # lower lower
-        res.add(f'{word1}{word2}')
-        # lower Capi
-        res.add(f'{word1}{word2.capitalize()}')
-        # lower UPPER
-        res.add(f'{word1}{word2.upper()}')
-        # Capi lower
-        res.add(f'{word1.capitalize()}{word2}')
-        # Capi Capi
-        res.add(f'{word1.capitalize()}{word2.capitalize()}')
-        # Capi UPPER
-        res.add(f'{word1.capitalize()}{word2.upper()}')
-        # UPPER lower
-        res.add(f'{word1.upper()}{word2}')
-        # UPPER Capi
-        res.add(f'{word1.upper()}{word2.capitalize()}')
-        # UPPER UPPER
-        res.add(f'{word1.upper()}{word2.upper()}')
+        res |= case_combination(p)
+    return res
+
+def case_combination(t):
+    res = set()
+    word1, word2 = t
+    # lower lower
+    res.add(f'{word1}{word2}')
+    # lower Capi
+    res.add(f'{word1}{word2.capitalize()}')
+    # lower UPPER
+    res.add(f'{word1}{word2.upper()}')
+    # Capi lower
+    res.add(f'{word1.capitalize()}{word2}')
+    # Capi Capi
+    res.add(f'{word1.capitalize()}{word2.capitalize()}')
+    # Capi UPPER
+    res.add(f'{word1.capitalize()}{word2.upper()}')
+    # UPPER lower
+    res.add(f'{word1.upper()}{word2}')
+    # UPPER Capi
+    res.add(f'{word1.upper()}{word2.capitalize()}')
+    # UPPER UPPER
+    res.add(f'{word1.upper()}{word2.upper()}')
     return res
 
 def case_variation(words):
@@ -131,7 +192,7 @@ def compute_fix():
     common_prefix = set(case_variation(leet_variation(common_words)))
     common_suffix = [n + s for n in common_numeric for s in common_special]
     common_complete = list(itertools.product(common_prefix, common_suffix))
-    
+
     log.info(f"[*] {len(common_prefix)} prefix computed, {len(common_suffix)} suffix computed, {len(common_complete)} prefix+suffix computed")
 
 
@@ -142,7 +203,7 @@ def common_variation(words, f):
 
     with click.progressbar(words) as wordsbar:
         for word in wordsbar:
-            print(*[word + fix[0] + fix[1] + '\n' + fix[0] + word + fix[1] for fix in common_complete], 
+            print(*[word + fix[0] + fix[1] + '\n' + fix[0] + word + fix[1] for fix in common_complete],
                     sep='\n', file=f)
 
 
@@ -150,43 +211,38 @@ def common_variation(words, f):
 # MAIN #
 ########
 
-def import_words(f):
+def import_words(f, n):
     global common_numeric
     words = set()
+    nicks = set()
+    if n:
+        nicks |= nickname_variation(f.readline().strip().lower())
     for line in f.read().splitlines():
         if line.isdigit():
             common_numeric.add( line )
         else:
             words.add( line.lower() )
-    return words
+    return words, nicks
 
 @click.command()
 @click.option('-n/--nickname', default=False, help='Treat the first word of the list as the company name and compute nickname variations over it')
-@click.argument('wordsfile') 
+@click.argument('wordsfile')
 def main(wordsfile, n):
     """Combine and mangle words about a company to create a wordlist"""
     words = set()
     log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
 
     with open(wordsfile) as f:
-        words = import_words(f)
-        log.info(f"[*] {len(words)} words imported \n{words}")
+        words, nicks = import_words(f,n)
+        log.info(f"[*] {len(words)+len(nicks)} words imported \n{words|nicks}")
         log.info("[*] Computing prefixes and suffixes...")
         compute_fix()
-        """
-        # first we derivate nicknames from sam account names
-        with click.progressbar(users) as usersbar:
-            log.info("[*] Computing nicknames...")
-            for line in usersbar:
-                mangling |= nickname_variation(line)
-        log.info(f"[+] {len(words)} nicknames computed\n{list(words)[:50]}...")
-        """
-        
+
         # second we combine words two by two and compute case variations
         log.info("[*] Combining words...")
-        words = combine(words)
-        log.info(f"[+] {len(words)} combinations\n{list(words)[:50]}...")
-        
+        words = combine(words, nicks)
+        log.info(f"[+] {len(words)} combinations\n{list(words)}...")
+
         # third we compute leet variations
         log.info("[*] Computing leet variations...")
         words = leet_variation(words)
