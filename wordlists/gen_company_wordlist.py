@@ -118,6 +118,8 @@ def nickname_variation(word):
 
 def combine(words, nicks):
     res = set()
+    res |= case_variation(words)
+    res |= case_variation(nicks)
     if len(nicks) != 0:
         for n in nicks:
             for p in itertools.product([n], words):
@@ -189,9 +191,9 @@ def compute_fix():
     global common_words
 
     # pre compute the lists of prefixes and suffixes
-    common_prefix = set(case_variation(leet_variation(common_words)))
-    common_suffix = [n + s for n in common_numeric for s in common_special]
-    common_complete = list(itertools.product(common_prefix, common_suffix))
+    common_prefix = case_variation(leet_variation(common_words))
+    common_suffix = set([n + s for n in common_numeric for s in common_special])
+    common_complete = set(itertools.product(common_prefix, common_suffix))
 
     log.info(f"[*] {len(common_prefix)} prefix computed, {len(common_suffix)} suffix computed, {len(common_complete)} prefix+suffix computed")
 
@@ -238,13 +240,10 @@ def main(wordsfile, n):
         log.info("[*] Computing prefixes and suffixes...")
         compute_fix()
 
-        if len(words) > 1 :
-            # second we combine words two by two and compute case variations
-            log.info("[*] Combining words...")
-            words = combine(words, nicks)
-            log.info(f"[+] {len(words)} combinations\n{list(words)}...")
-        else:
-            words |= nicks
+        # second we combine words two by two and compute case variations
+        log.info("[*] Combining words...")
+        words = combine(words, nicks)
+        log.info(f"[+] {len(words)} combinations\n{list(words)}...")
 
         # third we compute leet variations
         log.info("[*] Computing leet variations...")
