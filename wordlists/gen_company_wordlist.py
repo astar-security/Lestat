@@ -238,10 +238,13 @@ def main(wordsfile, n):
         log.info("[*] Computing prefixes and suffixes...")
         compute_fix()
 
-        # second we combine words two by two and compute case variations
-        log.info("[*] Combining words...")
-        words = combine(words, nicks)
-        log.info(f"[+] {len(words)} combinations\n{list(words)}...")
+        if len(words) > 1 :
+            # second we combine words two by two and compute case variations
+            log.info("[*] Combining words...")
+            words = combine(words, nicks)
+            log.info(f"[+] {len(words)} combinations\n{list(words)}...")
+        else:
+            words |= nicks
 
         # third we compute leet variations
         log.info("[*] Computing leet variations...")
@@ -255,7 +258,7 @@ def main(wordsfile, n):
             common_variation(words, fo)
             log.info(f"[+] {len(words)*len(common_complete)*2} prefixes and suffixes added")
 
-        log.info("[+] Export complete, all is finished")
+        log.info(f"[+] Export complete to {export_filename}, all is finished")
 
 
 if __name__ == '__main__':
