@@ -287,7 +287,7 @@ def crack(ntlm):
     # 4th strategy    
     ntlm = strat_dates(ntlm)
     # 5th strategy    
-    #ntlm = strat_names(ntlm)
+    ntlm = strat_names(ntlm)
     # 6th strategy
     ntlm = strat_words(ntlm)
     return ntlm
