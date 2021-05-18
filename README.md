@@ -111,3 +111,5 @@ python3 GregTheGrapher.py -w charts --transparent lestat.csv
 It is recommended to present the result in a Excel file. Import `users_compromised.csv` in one sheet, `group_compromised.csv` in a second one and use the pictures for a dedicated summary sheet:
 
 ![](https://camo.githubusercontent.com/aa8c35cdb071322f9c0e0d3c0dae9d5bef295cfabaa01115159e640badafffde/68747470733a2f2f626f6e6e792e61737461722e6f72672f6578616d706c655f6c65737461742e706e67)
+
+For any question/support about this project, please visit: [www.astar.org](https://www.astar.org).
