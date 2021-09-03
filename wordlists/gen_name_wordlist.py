@@ -18,9 +18,6 @@ export_filename = 'names.wordlist'
 # init logging format
 log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
 
-# useful for voyel substitution: david -> dvd, julia -> jl, roxane -> rxn
-root = str.maketrans('','','aeiouy')
-
 # get the list of common firstnames from various languages
 log.info("[*] Requesting firstnames list from github...")
 r = requests.get("https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/Names/names.txt")
@@ -38,10 +35,12 @@ words = set()
 birthdates = []
 for m in [str(i).zfill(2) for i in range(1,13)]:
     for d in [str(i).zfill(2) for i in range(1,32)]:
-        birthdates += [ d+m, d+m+'!', m+d, m+d+'!' ]
+        # add 3112 3112! 3112. 3112$ 1231 1231! 1231. 1231$
+        birthdates += [ d+m, d+m+'!', d+m+'.', d+m+'$', m+d, m+d+'!', m+d+'.', m+d+'$' ]
 
 for y in map(str, range(1913, int(time.strftime("%Y"))+1)):
-    birthdates += ['', y, y + '!', y[2:], y[2:] + '!']
+    # add 2013 2013! 2013. 2013$ 13 13! 13. 13$
+    birthdates += ['', y, y+'!', y+'.', y+'$', y[2:], y[2:]+'!', y[2:]+'.', y[2:]+'$']
 
 birthdates = set(birthdates)
 
@@ -54,11 +53,11 @@ log.info("[*] Computing combination for each name...")
 with click.progressbar(names) as namesbar:
      for name in namesbar:
         name = name.lower()
-        # prefix for eg Nicolas: nicolas, nic, nico, nini, ncls
-        prefix = [name, name[:3], name[:4], name[:2] + name[:2], name.translate(root)]
+        # prefix for eg Nicolas: nicolas, nic, nico, nini
+        prefix = [name, name[:3], name[:4], name[:2] + name[:2]]
         for p in prefix:
             for s in birthdates:
-                # derivate each candidate with various case
+                # derivate each candidate with various case david David DAVID dAVID
                 words.add( p+s )
                 words.add( p.upper()+s )
                 words.add( p.capitalize()+s )
