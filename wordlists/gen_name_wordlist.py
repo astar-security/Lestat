@@ -10,6 +10,7 @@ import click
 #########
 
 export_filename = 'names.wordlist'
+input_filename = 'names.txt'
 
 ########
 # INIT #
@@ -19,58 +20,66 @@ export_filename = 'names.wordlist'
 log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
 
 # get the list of common firstnames from various languages
-log.info("[*] Requesting firstnames list from github...")
-r = requests.get("https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/Names/names.txt")
-if not r.ok:
-    log.error("[!] download failed")
+log.info(f"[*] Import input file {input_filename}...")
+f = None
+names = None
+try:
+    f = open(input_filename)
+    names = f.read().lower().split('\n')[0:-1]
+    f.close()
+except Exception as e:
+    log.error(f"[!] Error: {e}")
     exit(1)
-log.info("[+] list downloaded")
-
-# the list of firstnames
-names = r.text.split("\n")
+log.info("[+] Input file imported")
 
 # init the wordlist
 words = set()
 
-birthdates = []
+suffixes = ['']
 for m in [str(i).zfill(2) for i in range(1,13)]:
     for d in [str(i).zfill(2) for i in range(1,32)]:
         # add 3112 3112! 3112. 3112$ 1231 1231! 1231. 1231$
-        birthdates += [ d+m, d+m+'!', d+m+'.', d+m+'$', m+d, m+d+'!', m+d+'.', m+d+'$' ]
+        suffixes += [ d+m, d+m+'!', d+m+'.', d+m+'$', m+d, m+d+'!', m+d+'.', m+d+'$' ]
 
 for y in map(str, range(1913, int(time.strftime("%Y"))+1)):
     # add 2013 2013! 2013. 2013$ 13 13! 13. 13$
-    birthdates += ['', y, y+'!', y+'.', y+'$', y[2:], y[2:]+'!', y[2:]+'.', y[2:]+'$']
+    suffixes += [y, y+'!', y+'.', y+'$', y[2:], y[2:]+'!', y[2:]+'.', y[2:]+'$']
 
-birthdates = set(birthdates)
+for d in map(str, range(10)):
+    # simple digits 0 0! 0. 0$
+    suffixes += [d, d+'!', d+'.', d+'$']
+
+# common numbers
+suffixes += ['123', '1234']
+
+# french DOM/TOM
+suffixes += ['971', '972', '973', '974', '975', '976', '984', '986', '987', '988']
+
+suffixes = set(suffixes)
 
 ########
 # COOK #
 ########
 
-log.info("[*] Computing combination for each name...")
+log.info("[*] Computing name derivation...")
 
+prefix = set()
 with click.progressbar(names) as namesbar:
-     for name in namesbar:
-        name = name.lower()
+    for name in namesbar:
         # prefix for eg Nicolas: nicolas, nic, nico, nini
-        prefix = [name, name[:3], name[:4], name[:2] + name[:2]]
-        for p in prefix:
-            for s in birthdates:
-                # derivate each candidate with various case david David DAVID dAVID
-                words.add( p+s )
-                words.add( p.upper()+s )
-                words.add( p.capitalize()+s )
-                words.add( p[0:1] + p[1:].upper() + s )
+        prefix.update([name, name[:3], name[:4], name[:2] + name[:2]])
 
-log.info("[+] Complete")
+log.info("[+] Derivation finished")
+log.info("[*] Combine names and numbers...")
 
-##########
-# EXPORT #
-##########
-
-# write the wordlist into a file
-log.info(f"[*] Exporting to the file {export_filename}...")
 with open(export_filename, 'w') as f:
-    print(*(words), sep='\n', file=f)
-log.info("[+] Export complete, all is finished")
+    with click.progressbar(prefix) as prefixbar:
+         for p in prefixbar:
+            for s in suffixes:
+                # derivate each candidate with various case david David DAVID dAVID
+                f.write( p+s+'\n' )
+                f.write( p.upper()+s+'\n' )
+                f.write( p.capitalize()+s+'\n' )
+                f.write( p[0:1] + p[1:].upper() + s + '\n' )
+
+log.info(f"[+] Complete, file {export_filename} written")
