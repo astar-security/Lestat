@@ -17,23 +17,22 @@ def ingest_names(input_file):
 
 def compute_suffixes():
     suffixes = ['']
+    special = ['', '!', '.', '$']
     # birthdates
     for m in [str(i).zfill(2) for i in range(1,13)]:
         for d in [str(i).zfill(2) for i in range(1,32)]:
             # add 3112 3112! 3112. 3112$ 1231 1231! 1231. 1231$
-            suffixes += [ d+m, d+m+'!', d+m+'.', d+m+'$', m+d, m+d+'!', m+d+'.', m+d+'$' ]
+            suffixes += [i+j for i in [d+m, m+d] for j in special]
     # years
     for y in map(str, range(1913, int(time.strftime("%Y"))+1)):
         # add 2013 2013! 2013. 2013$ 13 13! 13. 13$
-        suffixes += [y, y+'!', y+'.', y+'$', y[2:], y[2:]+'!', y[2:]+'.', y[2:]+'$']
+        suffixes += [i+j for i in [y, y[2:]] for j in special]
     # digits
-    for d in map(str, range(10)):
-        # simple digits 0 0! 0. 0$
-        suffixes += [d, d+'!', d+'.', d+'$']
+    suffixes += [i+j for i in map(str, range(10)) for j in special]
     # common numbers
-    suffixes += ['123', '1234']
+    suffixes += [i+j for i in ['123', '1234'] for j in special]
     # french DOM/TOM
-    suffixes += ['971', '972', '973', '974', '975', '976', '984', '986', '987', '988']
+    suffixes += [i+j for i in ['971', '972', '973', '974', '975', '976', '984', '986', '987', '988'] for j in special]
     suffixes = set(suffixes)
     return suffixes
 
