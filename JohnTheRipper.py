@@ -7,146 +7,16 @@ import requests
 import time
 import re
 import itertools
+from wordlists.gen_names_wordlist import *
+from wordlists.gen_dates_wordlist import *
+from wordlists.gen_numbers_wordlist import *
+from wordlists.gen_places_wordlist import *
 
 log.basicConfig(format=' %(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
-
-########
-# COOK #
-########
 
 ### dict
 
 dictpath = "/usr/share/dict/words"
-
-### birthdates
-
-birthdates = []
-# 3112 3112! 1231 1231!
-for m in [str(i).zfill(2) for i in range(1,13)]:
-    for d in [str(i).zfill(2) for i in range(1,32)]:
-        birthdates += [ d+m, d+m+'!', m+d, m+d+'!' ]
-
-# 1988 1988! 88 88!
-for y in map(str, range(1913, int(time.strftime("%Y"))+1)):
-    birthdates += ['', y, y + '!', y[2:], y[2:] + '!']
-
-birthdates = set(birthdates)
-
-### root
-
-# useful for voyel substitution: david -> dvd, julia -> jl, roxane -> rxn
-root = str.maketrans('','','aeiouy')
-
-### case
-
-def allCase(word):
-    word = word.lower()
-    # compute daniel, DANIEL, Daniel, dANIEL
-    return [word, word.upper(), word.capitalize(), word[:1] + word[1:].upper()]
-
-
-### dates
-
-months_en = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december", "spring", "summer", "autumn", "winter" ]
-months_nl = [ "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december", "lente", "zomer", "herfst", "winter" ]
-months_fr = [ "janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre", "printemps", "ete", "automne", "hivers" ]
-months = months_en + months_fr + months_nl + ['']
-years = []
-for y in map(str, range(1913, int(time.strftime("%Y"))+1)):
-    # for 1988 add 1988, 1988!, 88, 88!
-    years += ['', y, y + '!', y[2:], y[2:] + '!']
-    if int(y) > 2009:
-        # for 2017, add 2k17, 2K17, 2k17!, 2K17!
-        years += ["2k" + y[2:], "2K" + y[2:], "2k" + y[2:] + '!', "2K" + y[2:] + '!']
-
-years = set(years)
-
-### l33t swap
-
-leet_swap = {
-        's':['5','$'],
-        'e':['3'],
-        'a':['4','@'],
-        'o':['0'],
-        'i':['1','!'],
-        'g':['9'],
-        't':['7']
-        }
-
-### suffixes
-
-common_special = [
-        "!",
-        "@",
-        "$",
-        "%",
-        "&",
-        "*",
-        "?",
-        ".",
-        ""
-        ]
-
-common_words = [
-        "pw",
-        "pwd",
-        "admin",
-        "pass",
-        "adm",
-        ""
-        ]
-
-common_numeric = set([''])
-# 2010 -> now
-common_numeric.update( [str(i) for i in range(2010, int(time.strftime("%Y"))+1)] )
-# 2k10 -> now
-common_numeric.update( ["2k"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
-# 2K10 -> now
-common_numeric.update( ["2K"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
-# 0 -> 9
-common_numeric.update( [str(i) for i in range(10)] )
-# 00 -> 99
-common_numeric.update( [str(i).zfill(2) for i in range(100)] )
-# common numbers
-common_numeric.update( ['123', '1234'] )
-
-
-def leet_variation(words):
-    global leet_swap
-    res = set()
-    first_pass = []
-    for word in words:
-        res.add(word)
-        if word.isalpha() and len(set(word)) > 1 and len(word) > 2:
-            needles = [c for c in leet_swap.keys() if c in word.lower()]
-            for i in range(len(needles)):
-                nee1 = needles[i]
-                for sub in leet_swap[nee1]:
-                    first_pass.append(re.sub(nee1, sub, word, flags=re.I))
-                res |= set(first_pass)
-                for j in range(i+1,len(needles)):
-                    nee2 = needles[j]
-                    for word2 in first_pass:
-                        for sub in leet_swap[nee2]:
-                            res.add(re.sub(nee2, sub, word2, flags=re.I))
-                first_pass = []
-    return res
-
-
-def case_variation(words):
-    res = set()
-    for word in words:
-        res.update( [word, word.upper(), word.capitalize()] )
-    return res
-
-common_prefix = case_variation(leet_variation(common_words))
-common_suffix = set([n + s for n in common_numeric for s in common_special])
-common_complete = set(itertools.product(common_prefix, common_suffix))
-
-#########
-# UTILS #
-#########
-
 
 def downloadWordlist(wordlist):
     log.info("[*] Requesting wordlist...")
@@ -203,13 +73,29 @@ def johnItWithWordlist(ntlm, wordlist, reason):
     log.info(f"[*] {cpt} unique password compromised, {len(ntlm['safe'])} remaining")
     return ntlm
 
+def update_ntlm(ntlm, res, reason):
+    for h in res:
+        ntlm["cracked"][h] = {"password": res[h], "reason": reason, "accounts": list(ntlm["safe"][h])}
+        log.info(f"[+] Password found: '{res[h]}' for {' '.join(ntlm['cracked'][h]['accounts'])}")
+        del(ntlm["safe"][h])
+    log.info(f"[*] {len(res)} new passwords cracked, {len(ntlm['safe'])} remaining")
+    return ntlm
+
+
 ##############
 # STRATEGIES #
 ##############
 
+def strat_empty(ntlm):
+    log.info("[*] Testing empty passwords...")
+    candidates = ('')
+    ntlm, cpt = johnIt(ntlm, candidates, "empty")
+    log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
+    return ntlm
+
 def strat_top10(ntlm):
     log.info("[*] Testing top 10 most common passwords...")
-    candidates = ('', '1234', '123456', '12345678', 'password', 'Password', 'Passw0rd', 'test', '123123', 'abc123')
+    candidates = ('1234', '123456', '12345678', 'password', 'Password', 'Passw0rd', 'test', '123123', 'abc123')
     ntlm, cpt = johnIt(ntlm, candidates, "top10")
     log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
     return ntlm
@@ -230,39 +116,25 @@ def strat_top1M(ntlm):
     log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
     return ntlm
 
+def strat_numbers(ntlm):
+    log.info("[*] Testing numbers from 0 to 99999999...")
+    res = cook_numbers(8, None, passwd2NTLM, ntlm['safe']) 
+    return update_ntlm(ntlm, res, "digits only")
+
 def strat_names(ntlm):
     log.info("[*] Testing names and birthdates...")
-    wordlist = "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Usernames/Names/names.txt"
-    names = downloadWordlist(wordlist)
-    candidates = set()
-    for name in names:
-        name = name.lower()
-        # prefix for eg Nicolas: nicolas, nic, nico, nini, ncls
-        prefix = [name, name[:3], name[:4], name[:2] + name[:2], name.translate(root)]
-        for p in prefix:
-            for s in birthdates:
-                candidates.update(allCase(p+s))
-    ntlm, cpt = johnIt(ntlm, candidates, "name")
-    log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
-    del(candidates)
-    del(names)
-    return ntlm
+    res = cook_names("wordlists/names.txt", None, passwd2NTLM, ntlm['safe']) 
+    return update_ntlm(ntlm, res, "firstname")
+
+def strat_places(ntlm):
+    log.info("[*] Testing places...")
+    res = cook_places("wordlists/places.txt", None, passwd2NTLM, ntlm['safe']) 
+    return update_ntlm(ntlm, res, "place")
 
 def strat_dates(ntlm):
-    global months
-    global years
     log.info("[*] Testing dates...")
-    candidates = set()
-    for month in months:
-        # shortname like July -> jul
-        prefix = [month, month[0:3]]
-        for p in prefix:
-            for s in years:
-                candidates.update(allCase(p+s))
-    ntlm, cpt = johnIt(ntlm, candidates, "date")
-    log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
-    del(candidates)
-    return ntlm
+    res = cook_dates(None, passwd2NTLM, ntlm['safe']) 
+    return update_ntlm(ntlm, res, "date")
 
 def strat_words(ntlm):
     global dictpath
@@ -278,18 +150,15 @@ def strat_words(ntlm):
 
 
 def crack(ntlm):
-    # 1st strategy
+    ntlm = strat_empty(ntlm)
     ntlm = strat_top10(ntlm)
-    # 2nd strategy    
     ntlm = strat_top1000(ntlm)
-    # 3rd strategy    
     ntlm = strat_top1M(ntlm)
-    # 4th strategy    
+    ntlm = strat_numbers(ntlm)
     ntlm = strat_dates(ntlm)
-    # 5th strategy    
     ntlm = strat_names(ntlm)
-    # 6th strategy
-    ntlm = strat_words(ntlm)
+    ntlm = strat_places(ntlm)
+    #ntlm = strat_words(ntlm)
     return ntlm
 
 ##########
@@ -320,3 +189,4 @@ def main(hash_file):
 
 if __name__ == '__main__':
     main()
+
