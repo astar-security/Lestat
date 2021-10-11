@@ -11,7 +11,7 @@ def ingest_names(input_file):
     # get the list of common firstnames from various languages
     log.info(f"[*] Import input file {input_file}...")
     with open(input_file) as f:
-        names = f.read().lower().split('\n')[0:-1]
+        names = f.read().lower().split('\n')
     log.info("[+] Input file imported")
     return names
 
@@ -49,7 +49,7 @@ def derivate(names):
             # capitalize: Nicolas, Nic, Nico, Nini
             derivated.update(map(str.capitalize,shortnames))
             # first lower then upper: nICOLAS, nIC, nICO, nINI
-            derivated.update([i[0] + i[1:].upper() for i in shortnames])
+            derivated.update([i[0:1] + i[1:].upper() for i in shortnames])
     log.info("[+] Derivation finished")
     return derivated
 

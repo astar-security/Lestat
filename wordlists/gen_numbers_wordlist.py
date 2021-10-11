@@ -9,22 +9,25 @@ log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.
 def cook_numbers(limit, output_file=None, hash_function=None, hashes=None):
     if output_file:
         with open(output_file, 'w') as f:
-            for i in range(1, limit+1):
-                for j in range(10**i):
-                    f.write( str(j).zfill(i) + '\n' )
+            for i in range(1,limit+1):
+                with click.progressbar(range(10**i)) as numbersbar:
+                    for j in numbersbar:
+                        f.write( str(j).zfill(i) + '\n' )
     elif hash_function:
         result = {}
-        for i in range(1, limit+1):
-            for j in range(10**i):
-                h = hash_function( candidate := str(j).zfill(i) )
-                if h not in result and h in hashes:
-                    result[h] = candidate
+        for i in range(1,limit+1):
+            with click.progressbar(range(10**i)) as numbersbar:
+                for j in numbersbar:
+                    h = hash_function( candidate := str(j).zfill(i) )
+                    if h not in result and h in hashes:
+                        result[h] = candidate
         return result
     else:
         numbers = []
-        for i in range(1, limit+1):
-            for j in range(10**i):
-                number.append(str(j).zfill(i) )
+        for i in range(1,limit+1):
+            with click.progressbar(range(10**i)) as numbersbar:
+                for j in numbersbar:
+                    number.append(str(j).zfill(i) )
         return numbers
 
 def main():

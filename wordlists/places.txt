@@ -16,7 +16,6 @@ ababa
 abad
 abadan
 abadia
-abaete
 abaetetuba
 abaeté
 abajo
@@ -30,7 +29,6 @@ abate
 abay
 abaza
 abbas
-abbes
 abbeville
 abbey
 abbiategrasso
@@ -42,7 +40,6 @@ abdal
 abdelli
 abderhaman
 abdulino
-abeche
 abengourou
 abeokuta
 abepura
@@ -67,18 +64,17 @@ abohar
 aboisso
 abomey
 abomey-calavi
-abomeycalavi
 abomsa
 abona
 abony
 abou
+abou dabi
 abovyan
 abqaiq
 abreu
 abreus
 abruzzi
 abtal
-abu
 abucay
 abuja
 aburi
@@ -103,22 +99,19 @@ accrington
 aceh
 acerra
 achalpur
-acharnes
 acharnés
 acheng
-acheres
 achern
+achgabat
 achhnera
 achiaman
 achim
 achinsk
 achir
 achkhoy-martan
-achkhoymartan
 achères
 aci
 acilia-castel
-aciliacastel
 acireale
 acocks
 acopiara
@@ -138,10 +131,10 @@ adamantina
 adamstown
 adana
 adapazarı
-addamazin
 addanki
 addiet
 addis
+addis-abeba
 addison
 addu
 adeje
@@ -151,7 +144,6 @@ adelfia
 adelphi
 aden
 adh
-adiake
 adiaké
 adilcevaz
 adirampattinam
@@ -165,16 +157,12 @@ admiralteisky
 ado
 ado-ekiti
 adobes
-adoekiti
 adra
 adrano
 adrar
-adria
 adrian
 adrià
-adrogue
 adrogué
-adzope
 adzopé
 adıyaman
 adūr
@@ -191,6 +179,7 @@ afogados
 afon
 afonso
 afragola
+afrique du sud
 afsin
 afyonkarahisar
 afzalgarh
@@ -209,9 +198,8 @@ ageoshimo
 aghajari
 aghsu
 agia
-agidel’
+agidel'
 agios
-agnibilekrou
 agnibilékrou
 agogo
 agoo
@@ -232,7 +220,6 @@ aguazul
 agudo
 agudos
 aguilares
-aguimes
 agulu
 agustin
 agüimes
@@ -258,22 +245,17 @@ aigio
 aiken
 aileu
 aimma
-aimores
 aimorés
-ain
 aioi
 air
 airdrie
 aires
 airoli
-aisen
 aistala
 aisén
 aiud
 aix-en-provence
 aix-les-bains
-aixenprovence
-aixlesbains
 aizawl
 aja
 ajaccio
@@ -309,14 +291,13 @@ akitashi
 akividu
 akkacha
 akkarampalle
-akkol’
+akkol'
 aklera
 akola
 akonolinga
 akora
 akot
 akouda
-akoupe
 akoupé
 akron
 aksaray
@@ -334,6 +315,7 @@ akyazı
 akçaabat
 akçakale
 akçakoca
+al'met'yevsk
 al-fujairah
 al-hamdaniya
 al-hisn
@@ -360,16 +342,16 @@ alandur
 alanya
 alapayevsk
 alaplı
-alaquas
 alaquàs
 alarcon
 alarobia
 alasehir
-alatyr’
+alatyr'
 alba
 albacete
 albal
 albania
+albanie
 albano
 albans
 albany
@@ -399,7 +381,7 @@ alcantarilla
 alcazar
 alcazares
 alcañiz
-alchevs’k
+alchevs'k
 alcobendas
 alcor
 alcorcon
@@ -423,13 +405,11 @@ aleksandrow
 alekseyevka
 aleksin
 aleksotas
-alem
 aleman
 alemana
 alenquer
 alençon
 aleppo
-ales
 aleshtar
 alessandria
 alexandria
@@ -444,25 +424,22 @@ alfortville
 alfred
 alfreton
 alfter
-alfujairah
 algeciras
 algemesi
+alger
 algeria
-alges
 algete
 alghero
 algiers
 algonquin
 algorta
+algérie
 algés
 alhama
 alhambra
-alhamdaniya
 alhaurin
-alhisn
 ali
 alia
-aliaga
 aliağa
 alibag
 alicante
@@ -477,7 +454,6 @@ aliso
 aliwal
 aljarafe
 aljaraque
-alkhaimah
 alkmaar
 allada
 allahabad
@@ -485,6 +461,7 @@ allahyar
 allanridge
 allapattah
 allauch
+allemagne
 allen
 allendale
 allende
@@ -550,7 +527,6 @@ altena
 altenburg
 altepexi
 altglienicke
-althohenschönhausen
 alto
 alton
 altona
@@ -559,7 +535,7 @@ altos
 altotonga
 altrincham
 altstadt
-altuf’yevskiy
+altuf'yevskiy
 altus
 alum
 alushta
@@ -577,7 +553,6 @@ alzey
 alzira
 alès
 além
-al’met’yevsk
 amadeo
 amadora
 amagasaki
@@ -629,21 +604,18 @@ amboy
 ambur
 ameca
 amecameca
-america
 american
 americana
-americo
 americus
 amersfoort
 amersham
-ames
 amesbury
 amet
 ameur
 amherst
 ami
 amiens
-amin’yevo
+amin'yevo
 amirdzhan
 amityville
 amizour
@@ -675,7 +647,6 @@ amroli
 amstelveen
 amsterdam
 amsterdam-zuidoost
-amsterdamzuidoost
 amstetten
 amudalavalasa
 amufu
@@ -704,7 +675,6 @@ anapolis
 anastacio
 anbu
 anbyon-up
-anbyonup
 ancaster
 anchau
 anchorage
@@ -728,11 +698,11 @@ andol
 andong
 andorinho
 andorra
+andorre
+andorre-la-vieille
 andover
 andradas
 andradina
-andre
-andres
 andreu
 andrews
 andreyevskoye
@@ -741,7 +711,6 @@ andrychow
 andré
 andrés
 andújar
-aneho
 anekal
 angamali
 angarsk
@@ -749,7 +718,6 @@ angat
 angela
 angeles
 angelo
-angermunde
 angermünde
 angers
 anglet
@@ -789,14 +757,12 @@ ann
 anna
 annaba
 annaberg-buchholz
-annabergbuchholz
 annaka
 annapolis
 annaram
 annau
 annecy
 annecy-le-vieux
-annecylevieux
 annemasse
 annes
 annigeri
@@ -809,7 +775,6 @@ anqing
 anqiu
 ans
 ansan-si
-ansansi
 ansbach
 anseong
 anserma
@@ -832,13 +797,13 @@ antibes
 antica
 antigua
 antigua & deps
+antigua-et-barbuda
 antiguo
 antioch
 antipolo
 antofagasta
 antoni
 antonina
-antonio
 antony
 antratsyt
 antrim
@@ -854,17 +819,14 @@ anxiang
 anyama
 anyang
 anyang-si
-anyangsi
 anzali
 anzhero-sudzhensk
-anzherosudzhensk
 anzio
 aného
 anūpgarh
 anūppur
 anūpshahr
 aoji-ri
-aojiri
 aomorishi
 aonla
 aosta
@@ -887,7 +849,6 @@ apex
 apia
 apiai
 apizaco
-aplahoue
 aplahoué
 apodaca
 apodi
@@ -910,6 +871,7 @@ aqtöbe
 aquidauana
 aquiraz
 ara
+arabie saoudite
 aracaju
 aracataca
 aracati
@@ -929,7 +891,6 @@ aral
 arambagh
 aramil
 aramoko-ekiti
-aramokoekiti
 aranda
 arandas
 arang
@@ -975,9 +936,7 @@ ardahan
 ardakan
 ardea
 ardea-tor
-ardeator
 arden-arcade
-ardenarcade
 ardesen
 ardestan
 ardmore
@@ -997,6 +956,7 @@ arganzuela
 argentan
 argenteuil
 argentina
+argentine
 arges
 argun
 argungu
@@ -1023,7 +983,7 @@ arjawinangun
 arjona
 arkalgūd
 arkalyk
-arkhangel’sk
+arkhangel'sk
 arles
 arlington
 arlon
@@ -1032,14 +992,14 @@ armadale
 armavir
 armação
 armenia
-armentieres
 armentières
 armeria
 armerina
 armidale
 armilla
 armuelles
-armyans’k
+armyans'k
+arménie
 arnat
 arnhem
 arnold
@@ -1067,16 +1027,15 @@ arrow
 arroyito
 arroyo
 arroyos
-arsen’yev
+arsen'yev
 arsikere
 arsin
 arsizio
 arsk
 artashat
 arteixo
-artemida
 artemisa
-artemivs’k
+artemivs'k
 artesia
 artigas
 artsyz
@@ -1139,7 +1098,6 @@ ashtabula
 ashtarak
 ashton
 ashton-under-lyne
-ashtonunderlyne
 ashwaubenon
 asia
 asifabad
@@ -1150,9 +1108,7 @@ asis
 askale
 askoy
 asmara
-asnieres-sur-seine
 asnières-sur-seine
-asnièressurseine
 aso
 aspe
 aspen
@@ -1177,7 +1133,6 @@ asyūt
 at
 at-bashi
 ata
-atakpame
 atakpamé
 atalaia
 atamaria
@@ -1193,7 +1148,6 @@ atascocita
 atasehir
 atbara
 atbasar
-atbashi
 atella
 atenco
 ater
@@ -1202,9 +1156,9 @@ athens
 atherton
 athi
 athis-mons
-athismons
 athlone
 athni
+athènes
 ati
 atibaia
 atimonan
@@ -1246,7 +1200,6 @@ augustin
 augusto
 augustow
 aulnay-sous-bois
-aulnaysousbois
 aurad
 auraiya
 aurangabad
@@ -1258,13 +1211,14 @@ austell
 austin
 austintown
 australia
+australie
 austria
 autlan
 autopan
+autriche
 autun
 auxerre
 avanigadda
-avare
 avarua
 avaré
 avdiyivka
@@ -1278,7 +1232,6 @@ aversa
 avezzano
 avignon
 avila
-aviles
 avilés
 avinashi
 avion
@@ -1304,7 +1257,6 @@ ayakudi
 ayamonte
 ayampuc
 ayang-ni
-ayangni
 ayapel
 ayaviri
 aycliffe
@@ -1327,6 +1279,7 @@ azazga
 azcapotzalco
 azcatepec
 azemmour
+azerbaidjan
 azerbaijan
 azimpur
 azna
@@ -1350,7 +1303,6 @@ ağdam
 ağdas
 ağrı
 aḩmadi
-ba
 baalbek
 baao
 baar
@@ -1371,7 +1323,6 @@ babina
 babo-pangulo
 babol
 babolsar
-babopangulo
 babor
 babra
 babrala
@@ -1403,7 +1354,6 @@ baddi
 baddomalhi
 baden
 baden-baden
-badenbaden
 badger
 badin
 badiyah
@@ -1423,7 +1373,6 @@ bafang
 bafata
 bafia
 bafilo
-bafoulabe
 bafoulabé
 bafoussam
 bafq
@@ -1435,7 +1384,7 @@ bagan
 bagar
 bagasra
 bagayevskaya
-bage
+bagdad
 bagepalli
 bagevadi
 baggabag
@@ -1450,9 +1399,7 @@ baglung
 bagneux
 bagnolet
 bagnoli
-bagnols-sur-ceze
 bagnols-sur-cèze
-bagnolssurcèze
 bago
 bagong
 bagre
@@ -1477,14 +1424,14 @@ bahau
 bahauddin
 bahawalnagar
 bahawalpur
-bahbah
 baheri
 bahia
 bahir
 bahjoi
-bahla’
+bahla'
 bahraigh
 bahrain
+bahreïn
 bahru
 bahula
 bahçe
@@ -1497,8 +1444,6 @@ baidoa
 baidyabati
 baie-comeau
 baie-mahault
-baiecomeau
-baiemahault
 baiersbronn
 baigorria
 baihar
@@ -1506,9 +1451,7 @@ baihe
 baijiantan
 bail-hongal
 baildon
-bailen
 bailesti
-bailhongal
 bailio
 bailén
 bainbridge
@@ -1535,6 +1478,7 @@ bakhmach
 bakhtiyarpur
 baki
 bako
+bakou
 bakri
 baksan
 baku
@@ -1633,9 +1577,9 @@ banbury
 banco
 banda
 bandar
+bandar seri begawan
 bandar-e
 bandarban
-bandare
 bandeirantes
 banderilla
 bandikūi
@@ -1648,10 +1592,7 @@ baneh
 banepa
 banes
 banfora
-bang
-banga
 banganapalle
-bangangte
 bangangté
 bangaon
 bangarapet
@@ -1684,7 +1625,6 @@ banning
 bannu
 bannūr
 banora
-banos
 banovce
 banqiao
 bansalan
@@ -1740,12 +1680,12 @@ baraut
 barañain
 barbacena
 barbacha
+barbade
 barbados
 barbalha
 barbara
 barbastro
 barbate
-barbera
 barberena
 barberton
 barberà
@@ -1782,13 +1722,11 @@ barisal
 bariya
 barjala
 barka
-barka’
+barka'
 barki
 barking
-barleduc
 barletta
 barmbek-nord
-barmbeknord
 barmer
 barnala
 barnaul
@@ -1830,7 +1768,6 @@ barstow
 bartlesville
 bartlett
 bartley
-bartolome
 bartolomé
 bartoszyce
 bartow
@@ -1841,7 +1778,6 @@ baruipur
 baruni
 baruta
 baruun-urt
-baruunurt
 barwala
 barwani
 barysaw
@@ -1867,7 +1803,6 @@ basrah
 bassano
 bassar
 basse-terre
-basseterre
 bassila
 basso
 bassum
@@ -1912,7 +1847,6 @@ batu
 batumi
 baturaden
 baturaja
-baturite
 baturité
 batyra
 bauan
@@ -1923,7 +1857,6 @@ bauda
 bauerschaft
 bauga
 baule-escoublac
-bauleescoublac
 baulkham
 baumschulenweg
 baunatal
@@ -1951,7 +1884,7 @@ bayburt
 bayern
 bayeux
 bayji
-baykal’sk
+baykal'sk
 baykonyr
 baymak
 baynjiwayn
@@ -1969,18 +1902,16 @@ bayt
 baytown
 bayugan
 bayındır
-bayḑa’
+bayḑa'
 baza
 bazar
 bazar-korgon
 bazarak
-bazarkorgon
 bazpur
 bañga
 baños
 bağcılar
 baḩah
-bcharre
 bcharré
 beach
 beacon
@@ -2001,7 +1932,6 @@ beberibe
 bebington
 bebravou
 becej
-bechar
 beckenham
 beckingen
 beckum
@@ -2020,7 +1950,6 @@ beersel
 beersheba
 begamganj
 begawan
-begles
 begoro
 begusarai
 begūn
@@ -2029,6 +1958,7 @@ behbahan
 behror
 behshahr
 bei
+bei'an
 beibei
 beichengqu
 beidaihehaibin
@@ -2039,20 +1969,14 @@ beipiao
 beira
 beirut
 beitbridge
-bei’an
-beja
-bejar
 bejaïa
 bejucal
 bekalta
 bekasi
-bekes
-bekescsaba
 bekobod
 bektemir
 bel
 bela
-belabo
 belait
 belalcazar
 belarus
@@ -2063,12 +1987,11 @@ beldanga
 belebey
 beledweyne
 belek
-belem
-belen
 belfast
 belford
 belfort
 belgaum
+belgique
 belgium
 belgorod
 belgrade
@@ -2080,7 +2003,6 @@ bella
 bellaire
 bellampalli
 bellaria-igea
-bellariaigea
 bellary
 bellavista
 belle
@@ -2122,11 +2044,9 @@ belém
 belén
 belëv
 belūr
-bembereke
 bembèrèkè
 bemetara
 bemowo
-ben
 benalmadena
 benavente
 benbrook
@@ -2135,7 +2055,6 @@ bende
 bender
 bendigo
 bendorf
-bene
 benedetto
 benesov
 benetússer
@@ -2149,11 +2068,9 @@ bengkulu
 benguela
 beni
 benicarlo
-benicassim
 benicia
 benicàssim
 benidorm
-benin
 benito
 bennour
 benoni
@@ -2176,7 +2093,6 @@ benxi
 bené
 beohari
 beolgyo
-beoumi
 beppu
 bera
 beraq
@@ -2185,13 +2101,11 @@ berastagi
 berat
 berber
 berbera
-berberati
 berbérati
 berck
 berck-plage
-berckplage
 berdsk
-berdyans’k
+berdyans'k
 berdychiv
 berea
 berehove
@@ -2233,6 +2147,7 @@ bernardino
 bernardo
 bernau
 bernburg
+berne
 beroroha
 beroun
 berrahal
@@ -2247,7 +2162,6 @@ beruniy
 beruwala
 berwick
 berwick-upon-tweed
-berwickupontweed
 berwyn
 beryozovsky
 berëzovka
@@ -2257,7 +2171,6 @@ besar
 besbes
 beshariq
 beshkent
-besikduzu
 besikdüzü
 beslan
 besni
@@ -2271,7 +2184,6 @@ betafo
 betamcherla
 betancourt
 betar
-betera
 bethal
 bethany
 bethel
@@ -2279,7 +2191,6 @@ bethesda
 bethlehem
 bethnal
 bethpage
-bethune
 betim
 betioky
 betong
@@ -2295,20 +2206,18 @@ beverwijk
 bewar
 bexbach
 bexhill-on-sea
-bexhillonsea
 bexley
 bey
 beykonak
 beylagan
-beylikduzu
 beylikdüzü
 beypazarı
 beypore
+beyrouth
 beysehir
 bezenchuk
 bezerros
 bezhetsk
-beziers
 bezons
 beïda
 bełchatow
@@ -2390,6 +2299,7 @@ bhongir
 bhopal
 bhopalwala
 bhor
+bhoutan
 bhuban
 bhubaneshwar
 bhudgaon
@@ -2415,6 +2325,7 @@ bibiani
 bibirevo
 bicester
 bichena
+bichkek
 bida
 bidar
 bidbid
@@ -2430,12 +2341,9 @@ bielefeld
 biella
 bielsk
 bielsko-biala
-bielskobiala
-bien
 bierun
 biesdorf
 bietigheim-bissingen
-bietigheimbissingen
 big
 biga
 bigadiç
@@ -2474,8 +2382,7 @@ bilecik
 bilgi
 bilgram
 bilhaur
-bilhorod-dnistrovs’kyy
-bilhoroddnistrovs’kyy
+bilhorod-dnistrovs'kyy
 bilicenii
 bilimora
 bilina
@@ -2484,7 +2391,7 @@ billericay
 billingham
 billings
 billiri
-bilohirs’k
+bilohirs'k
 bilopillya
 biloxi
 bilqas
@@ -2505,7 +2412,6 @@ bingerville
 binghamton
 bingley
 bingöl
-binh
 binhe
 binjai
 binka
@@ -2531,6 +2437,7 @@ birkenhead
 birkerod
 birkhadem
 birkirkara
+birmanie
 birmingham
 birmitrapur
 birni
@@ -2567,12 +2474,12 @@ bitlis
 bitola
 bitonto
 bitterfeld-wolfen
-bitterfeldwolfen
 bitung
 biu
 bixby
 biysk
 bizerte
+biélorussie
 biên
 biłgoraj
 bjelovar
@@ -2593,7 +2500,6 @@ blaj
 blanc-mesnil
 blanca
 blanchardstown
-blancmesnil
 blanco
 blancos
 blanes
@@ -2634,7 +2540,6 @@ bobbili
 bobigny
 bobingen
 bobo-dioulasso
-bobodioulasso
 bobrov
 boca
 bocaiúva
@@ -2643,7 +2548,6 @@ bochnia
 bocholt
 bochum
 bochum-hordel
-bochumhordel
 bocsa
 boda
 bodaybo
@@ -2675,7 +2579,6 @@ bogovinje
 bogra
 boguchar
 boguszow-gorce
-boguszowgorce
 bohicon
 bohodukhiv
 bohumin
@@ -2685,21 +2588,19 @@ boiro
 bois-colombes
 boisar
 boisbriand
-boiscolombes
 boise
-boissy-saint-leger
 boissy-saint-léger
-boissysaintléger
 boituva
 bojia
 bojnūrd
 bojonegoro
 bokajan
 bokaro
-boke
 boksburg
 boksitogorsk
 boké
+bol'shaya
+bol'shoy
 boldumsaz
 boleslav
 bolesławiec
@@ -2709,6 +2610,7 @@ boli
 bolingbrook
 bolivar
 bolivia
+bolivie
 bollate
 bolobo
 bologna
@@ -2720,8 +2622,6 @@ bolton
 bolu
 bolvadin
 bolzano
-bol’shaya
-bol’shoy
 bom
 bonab
 bonao
@@ -2741,7 +2641,6 @@ bonita
 bonito
 bonn
 bonneuil-sur-marne
-bonneuilsurmarne
 bonney
 bonny
 bonoua
@@ -2784,7 +2683,7 @@ borsa
 borsad
 borssele
 boryslav
-boryspil’
+boryspil'
 borzya
 borūjen
 borūjerd
@@ -2796,6 +2695,7 @@ boshan
 boshkengash
 boskoop
 bosnia herzegovina
+bosnie-herzégovine
 bossangoa
 bossier
 boston
@@ -2811,11 +2711,8 @@ botshabelo
 botswana
 bottrop
 botucatu
-bou
-bouafle
 bouaflé
 bouaghi
-bouake
 bouaké
 bouar
 boucherville
@@ -2835,8 +2732,6 @@ boulaï
 boulder
 boulogne-billancourt
 boulogne-sur-mer
-boulognebillancourt
-boulognesurmer
 boulsa
 boumahra
 boumerdas
@@ -2847,19 +2742,13 @@ bouquets
 bourbonnais
 bourg-en-bresse
 bourg-la-reine
-bourg-les-valence
 bourg-lès-valence
-bourgenbresse
 bourges
-bourglareine
-bourglèsvalence
 bourgoin
 bourgoin-jallieu
-bourgoinjallieu
 bourguiba
 bournemouth
 bouscat
-bousse
 boussu
 boussé
 bouziane
@@ -2867,7 +2756,6 @@ bouzid
 bouznika
 bouïra
 bovisio-masciago
-bovisiomasciago
 bow
 bowie
 bowling
@@ -2887,7 +2775,6 @@ bozeman
 bozhou
 bozoum
 bozova
-bozuyuk
 bozyazı
 bozüyük
 boû
@@ -2908,8 +2795,6 @@ brahmapur
 braila
 braine-l'alleud
 braine-le-comte
-brainel'alleud
-brainelecomte
 brainerd
 braintree
 brajarajnagar
@@ -2971,7 +2856,6 @@ bressanone
 bresso
 bressuire
 brest
-bretigny-sur-orge
 bretten
 breves
 brezina
@@ -2990,7 +2874,6 @@ bridgford
 bridgwater
 bridlington
 brie-comte-robert
-briecomterobert
 brierley
 brigham
 brighouse
@@ -3007,7 +2890,6 @@ briton
 brits
 britz
 brive-la-gaillarde
-brivelagaillarde
 brixham
 brixton
 brno
@@ -3044,17 +2926,12 @@ brownhills
 brownsburg
 brownsville
 brownwood
-bruay-la-buissiere
 bruay-la-buissière
-bruaylabuissière
 bruchköbel
 bruchsal
-bruckmuhl
 bruckmühl
 brugge
-bruggen
 brugherio
-bruhl
 brumadinho
 brumado
 brummen
@@ -3068,6 +2945,7 @@ brusciano
 brushy
 brusque
 brussels
+bruxelles
 bruzual
 brvenica
 bry-sur-marne
@@ -3078,26 +2956,24 @@ bryansk
 bryant
 brymbo
 bryn
-brysurmarne
 bryukhovetskaya
 brzeg
 brzesko
+brésil
 brétigny-sur-orge
-brétignysurorge
 brüggen
 brühl
 bua
 buaran
 bucak
 bucaramanga
+bucarest
 bucha
 buchanan
 bucharest
 buchen
 bucheon-si
-bucheonsi
 buchholz
-buckeburg
 buckeye
 buckhaven
 buckley
@@ -3109,7 +2985,6 @@ buddh
 buderim
 budhana
 budhlada
-budingen
 budrukh
 budta
 buduran
@@ -3122,6 +2997,7 @@ buenavista
 bueng
 bueno
 buenos
+buenos aires
 buerarema
 buffalo
 buftea
@@ -3132,13 +3008,12 @@ bugo
 bugojno
 bugres
 bugti
-bugul’ma
+bugul'ma
 buguma
 buguruslan
 buh
 buhe
 buhi
-buhl
 buhusi
 buin
 buinsk
@@ -3164,23 +3039,22 @@ bulawayo
 buldana
 bulgan
 bulgaria
+bulgarie
 bullhead
 bulolo
 buluan
+bulung'ur
 bulungu
-bulung’ur
 bumba
 bunawan
 bunbury
 bunda
 bundaberg
-bunde
 bundibugyo
 bundoora
 bunga
 bungo-takada-shi
 bungoma
-bungotakadashi
 bungu
 bunia
 bunschoten
@@ -3191,7 +3065,6 @@ burayj
 buraymi
 burbank
 burdur
-buren
 burg
 burgas
 burgdorf
@@ -3210,6 +3083,7 @@ buritis
 buritizeiro
 burjassot
 burkina
+burkina faso
 burla
 burlata
 burleson
@@ -3217,7 +3091,6 @@ burlingame
 burlington
 burnaby
 burnham-on-sea
-burnhamonsea
 burnie
 burnley
 burnsville
@@ -3226,7 +3099,6 @@ burrel
 burriana
 bursa
 burscheid
-burstadt
 burton
 burunday
 burundi
@@ -3242,7 +3114,6 @@ busia
 businga
 businovo
 busko-zdroj
-buskozdroj
 busselton
 bussolengo
 bussum
@@ -3254,14 +3125,12 @@ butare
 butel
 butembo
 butha-buthe
-buthabuthe
 butia
 butiama
 butler
 butte
 butte-silver
 butterworth
-buttesilver
 butuan
 buturlinovka
 butwal
@@ -3302,6 +3171,7 @@ béjar
 békés
 békéscsaba
 bélabo
+bénin
 béoumi
 bétera
 béthune
@@ -3331,8 +3201,6 @@ bắc
 bằng
 bến
 bỉm
-ca
-caacupe
 caacupé
 caaguazú
 caala
@@ -3361,7 +3229,6 @@ cabralia
 cabrero
 cabreúva
 cabrobo
-cacem
 caceres
 cachan
 cachoeira
@@ -3376,22 +3243,18 @@ cadiz
 caen
 caerphilly
 caetano
-caete
-caetite
 caetité
 caeté
 cafetal
 cagayan
 cagliari
 cagnes-sur-mer
-cagnessurmer
 cagua
 caguas
 cahokia
 cahors
 cahul
 cai
-caibarien
 caibarién
 caicedonia
 caico
@@ -3453,20 +3316,17 @@ calpulalpan
 caltagirone
 caltanissetta
 caluire-et-cuire
-caluireetcuire
 calumet
 calumpang
 calumpit
 caluquembe
 calverton
-calvia
 calvillo
 calvià
 calvo
 calw
 cam
 camacupa
-camaguey
 camagüey
 camaiore
 camajuani
@@ -3481,10 +3341,10 @@ camas
 camayenne
 camaçari
 cambara
-cambe
 cambebba
 camberley
 camberwell
+cambodge
 cambodia
 camboriú
 camborne
@@ -3497,6 +3357,7 @@ cambé
 camden
 cameron
 cameroon
+cameroun
 cameta
 camiling
 caminos
@@ -3511,7 +3372,6 @@ campeche
 campechuela
 campello
 campi
-campina
 campinas
 campiña
 campo
@@ -3520,7 +3380,6 @@ campobasso
 campos
 camrose
 cana
-canada
 canales
 cananea
 canaria
@@ -3529,13 +3388,12 @@ canavieiras
 canberra
 canby
 cancello
-cancún
+cancun
 candaba
 candelaria
 candi
 candiac
 candler-mcafee
-candlermcafee
 cane
 canedo
 canela
@@ -3546,7 +3404,6 @@ canguçu
 cangzhou
 canicattì
 canidelo
-caninde
 canindé
 canlaon
 canna
@@ -3573,17 +3430,18 @@ cantù
 canyon
 cao
 caohe
+cap-vert
 capanema
 capannori
 caparica
 capas
+capdagde
 cape
 cape verde
 capela
 capelinha
 capelle
 capesterre-belle-eau
-capesterrebelleeau
 capiata
 capibaribe
 capim
@@ -3673,11 +3531,9 @@ carrasco
 carrboro
 carrefour
 carrickfergus
-carrieres-sous-poissy
 carrillo
 carrizal
 carrières-sous-poissy
-carrièressouspoissy
 carrollton
 carrollwood
 carrum
@@ -3731,7 +3587,6 @@ castelldefels
 castelli
 castello
 castelnau-le-lez
-castelnaulelez
 castelo
 castelvetrano
 castiglione
@@ -3748,8 +3603,6 @@ castries
 castro
 castro-urdiales
 castrop-rauxel
-castroprauxel
-castrourdiales
 castrovillari
 cat
 catabola
@@ -3777,7 +3630,6 @@ catharines
 cathedral
 catia
 cativa
-catole
 catolé
 catonsville
 catriel
@@ -3785,7 +3637,6 @@ cattolica
 catu
 catumbela
 caucaguita
-caucaguito
 caucagüito
 caucaia
 caucasia
@@ -3812,7 +3663,6 @@ cañas
 cañete
 cañon
 ceadîr-lunga
-ceadîrlunga
 ceara
 ceballos
 cebu
@@ -3822,7 +3672,6 @@ cecina
 cedar
 ceeldheer
 ceerigaabo
-cegled
 ceglie
 cegléd
 cehegin
@@ -3833,7 +3682,6 @@ celbridge
 celje
 celle
 celle-saint-cloud
-cellesaintcloud
 celoni
 celso
 cenang
@@ -3857,11 +3705,9 @@ cepu
 cercola
 cerdanyola
 ceres
-cerete
 cereté
 cergy
 cergy-pontoise
-cergypontoise
 cerignola
 cernavoda
 cernusco
@@ -3876,16 +3722,13 @@ cesar
 cesena
 cesenatico
 cessnock
-cesson-sevigne
 cesson-sévigné
-cessonsévigné
 cestas
 cetinje
 ceuta
 ceyhan
 ceylanpınar
 cha-am
-chaam
 chaamba
 chabahar
 chabanne
@@ -3897,7 +3740,6 @@ chachapoyas
 chachoengsao
 chad
 chaeryong-up
-chaeryongup
 chaguanas
 chahmi
 chai
@@ -3930,14 +3772,9 @@ challakere
 challans
 challapalle
 chalmette
-chalon-sur-saone
 chalon-sur-saône
 chalong
-chalonsursaone
-chalonsursaône
 chalūs
-cham
-chamalieres
 chamalières
 chaman
 chamartin
@@ -3945,17 +3782,14 @@ chamba
 chambas
 chamberi
 chambersburg
-chambery
 chambly
 chambéry
 champa
 champaign
 champigny-sur-marne
-champignysurmarne
 champlin
 champoton
 champs-sur-marne
-champssurmarne
 chamrajnagar
 chamrap
 chan
@@ -3971,7 +3805,6 @@ chandor
 chandpur
 chandrakona
 chanduasi
-chandur
 chandūr
 chang
 changanacheri
@@ -4014,8 +3847,6 @@ chapayevsk
 chapeco
 chapel
 chapelle-sur-erdre
-chapellesurerdre
-chapeu
 chapletown
 chapra
 chapéu
@@ -4026,7 +3857,6 @@ charata
 charco
 charef
 charenton-le-pont
-charentonlepont
 charikar
 charkhari
 charkhi
@@ -4036,11 +3866,9 @@ charleston
 charleville-mezières
 charleville-mézieres
 charleville-mézières
-charlevillemézières
 charlotte
 charlottenburg
 charlottenburg-nord
-charlottenburgnord
 charlottenlund
 charlottetown
 charneca
@@ -4065,7 +3893,6 @@ chauk
 chaumont
 chaupimarca
 chaux-de-fonds
-chauxdefonds
 chavakkad
 chaville
 chawinda
@@ -4073,7 +3900,7 @@ chaykovskiy
 chaïdari
 cheadle
 cheb
-chebarkul’
+chebarkul'
 chebba
 chebli
 cheboksary
@@ -4108,22 +3935,17 @@ chengyang
 chengzhong
 chengzihe
 chennai
-chennevieres-sur-marne
 chennevières-sur-marne
-chennevièressurmarne
 chennimalai
 chenzhou
 chenôve
 cheonan
 cheongju-si
-cheongjusi
 cheongsong
-chepen
 chepo
 chepén
 cheraga
 cherbourg-octeville
-cherbourgocteville
 cheremkhovo
 cherepanovo
 cherepovets
@@ -4144,7 +3966,7 @@ chertanovo
 cherthala
 cherven
 chervonohrad
-chervonopartyzans’k
+chervonopartyzans'k
 cherëmushki
 chesham
 cheshire
@@ -4154,14 +3976,12 @@ chessington
 chester
 chester-le-street
 chesterfield
-chesterlestreet
 chetouane
 chetput
 chettia
 chettipalaiyam
 chetumal
 chevilly-larue
-chevillylarue
 chey
 cheyenne
 cheyyar
@@ -4198,14 +4018,12 @@ chicacao
 chicacole
 chicago
 chichawatni
-chichen-itza
 chichester
 chichibu
 chichicastenango
 chichigalpa
 chicholi
 chichén-itza
-chichénitza
 chickasha
 chiclana
 chiclayo
@@ -4232,12 +4050,12 @@ chikmagalūr
 chiknayakanhalli
 chikodi
 chikushino-shi
-chikushinoshi
 chilakalūrupet
 chilapa
 chilaw
 chile
 chilecito
+chili
 chilibre
 chililabombwe
 chillan
@@ -4245,7 +4063,6 @@ chilliwack
 chillum
 chillupar
 chilly-mazarin
-chillymazarin
 chilmari
 chilpancingo
 chimala
@@ -4263,6 +4080,7 @@ chinch'on
 chincha
 chinchina
 chincholi
+chine
 chingola
 chinhoyi
 chiniot
@@ -4298,12 +4116,11 @@ chishmy
 chishtian
 chisinau
 chislehurst
-chistopol’
+chistopol'
 chita
 chitapur
 chitose
 chitradurga
-chitre
 chitré
 chittagong
 chittaranjan
@@ -4323,16 +4140,13 @@ chocope
 chodavaram
 chodzież
 choisy-le-roi
-choisyleroi
 chojnice
 chok
-chokwe
 chokwé
 cholargos
 cholet
 choloma
 cholpon-ata
-cholponata
 cholula
 choluteca
 chom
@@ -4366,7 +4180,6 @@ chrzanow
 chu
 chubek
 chudovo
-chuhar
 chuhuyiv
 chula
 chulucanas
@@ -4381,19 +4194,17 @@ churachandpur
 chusovoy
 chust
 chuzhou
+chypre
 chàm
 châlons-en-champagne
-châlonsenchampagne
 château-thierry
 châteaudun
 châteauguay
 châteauroux
-châteauthierry
 châtelard
 châtelet
 châtellerault
 châtenay-malabry
-châtenaymalabry
 châtillon
 chã
 chōfugaoka
@@ -4412,7 +4223,6 @@ cicurug
 ciechanow
 ciego
 ciempozuelos
-cienaga
 cienfuegos
 cieszyn
 cieza
@@ -4434,18 +4244,15 @@ ciotat
 cipolletti
 ciputat
 ciranjang-hilir
-ciranjanghilir
 circasia
 cirebon
 cirencester
-cirie
 ciriè
 ciro
 cisnadie
 cisterna
 citeureup
 citrus
-citta
 città
 city
 ciudad
@@ -4456,7 +4263,6 @@ civitavecchia
 cizre
 ciénaga
 clacton-on-sea
-clactononsea
 clair
 claire
 clamart
@@ -4464,7 +4270,6 @@ clara
 claremont
 claremore
 clarence-rockland
-clarencerockland
 clarita
 clarksdale
 clarksville
@@ -4472,9 +4277,7 @@ claro
 claros
 claudio
 clausthal-zellerfeld
-clausthalzellerfeld
 clayes-sous-bois
-clayessousbois
 clayton
 clearfield
 clearlake
@@ -4488,12 +4291,10 @@ clemente
 clemmons
 clermont
 clermont-ferrand
-clermontferrand
 clevedon
 cleveland
 clichy
 clichy-sous-bois
-clichysousbois
 cliffside
 clifton
 clinton
@@ -4507,7 +4308,6 @@ clovis
 cluain
 club
 cluj-napoca
-clujnapoca
 cluses
 clydach
 clydebank
@@ -4553,7 +4353,6 @@ coimbatore
 coimbra
 coin
 coishco
-coite
 coity
 coité
 cojutepeque
@@ -4568,7 +4367,6 @@ colgong
 colima
 colinas
 collado-villalba
-colladovillalba
 colle
 colleferro
 college
@@ -4587,6 +4385,7 @@ colomadu
 colomba
 colombes
 colombia
+colombie
 colombo
 colomiers
 colon
@@ -4605,8 +4404,6 @@ comalcalco
 comanesti
 comayagua
 combs-la-ville
-combslaville
-come
 comense
 comilla
 comiso
@@ -4617,8 +4414,8 @@ commerce
 como
 comodoro
 comonfort
+comores
 comoros
-compiegne
 compiègne
 compostela
 compton
@@ -4637,7 +4434,6 @@ conde
 conegliano
 coney
 conflans-sainte-honorine
-conflanssaintehonorine
 congo
 congonhas
 conil
@@ -4669,6 +4465,7 @@ coos
 copacabana
 copan
 copenhagen
+copenhague
 copertino
 copey
 copiague
@@ -4685,7 +4482,6 @@ coram
 corato
 corações
 corbeil-essonnes
-corbeilessonnes
 corcoran
 corda
 cordeiro
@@ -4702,11 +4498,8 @@ corinto
 cork
 cormano
 cormeilles-en-parisis
-cormeillesenparisis
 cornaredo
-cornelio
 cornelius
-cornella
 cornellà
 corner
 corners
@@ -4741,6 +4534,8 @@ coruña
 corvallis
 corvera
 corzo
+corée du nord
+corée du sud
 cosamaloapan
 cosenza
 coslada
@@ -4751,6 +4546,7 @@ costa
 costa rica
 coswig
 cotabato
+cote d'ivoire
 cotia
 cotillas
 cotoca
@@ -4761,7 +4557,6 @@ cottonwood
 cotui
 cotzumalguapa
 coudekerque-branche
-coudekerquebranche
 coulommiers
 council
 country
@@ -4769,21 +4564,19 @@ county
 courbevoie
 courcelles
 courneuve
-cournon-d’auvergne
-cournond’auvergne
+cournon-d'auvergne
 courtenay
 couëron
 cova
 covarrubias
-cove
 coventry
 covilhã
 covina
 covington
 cové
 cowichan
+cox's
 coxim
-cox’s
 coyah
 coyoacan
 coyotepec
@@ -4799,7 +4592,6 @@ cranbourne
 cranbrook
 cranendonck
 cranford
-crangevrier
 cranston
 crateús
 crato
@@ -4811,13 +4603,10 @@ creil
 crema
 cremano
 cremona
-crepy-en-valois
 crescenta-montrose
-crescentamontrose
 crespo
 crest
 crestview
-creteil
 creusot
 creve
 crevillente
@@ -4831,6 +4620,7 @@ cristo
 cristobal
 cristovão
 croatia
+croatie
 crofton
 croix
 cronulla
@@ -4849,7 +4639,6 @@ cruzeiro
 cruzes
 crystal
 crépy-en-valois
-crépyenvalois
 créteil
 csongrad
 cuajimalpa
@@ -4857,7 +4646,6 @@ cuamba
 cuarto
 cuatia
 cuatro
-cuauhtemoc
 cuauhtémoc
 cuautepec
 cuautitlan
@@ -4923,7 +4711,6 @@ custodia
 custoias
 cutler
 cutral-co
-cutralco
 cuttack
 cuxhaven
 cuyahoga
@@ -4932,10 +4719,8 @@ cypress
 cyprus
 czech republic
 czechowice-dziedzice
-czechowicedziedzice
 czeladź
 czerwionka-leszczyny
-czerwionkaleszczyny
 częstochowa
 cà
 câmara
@@ -4943,8 +4728,8 @@ câmpia
 câmpina
 câmpulung
 cândido
+côte d'ivoire
 côte-saint-luc
-côtesaintluc
 cúa
 cúcuta
 cēsis
@@ -4964,6 +4749,7 @@ daboh
 dabou
 dabra
 dabwali
+dacca
 dachau
 dachnoye
 dadan
@@ -4995,6 +4781,7 @@ dakhla
 dakor
 dakoro
 dal'negorsk
+dal'nerechensk
 dalai
 dalaman
 dalandzadgad
@@ -5012,11 +4799,11 @@ dalsingh
 dalton
 daltonganj
 daly
-dal’nerechensk
 dam
 daman
 damanhūr
 damara
+damas
 damascus
 damaturu
 damavand
@@ -5027,7 +4814,6 @@ damghan
 damietta
 dammam
 dammarie-les-lys
-dammarieleslys
 damme
 damnagar
 damnoen
@@ -5041,6 +4827,7 @@ danao
 dandeli
 dandenong
 dandong
+danemark
 danghara
 dania
 danilov
@@ -5058,6 +4845,7 @@ daphne
 dapitan
 daqing
 dar
+dar'a
 dara
 darab
 darayya
@@ -5080,7 +4868,6 @@ darwha
 darwin
 darya
 daryapur
-dar‘a
 das
 dasha
 dashiqiao
@@ -5094,7 +4881,6 @@ dasnapur
 dasoguz
 dassa-zoume
 dassa-zoumé
-dassazoumé
 dasūya
 dataganj
 date
@@ -5139,9 +4925,9 @@ dean
 dearborn
 dearne
 deba
-debal’tseve
+debal'tseve
 debar
-debark’
+debark'
 debary
 debila
 debre
@@ -5168,7 +4954,6 @@ degtyarsk
 degunino
 dehdasht
 dehiwala-mount
-dehiwalamount
 dehloran
 dehra
 dehri
@@ -5267,11 +5052,9 @@ detmold
 detroit
 detva
 deuil-la-barre
-deuillabarre
 deus
 deutz
 deux-montagnes
-deuxmontagnes
 deva
 devakottai
 devanhalli
@@ -5374,7 +5157,6 @@ digboi
 dighwara
 diglūr
 digne-les-bains
-dignelesbains
 digos
 digras
 digri
@@ -5454,11 +5236,12 @@ djibo
 djibouti
 djidiouia
 djir
+djouba
 djougou
 djounie
 djénné
 dmitrov
-dniprodzerzhyns’k
+dniprodzerzhyns'k
 dnipropetrovsk
 dniprorudne
 doba
@@ -5484,12 +5267,11 @@ dohar
 dois
 dok
 doka
-dokuchayevs’k
+dokuchayevs'k
 dole
 dolgoprudnyy
 dolisie
 dollard-des
-dollarddes
 dolný
 dolo
 dologon
@@ -5509,6 +5291,7 @@ domingos
 dominguez
 dominica
 dominican republic
+dominique
 domodedovo
 domodossola
 domont
@@ -5570,6 +5353,8 @@ douala
 douane
 douar
 douarnenez
+douchanbe
+douchanbé
 douera
 douglas
 douglasville
@@ -5607,12 +5392,10 @@ dreux
 drexel
 driburg
 driebergen-rijsenburg
-driebergenrijsenburg
 driefontein
 drimmelen
 driyorejo
 drobeta-turnu
-drobetaturnu
 drochia
 drogheda
 drohobych
@@ -5719,7 +5502,7 @@ duzce
 dvůr
 dwarka
 dwor
-dyat’kovo
+dyat'kovo
 dyer
 dyersburg
 dymytrov
@@ -5727,7 +5510,7 @@ dyurtyuli
 dzaoudzi
 dzerzhinsk
 dzerzhinskiy
-dzerzhyns’k
+dzerzhyns'k
 dzhalilabad
 dzhankoy
 dzhetygara
@@ -5738,7 +5521,6 @@ dzyarzhynsk
 dzüünharaa
 dè
 décines-charpieu
-décinescharpieu
 dédougou
 désarmes
 dêqên
@@ -5826,11 +5608,11 @@ effon
 egbe
 eger
 eggenstein-leopoldshafen
-eggensteinleopoldshafen
 eggertsville
 egito
 egra
 egypt
+egypte
 eha
 ehingen
 eibar
@@ -5881,7 +5663,7 @@ eldorado
 eldoret
 elefsina
 elektrogorsk
-elektrostal’
+elektrostal'
 elektrougli
 elele
 elena
@@ -5935,6 +5717,7 @@ emiliano
 eminabad
 eminönu
 eminönü
+emirats arabes unis
 emirdağ
 emmeloord
 emmen
@@ -5949,7 +5732,6 @@ empoli
 emporia
 emsdetten
 emure-ekiti
-emureekiti
 encantado
 encarnacion
 enchanted
@@ -5965,8 +5747,8 @@ energodar
 enero
 enes
 engadine
+engel's
 engelskirchen
-engel’s
 enger
 englewood
 enid
@@ -5991,8 +5773,6 @@ entroncamento
 enugu
 enugu-ezike
 enugu-ukwu
-enuguezike
-enuguukwu
 envigado
 enz
 enzan
@@ -6000,13 +5780,13 @@ epe
 epernay
 epinal
 epinay-sur-seine
-epinaysurseine
 epitacio
 eppelborn
 epping
 eppingen
 epworth
 eqbaliyeh
+equateur
 equatorial guinea
 equeurdreville-hainneville
 era
@@ -6028,6 +5808,7 @@ erdenet
 erding
 erechim
 erenhot
+erevan
 ereğli
 erftstadt
 erfurt
@@ -6053,6 +5834,7 @@ erskine
 eruwa
 erwitte
 erythraia
+erythree
 erzin
 erzincan
 erzurum
@@ -6063,7 +5845,6 @@ escaldes
 escarcega
 esch-sur-alzette
 eschborn
-eschsuralzette
 eschwege
 eschweiler
 escobedo
@@ -6082,6 +5863,7 @@ eskisehir
 eslöv
 esmeralda
 esmeraldas
+espagne
 esparreguera
 esparza
 espelkamp
@@ -6113,6 +5895,7 @@ estelle
 estepona
 estero
 estonia
+estonie
 estor
 estoril
 estrada
@@ -6122,12 +5905,15 @@ estrella
 estância
 estêvão
 esuk
+eswatini
 esztergom
 eséka
 etampes
+etats-unis
 etawa
 etawah
 ethiopia
+ethiopie
 etobicoke
 ettlingen
 euclid
@@ -6164,8 +5950,6 @@ ezhou
 ezhva
 ezine
 ezza-ohu
-ezzaohu
-ezzor
 ezzouar
 eğirdir
 ełk
@@ -6176,7 +5960,6 @@ fabriano
 fabriciano
 facatativa
 faches-thumesnil
-fachesthumesnil
 fada
 faenza
 fafe
@@ -6240,7 +6023,6 @@ farmington
 farmingville
 farms
 farmsen-berne
-farmsenberne
 faro
 farragut
 farrokh
@@ -6332,7 +6114,6 @@ ferry
 fes
 fetesti
 fetești-gara
-feteștigara
 fethiye
 feuerbach
 fianarantsoa
@@ -6340,10 +6121,10 @@ fichē
 fidelis
 fidenza
 fiditi
+fidji
 fidélis
 fier
 fier-çifçi
-fierçifçi
 figueira
 figueras
 figueres
@@ -6361,6 +6142,7 @@ fils
 findlay
 finglas
 finland
+finlande
 finlyandskiy
 finnentrop
 finote
@@ -6381,7 +6163,6 @@ fish
 fishers
 fitchburg
 fiumicino-isola
-fiumicinoisola
 five
 fizuli
 fkih
@@ -6396,13 +6177,11 @@ fleron
 flers
 fleurus
 fleury-les-aubrais
-fleurylesaubrais
 flint
 floirac
 floral
 florence
 florence-graham
-florencegraham
 florencia
 flores
 floresta
@@ -6420,7 +6199,6 @@ flowing
 flying
 flèche
 flémalle-haute
-flémallehaute
 fléron
 flörsheim
 fochville
@@ -6443,9 +6221,6 @@ fontem
 fontenay-aux-roses
 fontenay-le-comte
 fontenay-sous-bois
-fontenayauxroses
-fontenaylecomte
-fontenaysousbois
 fonti
 foothill
 foothills
@@ -6474,17 +6249,14 @@ forster
 fort
 fort-de-france
 fortaleza
-fortdefrance
 fortich
 fortin
 fortuna
 forty-nine
-fortynine
 fos-sur-mer
 foshan
 foso
 fossano
-fossurmer
 foster
 fot
 fougeres
@@ -6580,12 +6352,10 @@ fryazino
 fréjus
 fröndenberg
 frýdek-mistek
-frýdekmistek
 fshat
 fuchūchō
 fuding
 fuencarral-el
-fuencarralel
 fuengirola
 fuenlabrada
 fuente
@@ -6603,11 +6373,9 @@ fujishiro
 fukagawa
 fukayachō
 fukiage-fujimi
-fukiagefujimi
 fukuchiyama
 fukuechō
 fukui-shi
-fukuishi
 fukumitsu
 fukuoka
 fukura
@@ -6625,13 +6393,11 @@ fundacion
 fundo
 fundong
 funehikimachi-funehiki
-funehikimachifunehiki
 funes
 funtua
 funza
 fuqing
 fuquay-varina
-fuquayvarina
 furmanov
 furness
 furstenfeldbruck
@@ -6640,7 +6406,6 @@ furth
 furukawa
 fusagasuga
 fusano-ostia
-fusanoostia
 fushun
 fussa
 futtsu
@@ -6662,6 +6427,8 @@ fürstenfeldbruck
 fürstenwalde
 fürth
 fūman
+g'azalkent
+g'uzor
 ga-rankuwa
 gaalkacyo
 gabes
@@ -6727,6 +6494,7 @@ gama
 gamagōri
 gambat
 gambia
+gambie
 gambier
 gambiran
 gamboma
@@ -6752,7 +6520,6 @@ gangapur
 gangarampur
 gangawati
 ganghwa-gun
-ganghwagun
 gangoh
 gangolli
 gangtok
@@ -6773,7 +6540,6 @@ gapan
 gapyeong
 garango
 garanhuns
-garankuwa
 garbagnate
 garbsen
 garches
@@ -6788,12 +6554,10 @@ gardens
 gardner
 gardēz
 garenne-colombes
-garennecolombes
 garfield
 garganico
 garges-les-gonesse
 garges-lès-gonesse
-gargeslèsgonesse
 gargzdai
 garh
 garhakota
@@ -6807,7 +6571,6 @@ garko
 garland
 garman
 garmisch-partenkirchen
-garmischpartenkirchen
 garner
 garoowe
 garoua
@@ -6838,10 +6601,9 @@ gaurnadi
 gautier
 gauting
 gava
-gavan’
+gavan'
 gavarr
 gavrilov-yam
-gavrilovyam
 gavà
 gawler
 gay
@@ -6911,6 +6673,7 @@ george
 george's
 georgetown
 georgia
+georgie
 georgievka
 georgiyevsk
 georgsmarienhutte
@@ -6931,7 +6694,6 @@ germany
 germering
 germersheim
 gernika-lumo
-gernikalumo
 gero
 gerona
 gersthofen
@@ -6997,9 +6759,7 @@ gierłoż
 gießen
 gif-sur-yvette
 gifhorn
-gifsuryvette
 gifu-shi
-gifushi
 gijang
 gijon
 gil
@@ -7014,7 +6774,6 @@ ginir
 ginosa
 ginowan
 ginsheim-gustavsburg
-ginsheimgustavsburg
 gioia
 giorgio
 giovanni
@@ -7036,9 +6795,9 @@ giurgiu
 giuseppe
 giussano
 giuộc
+giv'at
+giv'atayim
 givors
-giv‘at
-giv‘atayim
 giyani
 giżycko
 giờ
@@ -7114,6 +6873,7 @@ gokak
 gokarannath
 gokarna
 gokwe
+gol'yanovo
 gola
 golaghat
 gold
@@ -7123,7 +6883,6 @@ goleniow
 goleta
 golitsyno
 golpayegan
-gol’yanovo
 goma
 gombe
 gombi
@@ -7135,7 +6894,6 @@ gomoh
 gonabad
 gonayiv
 gonbad-e
-gonbade
 gonda
 gondal
 gondar
@@ -7175,7 +6933,6 @@ gorna
 gornicza
 gornji
 gorno-altaysk
-gornoaltaysk
 gornyak
 gorodets
 gorodishche
@@ -7216,10 +6973,8 @@ government
 gowurdak
 goya
 goyang-si
-goyangsi
 goyerkata
 graaff-reinet
-graaffreinet
 grabouw
 gracanica
 gracia
@@ -7241,12 +6996,9 @@ granby
 grand
 grand-bassam
 grand-quevilly
-grandbassam
 grande
 grande-synthe
 grandes
-grandesynthe
-grandquevilly
 grandview
 grandville
 graneros
@@ -7269,6 +7021,7 @@ graz
 grazhdanka
 great
 greater
+grece
 greco
 greece
 greeley
@@ -7288,6 +7041,7 @@ greifswald
 greiz
 gremda
 grenada
+grenade
 grenchen
 grenoble
 gresham
@@ -7326,9 +7080,7 @@ groznyy
 groß-gerau
 groß-umstadt
 großenhain
-großgerau
 großostheim
-großumstadt
 grudziądz
 grugliasco
 grullo
@@ -7339,6 +7091,7 @@ gryfice
 gryfino
 grytviken
 gràcia
+grèce
 gröbenzell
 gua
 guacamayas
@@ -7448,10 +7201,15 @@ guimarães
 guimba
 guinea
 guinea-bissau
-guineabissau
+guinee
+guinee equatoriale
+guinee-bissau
 guines
 guinguineo
 guinguinéo
+guinée
+guinée équatoriale
+guinée-bissau
 guiping
 guira
 guiren
@@ -7462,11 +7220,11 @@ guixi
 guixols
 guiyang
 gujan-mestras
-gujanmestras
 gujranwala
 gujrat
 gujō
 gukovo
+gul'kevichi
 gulabpura
 gulaothi
 gulariya
@@ -7477,7 +7235,6 @@ guli
 guliston
 gully
 gulu
-gul’kevichi
 gumaca
 gumdag
 gumel
@@ -7499,12 +7256,12 @@ gunupur
 gunzburg
 gunzenhausen
 guozhen
+gur'yevsk
 gura
 guracha
 gurgaon
 gurgentepe
 guri-si
-gurisi
 gurlan
 gurmatkal
 gurnee
@@ -7517,7 +7274,7 @@ guru
 gurun
 gurupi
 guruvayūr
-gur’yevsk
+gus'-khrustal'nyy
 gusau
 gusev
 gushikawa
@@ -7527,8 +7284,6 @@ guskhara
 gustavia
 gustavo
 gustrow
-gus’-khrustal’nyy
-gus’khrustal’nyy
 gutao
 gutersloh
 gutierrez
@@ -7552,7 +7307,6 @@ gwillimbury
 gwoza
 gyal
 gyeongsan-si
-gyeongsansi
 gyomaendrőd
 gyula
 gyumri
@@ -7560,6 +7314,7 @@ gyöngyös
 gyōda
 győr
 gävle
+géorgie
 gérakas
 göd
 gödöllő
@@ -7594,9 +7349,9 @@ gōtsuchō
 gūduvancheri
 gūdūr
 gūjar
-g‘azalkent
-g’uzor
 ha
+ha'ayin
+ha'emeq
 ha'il
 haaksbergen
 haaltert
@@ -7643,7 +7398,6 @@ hague
 haguenau
 hai
 haibara-akanedai
-haibaraakanedai
 haicheng
 haifa
 haiger
@@ -7708,8 +7462,6 @@ hamar
 hamburg
 hamburg-mitte
 hamburg-nord
-hamburgmitte
-hamburgnord
 hamburgo
 hameln
 hamhung
@@ -7722,7 +7474,6 @@ hamma
 hammam
 hammam-lif
 hammamet
-hammamlif
 hamme
 hamminkeln
 hammocks
@@ -7753,6 +7504,7 @@ hannoversch
 hannō
 hanoi
 hanover
+hanoï
 hansi
 hanting
 hanumangarh
@@ -7828,9 +7580,8 @@ hathras
 hatillo
 hato
 hatogaya-honchō
-hatogayahonchō
+hats'avan
 hatsukaichi
-hats’avan
 hatta
 hattersheim
 hattiesburg
@@ -7878,8 +7629,7 @@ hazleton
 hazorasp
 hazro
 haßloch
-ha‘ayin
-ha‘emeq
+haïti
 head
 heavitree
 hebi
@@ -7918,7 +7668,6 @@ heinola
 heinsberg
 heishan
 heist-op-den-berg
-heistopdenberg
 hekinan
 helchteren
 helder
@@ -7932,7 +7681,6 @@ hellal
 hellersdorf
 hellevoetsluis
 hellin
-hellville
 helmond
 helmstedt
 helong
@@ -7950,20 +7698,18 @@ hendek
 henderson
 hendersonville
 hendrik-ido-ambacht
-hendrikidoambacht
 hendrina
 hengchun
 hengelo
 hengshui
 hengyang
-heniches’k
+heniches'k
 henin-beaumont
 hennaya
 hennef
 hennenman
 hennigsdorf
 henstedt-ulzburg
-henstedtulzburg
 hepingjie
 hepo
 heppenheim
@@ -7972,7 +7718,6 @@ herbiers
 herblay
 herborn
 herceg-novi
-hercegnovi
 hercules
 herdecke
 heredia
@@ -8010,7 +7755,6 @@ hessisch
 hetauda
 hettstedt
 heung-hai
-heunghai
 heusden
 heusenstamm
 heusweiler
@@ -8024,7 +7768,6 @@ hicksville
 hidalgo
 hiddenhausen
 higashimurayama-shi
-higashimurayamashi
 higashine
 high
 highland
@@ -8048,8 +7791,6 @@ hille
 hillegom
 hillerod
 hilliard
-hillmeridian
-hillnovelty
 hills
 hillsboro
 hillside
@@ -8090,7 +7831,6 @@ hiriyūr
 hirosaki
 hiroshima
 hisai-motomachi
-hisaimotomachi
 hisar
 hisor
 hisua
@@ -8098,7 +7838,6 @@ hit
 hita
 hitachi
 hitachi-naka
-hitachinaka
 hitoyoshi
 hiywet
 hizan
@@ -8131,7 +7870,6 @@ hofheim
 hoge
 hohen
 hohenstein-ernstthal
-hohensteinernstthal
 hohhot
 hohoe
 hoima
@@ -8175,10 +7913,11 @@ hondarribia
 hondo
 honduras
 hong
-hongch’on
+hongch'on
 honggang
 hongjiang
 hongqiao
+hongrie
 hongsung
 hongwon
 honiara
@@ -8219,7 +7958,6 @@ horsens
 horsholm
 horst
 horta-guinardo
-hortaguinardo
 hortaleza
 horten
 hortolândia
@@ -8249,7 +7987,6 @@ howli
 hoxtolgay
 hoyerswerda
 hpa-an
-hpaan
 hradec
 hradistě
 hranice
@@ -8330,7 +8067,6 @@ huizhou
 hujra
 hukeri
 hukkyo-ri
-hukkyori
 hulan
 hulk
 hull
@@ -8377,16 +8113,13 @@ hutt
 huy
 huzhou
 huércal-overa
-huércalovera
 huế
 hvidovre
 hwacheon
 hwado
 hwange
 hwangju-up
-hwangjuup
 hwaseong-si
-hwaseongsi
 hwasun
 hwawon
 hyattsville
@@ -8394,8 +8127,6 @@ hyderabad
 hyeres
 hyesan-dong
 hyesan-si
-hyesandong
-hyesansi
 hyvinge
 hyères
 hà
@@ -8404,9 +8135,7 @@ härnösand
 hässleholm
 héliopolis
 hénin-beaumont
-héninbeaumont
 hérouville-saint-clair
-hérouvillesaintclair
 hîncesti
 hòa
 höhe
@@ -8428,6 +8157,7 @@ ẖolon
 hạ
 hải
 hội
+i'zaz
 i-n-salah
 iasi
 iaçu
@@ -8460,8 +8190,8 @@ ibitinga
 ibiza
 ibiúna
 ibotirama
+ibra'
 ibrahimiyah
-ibra’
 ibshaway
 ibusuki
 ica
@@ -8469,7 +8199,6 @@ iceland
 ichalkaranji
 ichchapuram
 icheon-si
-icheonsi
 ichihara
 ichinohe
 ichinomiya
@@ -8481,7 +8210,6 @@ idaho
 idanre
 idappadi
 idar-oberstein
-idaroberstein
 idenao
 idfū
 idhna
@@ -8502,16 +8230,12 @@ igarassu
 igaraçu
 igatpuri
 igbara-odo
-igbaraodo
 igbeti
 igbo-ora
 igbo-ukwu
 igboho
-igboora
 igbor
-igboukwu
 igede-ekiti
-igedeekiti
 ighram
 iglesias
 ignacio
@@ -8536,11 +8260,7 @@ iizuka
 ijebu-igbo
 ijebu-jesa
 ijebu-ode
-ijebuigbo
-ijebujesa
-ijebuode
 ijero-ekiti
-ijeroekiti
 ijssel
 ijsselstein
 ijui
@@ -8550,7 +8270,6 @@ ikeda
 ikedachō
 ikeja
 ikere-ekiti
-ikereekiti
 ikire
 ikirun
 ikom
@@ -8560,6 +8279,7 @@ ikorodu
 ikot
 iksan
 ikungi
+il'skiy
 ila
 ilagan
 ilam
@@ -8570,6 +8290,8 @@ ilchester
 ildefonso
 ilebo
 ilembula
+iles cook
+iles marshall
 ilesa
 ilha
 ilhabela
@@ -8584,10 +8306,9 @@ illapel
 illela
 illertissen
 illescas
-illichivs’k
+illichivs'k
 illingen
 illkirch-graffenstaden
-illkirchgraffenstaden
 illzach
 illéla
 ilm
@@ -8598,13 +8319,11 @@ iloilo
 ilongero
 ilopango
 ilorin
-ilovays’k
+ilovays'k
 ilula
-il’skiy
 imaichi
 imam
 imarichō-kō
-imarichōkō
 imatra
 imbituba
 imbituva
@@ -8631,6 +8350,7 @@ indaial
 indaiatuba
 indang
 indapur
+inde
 independence
 independencia
 indergarh
@@ -8640,6 +8360,8 @@ indian
 indianapolis
 indio
 indonesia
+indonesie
+indonésie
 indore
 indramayu
 indri
@@ -8653,7 +8375,6 @@ ingenio
 ingles
 inglewood
 inglewood-finn
-inglewoodfinn
 ingolstadt
 ingraj
 inhambane
@@ -8669,7 +8390,6 @@ ino
 inongo
 inowrocław
 inozemtsevo
-insalah
 intan
 inuyama
 inver
@@ -8707,6 +8427,7 @@ iquique
 iquitos
 iracemapolis
 iradan
+irak
 irakleio
 irakleion
 iran
@@ -8725,6 +8446,7 @@ iringal
 irinjalakuda
 iris
 irkutsk
+irlande
 iron
 irondequoit
 ironville
@@ -8742,12 +8464,10 @@ isahaya
 isaka
 isakogorka
 isanlu-itedoijowa
-isanluitedoijowa
 isawa
 ischia
 ise
 ise-ekiti
-iseekiti
 isehara
 iselin
 isenburg
@@ -8782,6 +8502,7 @@ islamabad
 islamnagar
 islampur
 island
+islande
 isle
 isles
 isletas
@@ -8795,12 +8516,12 @@ isna
 isora
 isparta
 israel
+israël
 issaquah
 isser
 issia
 issoire
 issy-les-moulineaux
-issylesmoulineaux
 istaravshan
 istok
 istra
@@ -8829,6 +8550,7 @@ itajuba
 itajuipe
 itako
 italia
+italie
 italy
 itamaraju
 itamarandiba
@@ -8892,20 +8614,18 @@ itzapa
 itzehoe
 itō
 iulia
-ivano-frankivs’k
-ivanofrankivs’k
+ivano-frankivs'k
 ivanovo
 ivanovskoye
 ivanteyevka
 ivatsevichy
-ivdel’
+ivdel'
 ives
 ivongo
 ivory coast
 ivoti
 ivrea
 ivry-sur-seine
-ivrysurseine
 iwade
 iwai
 iwaki
@@ -8919,7 +8639,6 @@ iwata
 iwatsuki
 iwo
 iwon-up
-iwonup
 ixcuintla
 ixmiquilpan
 ixtac
@@ -8927,7 +8646,6 @@ ixtapa
 ixtapa-zihuatanejo
 ixtapaluca
 ixtapan
-ixtapazihuatanejo
 ixtepec
 ixtla
 ixtlan
@@ -8942,7 +8660,7 @@ izki
 izluchinsk
 izmayil
 izmaylovo
-izobil’nyy
+izobil'nyy
 iztacalco
 iztapalapa
 izumi
@@ -8953,7 +8671,6 @@ izyum
 izúcar
 içara
 iława
-i‘zaz
 jabal
 jabalpur
 jabalya
@@ -9006,7 +8723,7 @@ jahanabad
 jahangirabad
 jahanian
 jahazpur
-jahra’
+jahra'
 jaiba
 jaigaon
 jaipur
@@ -9023,7 +8740,6 @@ jala
 jalai
 jalajala
 jalal-abad
-jalalabad
 jalali
 jalalpur
 jalandhar
@@ -9046,10 +8762,12 @@ jamaame
 jamadoba
 jamai
 jamaica
+jamaique
 jamali
 jamaliyah
 jamalpur
 jamay
+jamaïque
 jambi
 jambusar
 jamestown
@@ -9087,6 +8805,7 @@ janūb
 jaora
 japan
 japeri
+japon
 jarabacoa
 jarabulus
 jaragua
@@ -9147,7 +8866,6 @@ jayapura
 jayewardenepura
 jaynagar
 jaynagar-majilpur
-jaynagarmajilpur
 jayrūd
 jaén
 jaú
@@ -9217,7 +8935,9 @@ jhol
 jhumra
 jhunjhunūn
 jhūsi
+ji'an
 jiamusi
+jian'ou
 jiangguanchi
 jiangkou
 jiangmen
@@ -9225,7 +8945,6 @@ jianguang
 jiangyan
 jiangyin
 jiangyou
-jian’ou
 jiaojiang
 jiaozhou
 jiaozuo
@@ -9257,7 +8976,6 @@ jimo
 jiménez
 jinan
 jinan-gun
-jinangun
 jinchang
 jincheng
 jind
@@ -9299,9 +9017,7 @@ jixi
 jizah
 jizan
 jizzax
-ji’an
 joal-fadiout
-joalfadiout
 joan
 joaquim
 joaquin
@@ -9326,11 +9042,9 @@ johnson
 johnston
 johnstone
 johnstown
-john’s
 johor
 joinville
 joinville-le-pont
-joinvillelepont
 jojutla
 jolarpettai
 joliet
@@ -9345,6 +9059,7 @@ jonquière
 joplin
 jora
 jordan
+jordanie
 jordão
 jorge
 jorhat
@@ -9354,9 +9069,7 @@ joseph
 josé
 joue-les-tours
 jouy-le-moutier
-jouylemoutier
 joué-lés-tours
-jouéléstours
 jovellanos
 joypur
 jozefow
@@ -9404,6 +9117,7 @@ juye
 jyväskylä
 jämsä
 järvenpää
+jérusalem
 jérémie
 jönköping
 júlio
@@ -9416,6 +9130,7 @@ jūnagadh
 jūnagarh
 jūrmala
 jūybar
+k'olito
 kaarina
 kaarst
 kabacan
@@ -9434,6 +9149,7 @@ kabin
 kabinda
 kabir
 kabirwala
+kaboul
 kabrai
 kabul
 kabwe
@@ -9504,7 +9220,6 @@ kakegawa
 kakhovka
 kakinada
 kakogawachō-honmachi
-kakogawachōhonmachi
 kakonko
 kakori
 kakrala
@@ -9514,7 +9229,6 @@ kalabagh
 kalach
 kalach-na-donu
 kalachinsk
-kalachnadonu
 kalakkadu
 kalaleh
 kalamaria
@@ -9597,24 +9311,19 @@ kamba
 kambar
 kambove
 kameda-honchō
-kamedahonchō
 kamen
+kamen'
+kamen'-na-obi
 kamenjane
 kamensk-shakhtinskiy
-kamensk-ural’skiy
-kamenskshakhtinskiy
-kamenskural’skiy
+kamensk-ural'skiy
 kamenz
-kamen’
-kamen’-na-obi
-kamen’naobi
 kameoka
 kameyama
 kamieniec
 kamienna
 kamifukuoka
 kamigyō-ku
-kamigyōku
 kamiichi
 kamiiso
 kamimaruko
@@ -9626,10 +9335,8 @@ kamirenjaku
 kamloops
 kamo
 kamogatachō-kamogata
-kamogatachōkamogata
 kamogawa
 kamojimachō-jōgejima
-kamojimachōjōgejima
 kamoke
 kamp-lintfort
 kampala
@@ -9638,7 +9345,6 @@ kampen
 kampene
 kamphaeng
 kampli
-kamplintfort
 kampong
 kampot
 kampung
@@ -9650,6 +9356,7 @@ kamyaran
 kamyshin
 kamyshlov
 kamyzyak
+kan'onjichō
 kana
 kanakapura
 kananga
@@ -9673,9 +9380,9 @@ kandla
 kandukūr
 kandy
 kandyagash
+kane'ohe
 kanekomachi
 kanevskaya
-kane‘ohe
 kang-neung
 kangaba
 kanganpur
@@ -9685,10 +9392,7 @@ kangavar
 kangayam
 kangding
 kangdong-up
-kangdongup
 kanggye-si
-kanggyesi
-kangneung
 kangsar
 kanie
 kanigiri
@@ -9701,7 +9405,6 @@ kanke
 kanker
 kanna
 kannabechō-yahiro
-kannabechōyahiro
 kannad
 kannangad
 kannapolis
@@ -9723,8 +9426,6 @@ kanuma
 kanuru
 kanye
 kanzakimachi-kanzaki
-kanzakimachikanzaki
-kan’onjichō
 kaohsiung
 kaolack
 kapadvanj
@@ -9738,12 +9439,10 @@ kaposvar
 kapotnya
 kapren
 kapsan-up
-kapsanup
 kapshagay
 kapūrthala
 kara
 kara-balta
-karabalta
 karabanovo
 karabash
 karabağlar
@@ -9762,7 +9461,7 @@ karaj
 karak
 karakol
 karakoçan
-karakul’
+karakul'
 karamadai
 karaman
 karamsad
@@ -9814,8 +9513,8 @@ karlstad
 karlstadt
 karmala
 karmel
+karmi'el
 karmil
-karmi’el
 karnal
 karnobat
 karnūl
@@ -9844,7 +9543,6 @@ kasaoka
 kasaragod
 kasba
 kaseda-shirakame
-kasedashirakame
 kasese
 kaset
 kasganj
@@ -9852,10 +9550,8 @@ kashan
 kashgar
 kashihara
 kashihara-shi
-kashiharashi
 kashima
 kashima-shi
-kashimashi
 kashin
 kashipur
 kashira
@@ -9869,7 +9565,6 @@ kasli
 kasoa
 kasongo
 kasongo-lunda
-kasongolunda
 kaspiysk
 kasrawad
 kassala
@@ -9886,7 +9581,6 @@ kasūr
 katabu
 katangi
 katav-ivanovsk
-katavivanovsk
 kataysk
 katerero
 katerini
@@ -9899,10 +9593,10 @@ kati
 katihar
 katima
 katiola
+katmandou
 katol
 katoomba
 katori-shi
-katorishi
 katoro
 katowice
 katoya
@@ -9912,14 +9606,12 @@ katras
 katrineholm
 katsina
 katsina-ala
-katsinaala
 katsuren-haebaru
-katsurenhaebaru
 katsuta
 katsuura
 katsuyama
 kattanam
-kattaqo’rg’on
+kattaqo'rg'on
 kattivakkam
 katumba
 katunayaka
@@ -10123,7 +9815,6 @@ khankah
 khanna
 khanpur
 khanty-mansiysk
-khantymansiysk
 khanu
 khao
 khapa
@@ -10141,7 +9832,7 @@ kharkiv
 kharmanli
 kharsia
 khartoum
-khartsyz’k
+khartsyz'k
 kharupatia
 khas
 khasab
@@ -10182,8 +9873,8 @@ khiwa
 khlo
 khlong
 khmau
-khmel’nyts’kyy
-khmil’nyk
+khmel'nyts'kyy
+khmil'nyk
 khobar
 khoi
 kholmsk
@@ -10193,7 +9884,6 @@ khomeyni
 khon
 khopoli
 khoroshëvo-mnevniki
-khoroshëvomnevniki
 khorramabad
 khorramdarreh
 khorramshahr
@@ -10284,9 +9974,8 @@ kinana
 kinarut
 kindia
 kindu
-kinel’
-kinel’-cherkassy
-kinel’cherkassy
+kinel'
+kinel'-cherkassy
 kineshma
 king
 king's
@@ -10318,6 +10007,7 @@ kirchheim
 kirchlengern
 kireka
 kireyevsk
+kirghizistan
 kirguli
 kiribati
 kirishi
@@ -10332,10 +10022,9 @@ kirkwood
 kirov
 kirovgrad
 kirovo-chepetsk
-kirovochepetsk
 kirovohrad
+kirovs'k
 kirovsk
-kirovs’k
 kirsanov
 kirtipur
 kiruna
@@ -10423,7 +10112,6 @@ klungkung
 klyuch
 knjazevac
 knokke-heist
-knokkeheist
 knoxville
 knurow
 knysna
@@ -10443,7 +10131,6 @@ kochi
 kochubeyevskoye
 kodaikanal
 kodamachō-kodamaminami
-kodamachōkodamaminami
 kodar
 kodarma
 kodinar
@@ -10463,7 +10150,6 @@ kohat
 kohima
 kohror
 kohtla-järve
-kohtlajärve
 koidu
 kokhma
 kokkola
@@ -10475,8 +10161,8 @@ kokshetau
 koksijde
 kokstad
 kokubu-matsuki
-kokubumatsuki
 kokubunji
+kol'chugino
 kolar
 kolaras
 kolasib
@@ -10500,7 +10186,6 @@ kolonnawa
 kolpashevo
 kolpino
 kolwezi
-kol’chugino
 komaki
 komarno
 komarom
@@ -10515,10 +10200,9 @@ kommunar
 komono
 komoro
 komotini
+komsomol's'ke
 komsomolsk
 komsomolsk-on-amur
-komsomolskonamur
-komsomol’s’ke
 kon
 konakovo
 konarka
@@ -10542,7 +10226,6 @@ konongo
 konotop
 konskie
 konstancin-jeziorna
-konstancinjeziorna
 konstantinovsk
 konstantynow
 konstanz
@@ -10579,15 +10262,14 @@ kornwestheim
 korolev
 koronadal
 koropi
-korosten’
+korosten'
 korostyshiv
 korrewegwijk
 korsakov
 korschenbroich
 korsholm
 korsor
-korsun’-shevchenkivs’kyy
-korsun’shevchenkivs’kyy
+korsun'-shevchenkivs'kyy
 kortenberg
 kortrijk
 korwai
@@ -10596,7 +10278,6 @@ korydallos
 korçë
 kos
 kosai-shi
-kosaishi
 kosamba
 kosan
 kosaya
@@ -10611,7 +10292,7 @@ kosovo
 kostanay
 kosti
 kostomuksha
-kostopil’
+kostopil'
 kostroma
 kostrzyn
 kostyantynivka
@@ -10623,9 +10304,9 @@ kotagiri
 kotamangalam
 kotaparh
 kotdwara
-kotel’nich
-kotel’niki
-kotel’nikovo
+kotel'nich
+kotel'niki
+kotel'nikovo
 kotido
 kotikawatta
 kotka
@@ -10636,8 +10317,8 @@ kotli
 kotlovka
 kotma
 kotovo
+kotovs'k
 kotovsk
-kotovs’k
 kotputli
 kotri
 kottagūdem
@@ -10659,29 +10340,29 @@ koutiala
 kouvola
 kovancılar
 kovdor
-kovel’
+kovel'
 kovilpatti
 kovrov
 kovvūr
 kovylkino
 kovūr
+koweit
+koweït
 kowloon
 kowon-up
-kowonup
 koynanagar
 koysinceq
+koz'modem'yansk
 kozakai-chō
-kozakaichō
 kozan
 kozani
-kozel’sk
+kozel'sk
 kozeyevo
 kozhikode
 kozhukhovo
 kozienice
 kozluk
 kozyatyn
-koz’modem’yansk
 koło
 kołobrzeg
 kościan
@@ -10700,12 +10381,12 @@ kraljevo
 kralove
 kralové
 kralupy
-kramators’k
+kramators'k
 kranj
 krapkowice
 krasnoarmeysk
 krasnoarmeyskaya
-krasnoarmiys’k
+krasnoarmiys'k
 krasnodar
 krasnodon
 krasnogorsk
@@ -10715,10 +10396,10 @@ krasnohrad
 krasnokamensk
 krasnokamsk
 krasnoobsk
-krasnoperekops’k
-krasnotur’insk
+krasnoperekops'k
+krasnotur'insk
 krasnoufimsk
-krasnoural’sk
+krasnoural'sk
 krasnovishersk
 krasnoyarsk
 krasnoye
@@ -10732,10 +10413,9 @@ kratié
 kraśnik
 krefeld
 kremenchuk
-kremenets’
+kremenets'
 kreminna
 kremlin-bicêtre
-kremlinbicêtre
 krems
 kresek
 krestovskiy
@@ -10759,7 +10439,7 @@ kristianstad
 kristiansund
 kristinehamn
 krnov
-krolevets’
+krolevets'
 kroměriz
 kronach
 kronberg
@@ -10785,6 +10465,7 @@ ksour
 kstovo
 kuah
 kuala
+kuala lumpur
 kualakapuas
 kuandian
 kuang
@@ -10809,7 +10490,6 @@ kufa
 kufstein
 kui
 kujang-up
-kujangup
 kujawski
 kuje
 kuju
@@ -10882,6 +10562,7 @@ kupchino
 kupino
 kupjansk
 kuppam
+kur'yanovo
 kurakhovo
 kurandvad
 kurashiki
@@ -10908,7 +10589,6 @@ kurten
 kurume
 kurunegala
 kurye
-kur’yanovo
 kusa
 kusadası
 kusatsu
@@ -10937,10 +10617,10 @@ kuusamo
 kuvandyk
 kuwait
 kuybyshev
+kuz'minki
 kuzhithurai
 kuznetsk
-kuznetsovs’k
-kuz’minki
+kuznetsovs'k
 kuçovë
 kwale
 kwang
@@ -10975,9 +10655,6 @@ kyzyl
 kyzyl-kyya
 kyzyl-orda
 kyzyl-suu
-kyzylkyya
-kyzylorda
-kyzylsuu
 kâhta
 kédougou
 kélibia
@@ -11001,7 +10678,6 @@ kürten
 kütahya
 kėdainiai
 kędzierzyn-koźle
-kędzierzynkoźle
 kętrzyn
 kęty
 kırkağaç
@@ -11023,17 +10699,19 @@ kūmher
 kūt
 kạn
 kỳ
-k’olito
 l'alfas
 l'alfàs
 l'ancienne-lorette
-l'anciennelorette
 l'aquila
+l'arbaa
 l'assomption
 l'eliana
+l'govskiy
 l'haÿ-les-roses
-l'haÿlesroses
 l'hospitalet
+l'isle-sur-la-sorgue
+la havane
+la valette
 laascaanood
 laasphe
 laatzen
@@ -11042,7 +10720,6 @@ labastida
 labe
 labem
 labem-stara
-labemstara
 labinsk
 labis
 labo
@@ -11081,7 +10758,6 @@ lage
 lages
 laghouat
 lagny-sur-marne
-lagnysurmarne
 lago
 lagoa
 lagoas
@@ -11116,8 +10792,6 @@ lake
 lake-leto
 lake-orient
 lakeland
-lakeleto
-lakeorient
 lakes
 lakeside
 lakeville
@@ -11172,7 +10846,6 @@ lamung
 lanaken
 lancaster
 lancenigo-villorba
-lancenigovillorba
 lanciano
 lancing
 lancy
@@ -11224,7 +10897,6 @@ laplace
 laporte
 lappeenranta
 lapu-lapu
-lapulapu
 lar
 lara
 larache
@@ -11232,8 +10904,8 @@ laramie
 laranjal
 laranjeiras
 laranjeiro
+larb'a
 larbaâ
-larb’a
 lardjem
 laredo
 largo
@@ -11260,7 +10932,6 @@ latur
 latvia
 lauchhammer
 lauda-königshofen
-laudakönigshofen
 lauderdale
 lauderhill
 laudio
@@ -11299,6 +10970,7 @@ laâyoune
 laç
 laï
 laḩij
+le caire
 lea
 lealman
 leamington
@@ -11310,7 +10982,7 @@ lebach
 lebaksiu
 lebanon
 lebbeke
-lebedyan’
+lebedyan'
 lebedyn
 lebowakgomo
 lebrija
@@ -11349,7 +11021,6 @@ leigh
 leighton
 leimen
 leinfelden-echterdingen
-leinfeldenechterdingen
 leioa
 leipzig
 leiria
@@ -11379,7 +11050,6 @@ leninogorsk
 leninsk
 leninsk-kuznetsky
 leninskiye
-leninskkuznetsky
 lennestadt
 lenoir
 lenox
@@ -11426,12 +11096,12 @@ leticia
 letlhakane
 letpandan
 letterkenny
+lettonie
 letňany
 leusden
 leutkirch
 leuven
 levallois-perret
-levalloisperret
 levante
 leverkusen
 levice
@@ -11445,7 +11115,6 @@ lewis
 lewiston
 lexington
 lexington-fayette
-lexingtonfayette
 leyland
 leyva
 lezhë
@@ -11466,6 +11135,7 @@ liaocheng
 liaoyang
 liaoyuan
 liaozhong
+liban
 libano
 libenge
 liberal
@@ -11482,6 +11152,7 @@ libourne
 libres
 libreville
 libya
+libye
 licata
 lice
 licenciado
@@ -11512,7 +11183,6 @@ lijiang
 likasi
 likhobory
 likino-dulevo
-likinodulevo
 lilas
 lilienthal
 lilio
@@ -11528,7 +11198,6 @@ limache
 limassol
 limay
 limbach-oberfrohna
-limbachoberfrohna
 limbang
 limbdi
 limbe
@@ -11536,7 +11205,6 @@ limbiate
 limburg
 limeil-brevannes
 limeil-brévannes
-limeilbrévannes
 limeira
 limerick
 limoeiro
@@ -11548,7 +11216,6 @@ lincheng
 lincoln
 linda
 linda-a-velha
-lindaavelha
 lindau
 lindavista
 linden
@@ -11598,6 +11265,7 @@ lira
 lisakovsk
 lisala
 lisbon
+lisbonne
 lisburn
 lishu
 lishui
@@ -11615,6 +11283,7 @@ littau
 little
 littlehampton
 littleton
+lituanie
 litvinov
 liuhe
 liupanshui
@@ -11627,9 +11296,8 @@ livonia
 livorno
 livramento
 livry-gargan
-livrygargan
+liwa'
 liwale
-liwa’
 liwonde
 liège
 liévin
@@ -11710,6 +11378,7 @@ loncoche
 londerzeel
 london
 londonderry
+londres
 londrina
 long
 longfeng
@@ -11728,7 +11397,6 @@ longview
 longyearbyen
 loni
 lons-le-saunier
-lonslesaunier
 loon
 loos
 lop
@@ -11748,7 +11416,6 @@ los
 losal
 losheim
 losino-petrovskiy
-losinopetrovskiy
 lospalos
 losser
 lota
@@ -11767,7 +11434,6 @@ loures
 loushanguan
 louth
 louvain-la-neuve
-louvainlaneuve
 louveira
 louviere
 louviers
@@ -11892,7 +11558,7 @@ lushoto
 lushun
 lustenau
 luton
-luts’k
+luts'k
 lutuhyne
 lutz
 luuq
@@ -11909,7 +11575,7 @@ lviv
 lwin
 lyantor
 lydenburg
-lyepyel’
+lyepyel'
 lyman
 lyme
 lynbrook
@@ -11918,9 +11584,9 @@ lynn
 lynnwood
 lynwood
 lyon
+lys'va
 lyskovo
-lysychans’k
-lys’va
+lysychans'k
 lytham
 lytkarino
 lyubertsy
@@ -11930,7 +11596,6 @@ lyudinovo
 lào
 lãnh
 länsi-turunmaa
-länsiturunmaa
 léo
 léogâne
 lérida
@@ -11956,11 +11621,9 @@ lędziny
 lūnavada
 lạng
 lộc
-l’arbaa
-l’govskiy
-l’isle-sur-la-sorgue
-l’islesurlasorgue
+m'sila
 ma'an
+ma'arratmisrin
 ma'rib
 maalot
 maao
@@ -11986,6 +11649,7 @@ macatuba
 macau
 macaé
 macclesfield
+macedoine
 macedonia
 maceio
 macenta
@@ -12012,6 +11676,7 @@ macon
 macoris
 macquarie
 macuspana
+macédoine
 madaba
 madagascar
 madambakkam
@@ -12051,7 +11716,6 @@ madurantakam
 madureira
 mae
 maebaru-chūō
-maebaruchūō
 maebashi
 maesteg
 maevatanana
@@ -12075,7 +11739,6 @@ magelang
 magenta
 maggiore
 maggiore-alte
-maggiorealte
 maghar
 maghull
 magna
@@ -12155,8 +11818,6 @@ mairwa
 maisi
 maisons-alfort
 maisons-laffitte
-maisonsalfort
-maisonslaffitte
 maitland
 maiurno
 maizuru
@@ -12203,6 +11864,7 @@ maladzyechna
 malaga
 malah
 malahide
+malaisie
 malakal
 malakanagiri
 malakhovka
@@ -12263,6 +11925,7 @@ malpe
 malpura
 malta
 maltby
+malte
 maltepe
 malumfashi
 maluso
@@ -12272,6 +11935,7 @@ malvar
 malvern
 malwa
 malyn
+malé
 malūr
 mamanguape
 mamaroneck
@@ -12327,7 +11991,6 @@ mandapeta
 mandaue
 mandawar
 mandelieu-la-napoule
-mandelieulanapoule
 mandera
 mandeville
 mandi
@@ -12371,6 +12034,7 @@ manicaragua
 manihari
 manikchari
 manila
+manille
 manisa
 manises
 manismata
@@ -12414,8 +12078,6 @@ mante
 manteca
 mantes-la-jolie
 mantes-la-ville
-manteslajolie
-manteslaville
 manthani
 mantova
 manturovo
@@ -12438,6 +12100,9 @@ mapuca
 maputo
 maputsoe
 mar
+mar''ina
+mar'ina
+mar'ino
 maraba
 marabella
 maracaibo
@@ -12473,27 +12138,25 @@ marcelino
 march
 marche
 marche-en-famenne
-marcheenfamenne
 marchena
 marcianise
 marcona
 marcos
 marcq-en-barœul
-marcqenbarœul
 mardakan
 mardan
 mardin
 mare
 marechal
 marfil
+marg'ilon
 margahayukencana
 margarita
 margaritas
 margasari
 margate
 margherita
-marg‘ilon
-marhanets’
+marhanets'
 marhaura
 mari
 maria
@@ -12533,11 +12196,11 @@ marittima
 mariupol
 mariveles
 marj
+mark'os
 marka
 markala
 markapur
 markaz-e
-markaze
 market
 markham
 marki
@@ -12546,19 +12209,18 @@ markova
 marks
 marktoberdorf
 marktredwitz
-mark’os
 marl
 marlboro
 marlborough
 marlow
 marly-le-roi
-marlyleroi
 marmagao
 marmande
 marmaris
 marmatiei
 marneuli
 maroantsetra
+maroc
 marolambo
 marondera
 maroua
@@ -12605,13 +12267,9 @@ marys
 marysville
 maryville
 marzahn
-mar’ina
-mar’ino
-mar’’ina
 mas
 masaka
 masaki-chō
-masakichō
 masallatah
 masantol
 masasi
@@ -12621,6 +12279,7 @@ masaya
 masbate
 mascalucia
 mascara
+mascate
 mascote
 mascouche
 maseru
@@ -12674,7 +12333,6 @@ mataram
 matariyah
 mataro
 matas
-matautu
 matay
 matehuala
 mateo
@@ -12732,7 +12390,9 @@ maumere
 maun
 maur
 maurepas
+maurice
 mauritania
+mauritanie
 mauritius
 mauro
 maués
@@ -12744,7 +12404,6 @@ mawlaik
 mawlamyine
 mawlamyinegyunn
 mawr-skyway
-mawrskyway
 mawsil
 maxixe
 may
@@ -12753,7 +12412,7 @@ mayaguez
 mayagüez
 mayahi
 mayang
-maych’ew
+maych'ew
 mayen
 mayenne
 mayfield
@@ -12768,7 +12427,6 @@ mazabuka
 mazar
 mazar-e
 mazara
-mazare
 mazarron
 mazatenango
 mazatlan
@@ -12779,7 +12437,6 @@ mazowiecka
 mazowiecki
 mazyr
 maḩallah
-ma‘arratmisrin
 mbabane
 mbake
 mbaké
@@ -12791,7 +12448,6 @@ mbandjok
 mbanga
 mbanza
 mbanza-ngungu
-mbanzangungu
 mbarara
 mbaïki
 mbeya
@@ -12801,7 +12457,6 @@ mboursou
 mbu
 mbuguni
 mbuji-mayi
-mbujimayi
 mcalester
 mcdonough
 mchenry
@@ -12846,8 +12501,8 @@ medjez
 mednogorsk
 medvedevo
 medvedovskaya
+medvezh'yegorsk
 medvezhino
-medvezh’yegorsk
 mee-sur-seine
 meer
 meerane
@@ -12897,7 +12552,7 @@ melilla
 melipilla
 melissia
 melito
-melitopol’
+melitopol'
 mellal
 melle
 melo
@@ -12922,7 +12577,6 @@ menderes
 mendes
 mendez
 mendez-nuñez
-mendeznuñez
 mendi
 mendip
 mendoza
@@ -13023,6 +12677,7 @@ mevo
 mexborough
 mexicali
 mexico
+mexique
 meybod
 meycauayan
 meylan
@@ -13053,6 +12708,8 @@ michelstadt
 michigan
 michurinsk
 micronesia
+micronesie
+micronésie
 middelburg
 middelharnis
 middelkerke
@@ -13071,7 +12728,6 @@ midwest
 midyat
 mielec
 miercurea-ciuc
-miercureaciuc
 mieres
 mifflin
 migdal
@@ -13124,7 +12780,6 @@ mimarsinan
 mimoun
 minab
 minakuchichō-matoba
-minakuchichōmatoba
 minamata
 minamirinkan
 minas
@@ -13211,7 +12866,6 @@ misterbianco
 misungwi
 mita
 mitaka-shi
-mitakashi
 mitake
 mitcham
 mitchell
@@ -13223,7 +12877,6 @@ mitras
 mitrovica
 mitrovicë
 mitry-mory
-mitrymory
 mitsukaidō
 mitsuke
 mitte
@@ -13285,27 +12938,25 @@ modugno
 moe
 moers
 moga
+mogadiscio
 mogadishu
 mogan
 mogi
 mogi-gaucu
-mogigaucu
 mogliano
 mogoda
 mogoditshane
 mogok
 moguer
 mohacs
-mohale’s
+mohale's
 mohali
 mohammedia
-mohyliv-podil’s’kyy
-mohylivpodil’s’kyy
+mohyliv-podil's'kyy
 moines
 moinesti
 moirang
 moissy-cramayel
-moissycramayel
 moita
 mojo
 mojoagung
@@ -13321,6 +12972,7 @@ mokwa
 mol
 mola
 molave
+moldavie
 molde
 moldova
 moldovenesc
@@ -13334,7 +12986,7 @@ molins
 mollendo
 mollet
 molo
-molodohvardiys’k
+molodohvardiys'k
 mombasa
 mombaça
 mombetsu
@@ -13348,7 +13000,6 @@ moncada
 moncalieri
 monchegorsk
 moncloa-aravaca
-moncloaaravaca
 monclova
 moncton
 mondlo
@@ -13363,6 +13014,7 @@ mongagua
 monghyr
 mongo
 mongolia
+mongolie
 mongu
 monguno
 monheim
@@ -13381,7 +13033,6 @@ mons
 mons-en-barœul
 monsanto
 monsefú
-monsenbarœul
 monserrato
 monsey
 mont-de-marsan
@@ -13399,18 +13050,13 @@ montbui
 montbéliard
 montcada
 montceau-les-mines
-montceaulesmines
 montclair
-montdemarsan
-montdore
 monte
 monte-carlo
 montebello
 montebelluna
 montecanal
-montecarlo
 montecatini-terme
-montecatiniterme
 montecchio
 montecelio
 montechiaro
@@ -13424,7 +13070,6 @@ montemurlo
 montenegro
 montepuez
 montereau-fault-yonne
-montereaufaultyonne
 monterey
 monteria
 montero
@@ -13447,9 +13092,6 @@ montigny-les-cormeilles
 montigny-les-metz
 montigny-lès-cormeilles
 montigny-lès-metz
-montignylebretonneux
-montignylèscormeilles
-montignylèsmetz
 montijo
 montilla
 montivilliers
@@ -13463,13 +13105,11 @@ montreuil
 montreux
 montrose
 montrouge
-montroyal
 montréal
-montsaintaignan
-montsainthilaire
 montserrat
 montt
 montélimar
+monténégro
 monywa
 monza
 monze
@@ -13522,7 +13162,6 @@ moriya
 moriyama
 morlaix
 morlanwelz-mariemont
-morlanwelzmariemont
 morley
 mornag
 mornington
@@ -13545,7 +13184,6 @@ morrisville
 morro
 morros
 morsang-sur-orge
-morsangsurorge
 morshansk
 morsi
 morteros
@@ -13554,6 +13192,7 @@ mortsel
 morwa
 mosbach
 mosconi
+moscou
 moscow
 moses
 moshi
@@ -13745,7 +13384,6 @@ murmansk
 murom
 muroran
 muroto-misakicho
-murotomisakicho
 murray
 murree
 murrieta
@@ -13754,14 +13392,12 @@ murshidabad
 murtajapur
 murudeshwara
 murun-kuren
-murunkuren
 murviedro
 murwara
 murzuq
 mus
 musan-up
 musang
-musanup
 musanze
 musashino
 musayyib
@@ -13805,7 +13441,6 @@ mwandiga
 mwanza
 mweka
 mwene-ditu
-mweneditu
 myanaung
 myanmar
 myawadi
@@ -13834,7 +13469,6 @@ märsta
 méanchey
 médéa
 mée-sur-seine
-méesurseine
 mégara
 mékhé
 méndez
@@ -13847,7 +13481,6 @@ mölln
 mölndal
 mönchengladbach
 mörfelden-walldorf
-mörfeldenwalldorf
 mössingen
 múzquiz
 mühlacker
@@ -13872,9 +13505,11 @@ mūsa
 mūvattupula
 một
 mỹ
-m’sila
+n'dalatando
 n'djamena
+n'djaména
 n'gourma
+na'im
 naaldwijk
 naarden
 naas
@@ -13956,6 +13591,7 @@ nainpur
 nainwa
 nairobi
 naivasha
+naj'
 najaf
 najafabad
 najibabad
@@ -13963,7 +13599,6 @@ najin
 najm
 najran
 naju
-naj‘
 nak
 naka
 nakama
@@ -13981,13 +13616,13 @@ naksalbari
 nakuru
 nakło
 nakūr
+nal'chik
 nalchiti
 naldurg
 nalgonda
 nalhati
 nallıhan
 nalūt
-nal’chik
 nam
 namagiripettai
 namakkal
@@ -13998,16 +13633,16 @@ nambiyūr
 namerikawa
 namibe
 namibia
+namibie
 namie
 namioka
 namoda
+namp'o
 nampa
 nampula
-namp’o
 namrup
 namur
 namyang-dong
-namyangdong
 namyangju
 namysłow
 nan
@@ -14056,7 +13691,6 @@ nanterre
 nantes
 nanto-shi
 nantong
-nantoshi
 nantou
 nanuet
 nanuque
@@ -14076,7 +13710,6 @@ naples
 napoli
 naqadeh
 nar'yan-mar
-nar'yanmar
 nara-shi
 narail
 naraina
@@ -14090,7 +13723,6 @@ naranjos
 narasannapeta
 narasapur
 narasaraopet
-narashi
 narathiwat
 narauli
 naraura
@@ -14108,7 +13740,6 @@ narnaul
 narnaund
 naro
 naro-fominsk
-narofominsk
 narok
 naron
 narowal
@@ -14121,7 +13752,6 @@ narsipatnam
 narsipur
 nartkala
 narutochō-mitsuishi
-narutochōmitsuishi
 narutō
 narva
 narwana
@@ -14196,7 +13826,9 @@ nay
 nayagarh
 nayok
 nayoro
+naypyidaw
 nayudupeta
+nazarabad
 nazare
 nazareth
 nazarovo
@@ -14204,12 +13836,10 @@ nazaré
 nazca
 naze
 nazilli
-nazran’
+nazran'
 nazrēt
-naz̧arabad
 naït
 naḩiyat
-na‘im
 nchelenge
 nchu
 ndibene
@@ -14296,7 +13926,6 @@ neu
 neu-anspach
 neu-hohenschönhausen
 neu-ulm
-neuanspach
 neubrandenburg
 neubruck
 neubrück
@@ -14305,17 +13934,12 @@ neuchâtel
 neue
 neuehrenfeld
 neuenahr-ahrweiler
-neuenahrahrweiler
 neuendorf
 neuenhagen
 neufahrn
-neuhohenschönhausen
 neuilly-plaisance
 neuilly-sur-marne
 neuilly-sur-seine
-neuillyplaisance
-neuillysurmarne
-neuillysurseine
 neumarkt
 neumunster
 neumünster
@@ -14329,17 +13953,17 @@ neustadt/nord
 neustadt/sud
 neustadt/süd
 neustrelitz
-neuulm
 neuwied
+nev'yansk
 nevano
-nevel’
-nevel’sk
+nevel'
+nevel'sk
 nevers
 neves
 nevinnomyssk
 nevsehir
-nev’yansk
 new
+new delhi
 new zealand
 newala
 newark
@@ -14358,7 +13982,6 @@ newquay
 newry
 newton
 newton-le-willows
-newtonlewillows
 newtownabbey
 newtownards
 neyagawa
@@ -14373,6 +13996,7 @@ ngara
 ngawi
 ngemplak
 ngerengere
+ngerulmud
 ngoro
 ngozi
 ngudu
@@ -14394,7 +14018,6 @@ nibong
 nibung
 nicaragua
 nicastro-sambiase
-nicastrosambiase
 nice
 nichelino
 nichinan
@@ -14403,12 +14026,12 @@ nicholasville
 nicola
 nicolas
 nicosia
+nicosie
 nicoya
 nidadavole
 nidda
 nidderau
 nieder-ingelheim
-niederingelheim
 niederkassel
 niederkruchten
 niederkrüchten
@@ -14427,23 +14050,21 @@ niigata
 niihama
 niimi
 niitsu-honchō
-niitsuhonchō
 nijar
 nijkerk
 nijlen
 nijmegen
 nikaia
-nikel’
+nikel'
 nikhom
 nikki
 nikkō
+nikol'sk
+nikol'skoye
 nikolassee
 nikolayevsk
 nikolayevsk-on-amure
-nikolayevskonamure
-nikol’sk
-nikol’skoye
-nikopol’
+nikopol'
 niksar
 niksic
 nikulino
@@ -14484,16 +14105,15 @@ nishabūr
 nishi-tokyo-shi
 nishifukuma
 nishinomiya-hama
-nishinomiyahama
 nishinoomote
 nishio
 nishishinminato
-nishitokyoshi
 nishiwaki
 nisko
 nisou
 niteroi
 nitra
+niue
 nivelles
 niwai
 nixa
@@ -14529,8 +14149,6 @@ noda
 nogales
 nogent-sur-marne
 nogent-sur-oise
-nogentsurmarne
-nogentsuroise
 noginsk
 nogueira
 nohar
@@ -14540,8 +14158,6 @@ noida
 noisiel
 noisy-le-grand
 noisy-le-sec
-noisylegrand
-noisylesec
 nokha
 nokia
 nola
@@ -14554,7 +14170,6 @@ nonoichi
 nonsan
 nonthaburi
 noordwijk-binnen
-noordwijkbinnen
 noordwijkerhout
 norak
 norco
@@ -14590,6 +14205,8 @@ northport
 northridge
 northwich
 norton
+norvege
+norvège
 norwalk
 norway
 norwich
@@ -14610,6 +14227,9 @@ nouakchott
 noumea
 nouméa
 nouna
+noursoultan
+nouvelle-zelande
+nouvelle-zélande
 nouâdhibou
 nova
 novara
@@ -14631,18 +14251,16 @@ novocheboksarsk
 novocherkassk
 novodvinsk
 novogireyevo
-novohrad-volyns’kyy
-novohradvolyns’kyy
+novohrad-volyns'kyy
 novokhovrino
 novokubansk
 novokuybyshevsk
+novokuz'minki
 novokuznetsk
-novokuz’minki
 novomichurinsk
+novomoskovs'k
 novomoskovsk
-novomoskovs’k
 novopavlovsk
-novoperedelkino
 novopokrovskaya
 novorossiysk
 novos
@@ -14652,11 +14270,11 @@ novosilikatnyy
 novotitarovskaya
 novotroitsk
 novoukrayinka
-novoul’yanovsk
-novoural’sk
+novoul'yanovsk
+novoural'sk
 novouzensk
 novovladykino
-novovolyns’k
+novovolyns'k
 novovoronezh
 novoyavorivs'k
 novoye
@@ -14689,8 +14307,8 @@ nueve
 nuevitas
 nuevo
 nuhūd
+nuku'alofa
 nukus
-nuku‘alofa
 numan
 numata
 numazu
@@ -14731,7 +14349,7 @@ nyköping
 nyon
 nysa
 nytva
-nyzhn’ohirs’kyy
+nyzhn'ohirs'kyy
 nyūzen
 nzega
 nzerekore
@@ -14742,6 +14360,7 @@ nässjö
 næstved
 néa
 néma
+népal
 nîmes
 nördlingen
 núñez
@@ -14752,7 +14371,6 @@ nōgata
 nūrabad
 nūrpur
 nūzvid
-n’dalatando
 o'
 o'fallon
 oadby
@@ -14763,6 +14381,7 @@ oakley
 oaks
 oakville
 oaxaca
+ob'
 obala
 obama
 obanazawa
@@ -14774,7 +14393,6 @@ oberasbach
 oberhausen
 oberkirch
 oberpfalz
-oberramstadt
 oberschöneweide
 obertshausen
 oberursel
@@ -14793,19 +14411,17 @@ obuasi
 obudu
 obukhiv
 obukhovo
-ob’
 ocala
 ocampo
 ocaña
 ocean
 oceanside
+och'amch'ire
 ochakiv
 ochakovo-matveyevskoye
-ochakovomatveyevskoye
 ochota
 ochtrup
 ochër
-och’amch’ire
 ockendon
 ocna
 ocoa
@@ -14839,7 +14455,6 @@ oegstgeest
 oeiras
 oelde
 oer-erkenschwick
-oererkenschwick
 oerlinghausen
 oeste
 oeynhausen
@@ -14855,11 +14470,8 @@ ogoja
 ogre
 oguta
 ogwashi-uku
-ogwashiuku
 ogōri-shimogō
-ogōrishimogō
 ohafia-ifigh
-ohafiaifigh
 ohangaron
 ohri
 ohrid
@@ -14889,7 +14501,7 @@ okinawa
 oklahoma
 okolona
 okrika
-oktyabr’skiy
+oktyabr'skiy
 okunoya
 okuta
 olanchito
@@ -14918,7 +14530,6 @@ oliva
 olive
 oliveira
 oliver-valdefierro
-olivervaldefierro
 olivet
 olivia
 olkusz
@@ -14935,7 +14546,7 @@ olsztyn
 olten
 oltenita
 oltiariq
-oltinko’l
+oltinko'l
 oltu
 olupona
 olympia
@@ -14967,7 +14578,6 @@ oosterhout
 oostkamp
 ooty
 opa-locka
-opalocka
 opava
 opelika
 opelousas
@@ -15000,8 +14610,6 @@ ordzhonikidzevskaya
 oregon
 orekhovo-borisovo
 orekhovo-zuyevo
-orekhovoborisovo
-orekhovozuyevo
 orellana
 orem
 orenburg
@@ -15037,7 +14645,6 @@ ormskirk
 oro
 oro-mount
 orodara
-oromount
 oron
 oroqen
 oroquieta
@@ -15094,7 +14701,6 @@ ostankinskiy
 ostashkov
 ostend
 osterholz-scharmbeck
-osterholzscharmbeck
 ostfildern
 ostia
 ostras
@@ -15138,15 +14744,16 @@ ouardenine
 ouargla
 ouarzazat
 oud-beijerland
-oudbeijerland
 oudenaarde
 oudtshoorn
 oued
 ouesso
 ouezzane
+ouganda
 ouidah
 oujda
 oulad
+oulan-bator
 ouled
 oullins
 oulu
@@ -15160,6 +14767,8 @@ ourinhos
 ouro
 oussera
 outreau
+ouzbekistan
+ouzbékistan
 ouzou
 ouésso
 ovalle
@@ -15196,7 +14805,6 @@ ozerki
 ozersk
 ozoir-la-ferriere
 ozoir-la-ferrière
-ozoirlaferrière
 ozorkow
 ozubulu
 ozumba
@@ -15204,6 +14812,8 @@ ozurgeti
 ozëry
 oława
 oświęcim
+p'ot'i
+p'yongsong
 pa
 pa-in
 paarl
@@ -15259,7 +14869,6 @@ paidha
 paignton
 paijan
 pailin
-pain
 paine
 painesville
 paiporta
@@ -15302,6 +14911,7 @@ palangkaraya
 palani
 palanka
 palanpur
+palaos
 palapye
 palasa
 palatine
@@ -15313,6 +14923,7 @@ palencia
 palenque
 palera
 palermo
+palestine
 palghar
 palhoça
 pali
@@ -15325,7 +14936,6 @@ palitana
 palkonda
 palladam
 pallanza-intra-suna
-pallanzaintrasuna
 pallappatti
 pallasovka
 pallavaram
@@ -15378,7 +14988,7 @@ panalanoy
 panama
 panambi
 panarukan
-panauti̇̄
+panauti
 pancevo
 panchagarh
 panchla
@@ -15437,6 +15047,8 @@ papenburg
 papendrecht
 paphos
 papillion
+papouasie-nouvelle-guinee
+papouasie-nouvelle-guinée
 pappinisshēri
 papua new guinea
 par
@@ -15615,7 +15227,6 @@ pauri
 paveh
 pavia
 pavillons-sous-bois
-pavillonssousbois
 pavlodar
 pavlohrad
 pavlovo
@@ -15628,6 +15239,7 @@ pawni
 pawtucket
 paxtakor
 payakumbuh
+pays-bas
 paysandú
 payshanba
 payson
@@ -15704,7 +15316,6 @@ pennadam
 pennagaram
 pennant
 pennes-mirabeau
-pennesmirabeau
 pennsauken
 pensacola
 pentecoste
@@ -15727,11 +15338,9 @@ percut
 perdões
 pere
 pereira
-pereslavl’-zalesskiy
-pereslavl’zalesskiy
-pereval’s’k
-pereyaslav-khmel’nyts’kyy
-pereyaslavkhmel’nyts’kyy
+pereslavl'-zalesskiy
+pereval's'k
+pereyaslav-khmel'nyts'kyy
 perez
 pergamino
 perico
@@ -15745,12 +15354,12 @@ perm
 permatang
 pernik
 perote
+perou
 perovo
 perpetua
 perpignan
 perpètua
 perreux-sur-marne
-perreuxsurmarne
 perris
 perry
 perrysburg
@@ -15767,8 +15376,8 @@ perumpavūr
 perundurai
 perungudi
 peruwelz
-pervomays’k
-pervoural’sk
+pervomays'k
+pervoural'sk
 pesaro
 pescara
 peshawar
@@ -15798,9 +15407,7 @@ petershagen
 petionville
 petit-bourg
 petit-quevilly
-petitbourg
 petite
-petitquevilly
 petlad
 peto
 petrich
@@ -15810,13 +15417,11 @@ petrogradka
 petrolina
 petropavl
 petropavlovsk-kamchatsky
-petropavlovskkamchatsky
 petropolis
 petrosani
 petrovsk
-petrovsk-zabaykal’skiy
+petrovsk-zabaykal'skiy
 petrovskaya
-petrovskzabaykal’skiy
 petrozavodsk
 petroúpolis
 petushki
@@ -15864,6 +15469,7 @@ phirangipuram
 phitsanulok
 phloi
 phnom
+phnom penh
 phoenix
 phoenixville
 phon
@@ -15913,7 +15519,6 @@ piekary
 pierce
 pierre
 pierrefitte-sur-seine
-pierrefittesurseine
 piesťany
 piet
 pietermaritzburg
@@ -16065,7 +15670,6 @@ plainfield
 plains
 plainview
 plaisance-du-touch
-plaisancedutouch
 plaisir
 plana
 planaltina
@@ -16092,8 +15696,6 @@ pleiku
 plessis-robinson
 plessis-trevise
 plessis-trévise
-plessisrobinson
-plessistrévise
 pleszew
 plettenberg
 pleven
@@ -16121,9 +15723,9 @@ pod
 podgorica
 podlaska
 podlaski
+podol'sk
 podolski
-podol’sk
-podporozh’ye
+podporozh'ye
 podujeva
 poggibonsi
 poggiomarino
@@ -16135,9 +15737,6 @@ pointe-a-pitre
 pointe-claire
 pointe-noire
 pointe-à-pitre
-pointeclaire
-pointenoire
-pointeàpitre
 poio
 poissy
 poitiers
@@ -16147,7 +15746,6 @@ pokhara
 pokhvistnevo
 pokrov
 pokrovskoye-streshnëvo
-pokrovskoyestreshnëvo
 pola
 polanco
 poland
@@ -16166,6 +15764,7 @@ polkowice
 pollachi
 pollença
 polmont
+pologne
 polohy
 polokwane
 polomolok
@@ -16209,7 +15808,6 @@ pontal
 pontarlier
 pontas
 pontault-combault
-pontaultcombault
 ponte
 ponteareas
 pontedera
@@ -16225,8 +15823,6 @@ pontivy
 pontoise
 pontypool
 pontypridd
-pontàcelles
-pontàmousson
 poole
 pooler
 poonamalle
@@ -16235,7 +15831,6 @@ popasna
 popayan
 poperinge
 popesti-leordeni
-popestileordeni
 poplar
 popondetta
 popovo
@@ -16256,24 +15851,22 @@ porriño
 porsa
 porsgrunn
 port
+port moresby
 port-au-prince
 port-aux-français
+port-d'espagne
 port-de-bouc
 port-de-paix
 port-gentil
+port-louis
 port-vila
 porta
 portadown
 portage
 portal
 portalegre
-portauprince
-portauxfrançais
-portdebouc
-portdepaix
 portel
 porterville
-portgentil
 porthcawl
 portici
 porticos
@@ -16285,13 +15878,11 @@ portmore
 porto
 porto-novo
 portogruaro
-portonovo
 portoviejo
 portslade
 portsmouth
 portugal
 portugalete
-portvila
 portão
 porur
 porvoo
@@ -16394,7 +15985,6 @@ prilep
 primer
 primero
 primorsko-akhtarsk
-primorskoakhtarsk
 prince
 princesa
 princeton
@@ -16411,7 +16001,7 @@ procopio
 proddatūr
 progreso
 prokhladnyy
-prokop’yevsk
+prokop'yevsk
 prokuplje
 proletar
 proletarsk
@@ -16435,12 +16025,11 @@ pruszcz
 pruszkow
 pruzhany
 pryluky
-prystan’
+prystan'
 przasnysz
 przemyśl
 przeworsk
 pré-saint-gervais
-présaintgervais
 préveza
 pskov
 pszczyna
@@ -16460,7 +16049,6 @@ pueblito
 pueblo
 puente
 puente-genil
-puentegenil
 puerto
 puertollano
 pugachev
@@ -16473,7 +16061,6 @@ pul
 pul-e
 pula
 pulandian
-pule
 pulgaon
 pulheim
 puli
@@ -16536,12 +16123,11 @@ putte
 putten
 puttlingen
 puttūr
-putyvl’
+putyvl'
 puurs
 puy-en-velay
 puyallup
 puyang
-puyenvelay
 puyo
 puçol
 puławy
@@ -16559,15 +16145,16 @@ pyryatyn
 pyshma
 pyskowice
 pyt-yakh
-pytyakh
 pyu
 pärnu
 pécs
 péfki
+pékin
 pénjamo
 pérama
 pérez
 périgueux
+pérou
 péruwelz
 pétionville
 pêt
@@ -16585,21 +16172,20 @@ pūnch
 pūndri
 pūranpur
 pūrna
-p’ot’i
-p’yongsong
+qa'en
 qabatiyah
 qacem
-qacha’s
+qacha's
 qadarif
 qadian
 qadimah
 qadirpur
 qahderijan
+qal'at
 qala
 qalansuwa
 qalqilyah
 qalyūb
-qal‘at
 qamdo
 qanatir
 qanayat
@@ -16616,7 +16202,6 @@ qaryatayn
 qasim
 qasr
 qasr-e
-qasre
 qatana
 qatar
 qatif
@@ -16624,7 +16209,6 @@ qaysūmah
 qaywayn
 qazax
 qazvin
-qa’en
 qeshm
 qianguo
 qianjiang
@@ -16647,11 +16231,11 @@ qiqihar
 qir
 qiryat
 qitena
+qo'qon
 qom
 qormi
 qorveh
 qoryooley
-qo‘qon
 quakers
 qualiano
 quang
@@ -16740,6 +16324,7 @@ quảng
 qūchan
 qūsiyah
 ra'anana
+ra's
 ra-ngae
 raahe
 raalte
@@ -16771,7 +16356,7 @@ radnor
 radolfzell
 radom
 radomsko
-radomyshl’
+radomyshl'
 raduzhny
 raduzhnyy
 radviliskis
@@ -16823,7 +16408,6 @@ rajgir
 rajgurunagar
 rajkot
 rajmahal
-rajnandgaon
 rajpipla
 rajpur
 rajpura
@@ -16890,13 +16474,11 @@ randolph
 randudongkal
 randwick
 rang-thap
-rangae
 rangapara
 rangia
 rangkasbitung
 rangpur
 rangsit
-rangthap
 ranh
 rania
 ranibennur
@@ -16975,14 +16557,12 @@ rayleigh
 raymore
 rayong
 rayside-balfour
-raysidebalfour
 raytown
 rayyan
 razam
 razgrad
 razumnoye
 raḩimah
-ra’s
 reading
 real
 reale
@@ -17020,7 +16600,6 @@ reggane
 reggio
 reghaïa
 reghin-sat
-reghinsat
 regina
 regional
 regis
@@ -17078,6 +16657,11 @@ repalle
 repelon
 repentigny
 repos
+republique centrafricaine
+republique democratique du congo
+republique dominicaine
+republique du congo
+republique tcheque
 requena
 resende
 reservoir
@@ -17112,7 +16696,6 @@ rezh
 rezé
 rheda-wiedenbruck
 rheda-wiedenbrück
-rhedawiedenbrück
 rhede
 rhein
 rheinbach
@@ -17137,12 +16720,10 @@ ribera
 riberalta
 ribes
 ribnitz-damgarten
-ribnitzdamgarten
 rica
 riccione
 richard-toll
 richards
-richardtoll
 richfield
 richha
 richland
@@ -17163,9 +16744,9 @@ rieng
 riesa
 rietberg
 rieti
-rifa‘
+rif'at
+rifa'
 rifu
-rif‘at
 riga
 rih
 riihimäki
@@ -17175,7 +16756,6 @@ rijn
 rijswijk
 rikaze
 rillieux-la-pape
-rillieuxlapape
 rimavska
 rimini
 rimouski
@@ -17205,18 +16785,15 @@ rishikesh
 rishon
 rishra
 risod
-risorangis
 rita
 riu
 rivadavia
 rivas
 rivas-vaciamadrid
-rivasvaciamadrid
 river
 river-clair
 rivera
 riverbank
-riverclair
 riverdale
 riverside
 riverton
@@ -17226,10 +16803,10 @@ riviere
 riviere-du-loup
 rivière
 rivière-du-loup
-rivièreduloup
 rivne
 rivoli
 rixensart
+riyad
 riyadh
 rizal
 rize
@@ -17255,7 +16832,6 @@ roche-sur-yon
 rochefort
 rochelle
 rochester
-rochesuryon
 rochford
 rock
 rockford
@@ -17286,7 +16862,6 @@ rohri
 rohtak
 roi
 roissy-en-brie
-roissyenbrie
 rojales
 rokiskis
 rolante
@@ -17303,7 +16878,6 @@ romania
 romano
 romans-sur-isere
 romans-sur-isère
-romanssurisère
 romblon
 rome
 romeoville
@@ -17311,7 +16885,6 @@ romero
 romita
 romny
 romorantin-lanthenay
-romorantinlanthenay
 romos
 romsey
 romulus
@@ -17353,25 +16926,23 @@ roseto
 rosetta
 roseville
 rosh
-roshal’
+roshal'
 roshcha
 rosignano
 rosita
 roskilde
-roslavl’
+roslavl'
 rosny-sous-bois
-rosnysousbois
 rosolini
 rossano
 rossendale
 rosso
-rossosh’
+rossosh'
 rossville
 rostock
 rostokino
 rostov
 rostov-na-donu
-rostovnadonu
 roswell
 rota
 rotenburg
@@ -17390,11 +16961,11 @@ rouen
 rouge
 rouiba
 rouissat
+roumanie
 round
 rouyn-noranda
-rouynnoranda
 rovaniemi
-roven’ky
+roven'ky
 rovereto
 rovigo
 rowland
@@ -17407,9 +16978,10 @@ royal
 royale
 royalton
 royan
+royaume-uni
 royton
 rozas
-rozdil’na
+rozdil'na
 roznov
 rozzano
 rozňava
@@ -17431,7 +17003,6 @@ rudolstadt
 rudow
 ruea
 rueil-malmaison
-rueilmalmaison
 rufino
 rugby
 rugeley
@@ -17463,10 +17034,11 @@ russeifa
 russellville
 russelsheim
 russian federation
+russie
+rust'avi
 rustaq
 rustenburg
 ruston
-rust’avi
 rutana
 rutbah
 ruteng
@@ -17484,8 +17056,8 @@ ruzayevka
 ruzomberok
 rwamagana
 rwanda
+ryazan'
 ryazanskiy
-ryazan’
 ryazhsk
 rybatskoye
 rybinsk
@@ -17494,11 +17066,10 @@ rybnoye
 ryde
 rydułtowy
 rye
-ryl’sk
+ryl'sk
 rypin
 ryton
 ryōtsu-minato
-ryōtsuminato
 ryūgasaki
 ryūō
 rzeszow
@@ -17508,8 +17079,12 @@ râmnicu
 râs
 râsnov
 rémire-montjoly
-rémiremontjoly
 réo
+république centrafricaine
+république dominicaine
+république du congo
+république démocratique du congo
+république tchèque
 rîbnita
 rösrath
 rübenberge
@@ -17519,6 +17094,7 @@ rūdarpur
 rūdsar
 rạch
 sa'dah
+sa'ir
 saadu
 saale
 saalfeld
@@ -17542,7 +17118,6 @@ sabinas
 sabirabad
 sablayan
 sables-d'olonne
-sablesd'olonne
 sabunçu
 sabzevar
 sacatepequez
@@ -17614,6 +17189,7 @@ saiha
 saijō
 saiki
 saint
+saint john
 saint vincent & the grenadines
 saint-amand-les-eaux
 saint-andre
@@ -17628,19 +17204,21 @@ saint-bruno-de-montarville
 saint-chamond
 saint-cloud
 saint-constant
-saint-cyr-l’ecole
-saint-cyr-l’école
+saint-cyr-l'ecole
+saint-cyr-l'école
 saint-cyr-sur-loire
 saint-denis
 saint-die-des-vosges
 saint-dizier
 saint-dié-des-vosges
+saint-domingue
 saint-egrève
 saint-etienne
 saint-etienne-du-rouvray
 saint-eustache
 saint-fons
 saint-genis-laval
+saint-georges
 saint-germain-en-laye
 saint-ghislain
 saint-gratien
@@ -17652,6 +17230,7 @@ saint-jean-sur-richelieu
 saint-jerôme
 saint-joseph
 saint-jérôme
+saint-kitts-et-nevis
 saint-laurent
 saint-laurent-du-maroni
 saint-laurent-du-var
@@ -17666,8 +17245,9 @@ saint-malo
 saint-mande
 saint-mandé
 saint-marc
-saint-martin-d’heres
-saint-martin-d’hères
+saint-marin
+saint-martin-d'heres
+saint-martin-d'hères
 saint-maur-des-fosses
 saint-maur-des-fossés
 saint-maximin-la-sainte-baume
@@ -17678,7 +17258,7 @@ saint-nazaire
 saint-nicolas
 saint-omer
 saint-ouen
-saint-ouen-l’aumône
+saint-ouen-l'aumône
 saint-paul
 saint-pierre
 saint-pierre-des-corps
@@ -17689,27 +17269,11 @@ saint-quentin-en-yvelines
 saint-raphaël
 saint-sebastien-sur-loire
 saint-sébastien-sur-loire
+saint-vincent-et-les-grenadines
 saint-égreve
 saint-égrève
 saint-étienne
 saint-étienne-du-rouvray
-saintamandleseaux
-saintandré
-saintaugustindedesmaures
-saintavertin
-saintavold
-saintbasilelegrand
-saintbenoît
-saintbrieuc
-saintbrunodemontarville
-saintchamond
-saintcloud
-saintconstant
-saintcyrl’école
-saintcyrsurloire
-saintdenis
-saintdizier
-saintdiédesvosges
 sainte-anne
 sainte-catherine
 sainte-foy-les-lyon
@@ -17717,70 +17281,15 @@ sainte-foy-lès-lyon
 sainte-genevieve-des-bois
 sainte-geneviève-des-bois
 sainte-julie
+sainte-lucie
 sainte-marie
 sainte-rose
 sainte-suzanne
 sainte-therèse
 sainte-thérese
 sainte-thérèse
-sainteanne
-saintecatherine
-saintefoylèslyon
-saintegenevièvedesbois
-saintejulie
-saintemarie
-sainterose
 saintes
-saintesuzanne
-saintethérèse
-sainteustache
-saintfons
-saintgenislaval
-saintgermainenlaye
-saintghislain
-saintgratien
-saintherblain
 sainthia
-sainthyacinthe
-saintjeandebraye
-saintjeandelaruelle
-saintjeansurrichelieu
-saintjoseph
-saintjérôme
-saintlaurent
-saintlaurentdumaroni
-saintlaurentduvar
-saintlazare
-saintleu
-saintleulaforêt
-saintlouis
-saintléonard
-saintlô
-saintmalo
-saintmandé
-saintmarc
-saintmartind’hères
-saintmaurdesfossés
-saintmaximinlasaintebaume
-saintmichelsurorge
-saintmédardenjalles
-saintnazaire
-saintnicolas
-saintomer
-saintouen
-saintouenl’aumône
-saintpaul
-saintpierre
-saintpierredescorps
-saintpolsurmer
-saintpriest
-saintquentin
-saintquentinenyvelines
-saintraphaël
-saintsébastiensurloire
-saintégrève
-saintétienne
-saintétiennedurouvray
 saipan
 saitama
 sak
@@ -17789,13 +17298,11 @@ sakai
 sakai-nakajima
 sakaidechō
 sakaiminato
-sakainakajima
 sakakah
 sakaraha
 sakassou
 sakata
 sakchu-up
-sakchuup
 sake
 sakete
 sakhipur
@@ -17812,9 +17319,9 @@ sakurai
 saky
 sakété
 sal
+sal'sk
 salaam
 salaberry-de-valleyfield
-salaberrydevalleyfield
 saladas
 salaga
 salah
@@ -17852,8 +17359,8 @@ sallanches
 salmas
 salmon
 salo
+salomon
 salon-de-provence
-salondeprovence
 salonta
 salor
 salou
@@ -17880,9 +17387,9 @@ salzwedel
 salée
 salūmbar
 salūr
-sal’sk
 sam
 sama
+sama'il
 samaba
 samal
 samalkha
@@ -17892,10 +17399,9 @@ samannūd
 samara
 samarinda
 samarqand
-samarra’
+samarra'
 samastipur
 samawah
-sama’il
 samba
 sambalpur
 sambava
@@ -17908,7 +17414,6 @@ samdari
 same
 samfya
 samho-rodongjagu
-samhorodongjagu
 sammamish
 samoa
 samobor
@@ -17926,9 +17431,12 @@ samthar
 samtredia
 samui
 samut
-samū‘
+samū'
 san
+san jose
+san josé
 san marino
+san salvador
 san-pedro
 san-pédro
 sanaa
@@ -17936,7 +17444,6 @@ sanand
 sanandaj
 sanarate
 sanary-sur-mer
-sanarysurmer
 sanaur
 sanawad
 sancaktepe
@@ -17971,7 +17478,6 @@ sang-e
 sangamner
 sangareddi
 sangaria
-sange
 sanger
 sangerhausen
 sanghar
@@ -17994,10 +17500,8 @@ sannicandro
 sannois
 sano
 sanok
-sanpédro
 sansanne-mango
 sansanné-mango
-sansannémango
 sanshui
 sant
 sant'anastasia
@@ -18021,7 +17525,6 @@ santol
 santomera
 santos
 sants-montjuïc
-santsmontjuïc
 santuario
 santurtzi
 santutxu
@@ -18029,7 +17532,9 @@ santyoku
 sanxenxo
 sanya
 sao
+sao tome
 sao tome & principe
+sao tome-et-principe
 saoner
 saoula
 sapanca
@@ -18071,7 +17576,6 @@ sarcelles
 sardarshahr
 sardhana
 sardulgarh
-sare
 sargodha
 sari
 saria
@@ -18089,12 +17593,10 @@ sarny
 saronno
 sarov
 sarpol-e
-sarpole
 sarpsborg
 sarreguemines
 sarria-sant
 sarrià-sant
-sarriàsant
 sarstedt
 sartell
 sartrouville
@@ -18153,7 +17655,6 @@ savanna-la-mar
 savannah
 savannakhet
 savannakhét
-savannalamar
 savantvadi
 savanūr
 savda
@@ -18163,8 +17664,6 @@ savelugu
 savigliano
 savigny-le-temple
 savigny-sur-orge
-savignyletemple
-savignysurorge
 savona
 savonlinna
 savé
@@ -18191,7 +17690,6 @@ saña
 saýat
 saḩab
 saḩar
-sa‘ir
 scafati
 scalo
 scandicci
@@ -18241,7 +17739,6 @@ schwechat
 schwedt
 schweinfurt
 schweizer-reneke
-schweizerreneke
 schwelm
 schwerin
 schwerte
@@ -18285,7 +17782,6 @@ secuiesc
 secunda
 secunderabad
 security-widefield
-securitywidefield
 sedalia
 sedan
 seddouk
@@ -18294,7 +17790,6 @@ sedhiou
 sedrata
 seeb
 seeheim-jugenheim
-seeheimjugenheim
 seelze
 seen
 seesen
@@ -18320,7 +17815,7 @@ seibo
 seinäjoki
 seka
 sekondi-takoradi
-sekonditakoradi
+sel'tso
 selam
 selangor
 selaphum
@@ -18329,7 +17824,6 @@ selb
 selby
 selden
 selebi-phikwe
-selebiphikwe
 selestat
 selibaby
 seligenstadt
@@ -18341,7 +17835,6 @@ selogiri
 selu
 selydove
 selçuk
-sel’tso
 semarang
 semenyih
 semey
@@ -18357,7 +17850,7 @@ sena
 senador
 senago
 senai
-senak’i
+senak'i
 sendai
 senden
 sendhwa
@@ -18381,7 +17874,6 @@ seohara
 seondha
 seonghwan
 seongnam-si
-seongnamsi
 seoni
 seoul
 sepang
@@ -18389,7 +17881,6 @@ sepat
 sepatan
 sepe
 sept-îles
-septîles
 sepuka
 sepé
 sequeira
@@ -18398,6 +17889,7 @@ seraing
 seram
 serang
 serbia
+serbie
 serchhip
 serdan
 serdobsk
@@ -18438,18 +17930,16 @@ sestroretsk
 sestu
 sesvete
 setakamachi-takayanagi
-setakamachitakayanagi
 setar
 setauket
 setauket-east
-setauketeast
 sete
 setharja
 setif
 seto
 settat
 settimo
-setun’
+setun'
 setúbal
 sevan
 sevastopol
@@ -18462,11 +17952,10 @@ severnoye
 severnyy
 severo
 severo-zadonsk
-severobaykal’sk
+severobaykal'sk
 severodvinsk
 severomorsk
-severoural’sk
-severozadonsk
+severoural'sk
 seversk
 severskaya
 seveso
@@ -18481,13 +17970,11 @@ seydi
 seydisehir
 seymour
 seyne-sur-mer
-seynesurmer
 seynod
 sezze
 sfax
 sfizef
 sfântu-gheorghe
-sfântugheorghe
 sha
 shabqadar
 shache
@@ -18515,7 +18002,6 @@ shahpura
 shahr
 shahr-e
 shahrak
-shahre
 shahreẕa
 shahri
 shahriar
@@ -18525,9 +18011,9 @@ shahzadpur
 shajapur
 shakargarr
 shaker
-shakhtars’k
+shakhtars'k
 shakhty
-shakhun’ya
+shakhun'ya
 shakiso
 shakopee
 shali
@@ -18547,7 +18033,6 @@ shangmei
 shangqiu
 shangrao
 shangri-la
-shangrila
 shangyu
 shangzhi
 shanhaiguan
@@ -18561,12 +18046,12 @@ shaoguan
 shaowu
 shaoxing
 shaping
+shar'ya
 shardara
 sharif
 sharjah
 sharqpur
 sharypovo
-shar’ya
 shashemenē
 shashi
 shatrah
@@ -18582,6 +18067,7 @@ shchuchin
 shchukino
 shchëkino
 shchūchinsk
+she'an
 shebekino
 sheboygan
 sheffield
@@ -18597,8 +18083,8 @@ shelui
 shemesh
 shemona
 shemonaikha
-shemu’el
-shemu’él
+shemu'el
+shemu'él
 shenandoah
 shendi
 shengli
@@ -18621,7 +18107,6 @@ sherrelwood
 shertallai
 sherwood
 shetland
-she’an
 shi
 shibata
 shibetsu
@@ -18655,11 +18140,11 @@ shimla
 shimo-furano
 shimoda
 shimodate
-shimofurano
 shimoga
 shimokizukuri
 shimonoseki
 shimotoda
+shin'ichi
 shinafiyah
 shinas
 shingū
@@ -18667,7 +18152,6 @@ shinjō
 shinshiro
 shinyanga
 shinḏanḏ
-shin’ichi
 shiogama
 shiojiri
 shiozawa
@@ -18676,7 +18160,6 @@ shiqi
 shiqiao
 shiraguppi
 shirahamachō-usazakiminami
-shirahamachōusazakiminami
 shiraoi
 shiraoka
 shiraz
@@ -18702,9 +18185,9 @@ shizilu
 shizuishan
 shizukuishi
 shizunai-furukawachō
-shizunaifurukawachō
 shizuoka
 shkodër
+sho'rchi
 shofirkon
 sholinghur
 shoranūr
@@ -18712,7 +18195,6 @@ shorapur
 shore
 shoreham
 shoreham-by-sea
-shorehambysea
 shoreline
 shores
 shoreview
@@ -18721,7 +18203,6 @@ shorko
 shostka
 shouguang
 showot
-sho’rchi
 shpola
 shreveport
 shrewsbury
@@ -18734,7 +18215,7 @@ shuangcheng
 shuangyang
 shuangyashan
 shughūr
-shuhada’
+shuhada'
 shujaabad
 shujalpur
 shulan
@@ -18838,7 +18319,6 @@ silkeborg
 silla
 sillamäe
 sillanwali
-silli
 sillod
 siloam
 silopi
@@ -18876,6 +18356,7 @@ singa
 singanallūr
 singaparna
 singapore
+singapour
 singapur
 singaraja
 singarayakonda
@@ -18892,7 +18373,6 @@ sinhyeon
 sinjai
 sinjar
 sinjhoro
-sinlenoble
 sinmak
 sinnai
 sinnar
@@ -18906,15 +18386,7 @@ sint-niklaas
 sint-oedenrode
 sint-pieters-leeuw
 sint-truiden
-sintgenesiusrode
-sintgilliswaas
-sintkatelijnewaver
-sintkruis
-sintniklaas
-sintoedenrode
-sintpietersleeuw
 sintra
-sinttruiden
 sinuiju
 sinzig
 siofok
@@ -18974,14 +18446,12 @@ siverek
 siwan
 siwana
 six-fours-les-plages
-sixfourslesplages
 siyabuswa
-skadovs’k
+skadovs'k
 skalica
 skanes
 skara
 skarżysko-kamienna
-skarżyskokamienna
 skawina
 skegness
 skelleftea
@@ -19006,7 +18476,6 @@ slavgorod
 slavonski
 slavuta
 slavyansk-na-kubani
-slavyansknakubani
 slawi
 sleaford
 sleman
@@ -19021,14 +18490,17 @@ slobozia
 slonim
 slough
 slovakia
+slovaquie
 slovenia
+slovenie
 sloviansk
+slovénie
 slutsk
 sly
 slyudyanka
 smach
 smara
-smarhon’
+smarhon'
 smederevo
 smederevska
 smila
@@ -19068,7 +18540,6 @@ soest
 sofia
 sofifi
 sofo-birnin-gwari
-sofobirningwari
 sofrino
 sogamoso
 sohag
@@ -19079,10 +18550,9 @@ soignies
 soio
 soissons
 soisy-sous-montmorency
-soisysousmontmorency
 sojat
 sojitra
-sokal’
+sokal'
 sokaraja
 sokcho
 sokhumi
@@ -19090,13 +18560,14 @@ soko
 sokode
 sokodé
 sokol
+sokol'niki
 sokolov
-sokol’niki
 sokoni
 sokoto
 sokołka
 sokołow
 sol
+sol'-iletsk
 solan
 solana
 solano
@@ -19122,13 +18593,11 @@ solon
 soltau
 solteira
 solvay-castiglioncello
-solvaycastiglioncello
 solânea
-sol’-iletsk
-sol’iletsk
 som
 soma
 somalia
+somalie
 somanda
 sombor
 sombrerete
@@ -19174,7 +18643,6 @@ sorada
 sorang
 soreang
 sorel-tracy
-soreltracy
 sorgues
 sorgun
 soria
@@ -19199,9 +18667,10 @@ soto
 sotouboua
 sotteville-les-rouen
 sotteville-lès-rouen
-sottevillelèsrouen
 soubre
 soubré
+soudan
+soudan du sud
 sougueur
 souk
 souma
@@ -19222,7 +18691,6 @@ southaven
 southbridge
 southchase
 southend-on-sea
-southendonsea
 southfield
 southgate
 southglenn
@@ -19244,8 +18712,7 @@ spanish
 sparks
 spartanburg
 sparti
-spassk-dal’niy
-spasskdal’niy
+spassk-dal'niy
 spenge
 spennymoor
 speu
@@ -19253,7 +18720,6 @@ speyer
 spezia
 spijkenisse
 spinea-orgnano
-spineaorgnano
 spiritus
 spisska
 spitak
@@ -19280,6 +18746,7 @@ sredneuralsk
 sremcica
 sremska
 sri
+sri jayawardenapura
 sri lanka
 srinagar
 srinivaspur
@@ -19325,7 +18792,7 @@ staraya
 stargard
 starkville
 starnberg
-starobil’s’k
+starobil's'k
 starodub
 starogard
 starokostyantyniv
@@ -19341,7 +18808,7 @@ statesville
 station
 stavanger
 staveley
-stavropol’
+stavropol'
 stazione
 staßfurt
 stebnyk
@@ -19379,16 +18846,13 @@ stockholm
 stockport
 stockton
 stockton-on-tees
-stocktonontees
 stoke-on-trent
-stokeontrent
 stolberg
 stoneham
 stortford
 stoughton
 stourbridge
 stourport-on-severn
-stourportonsevern
 stow
 stowbtsy
 stowmarket
@@ -19407,7 +18871,7 @@ streda
 streetsboro
 strezhevoy
 strogino
-stroitel’
+stroitel'
 strongsville
 struga
 strumica
@@ -19422,7 +18886,6 @@ stupino
 stutterheim
 stuttgart
 stuttgart-ost
-stuttgartost
 su-ngai
 suai
 suan
@@ -19436,13 +18899,12 @@ subotica
 suceava
 sucre
 sucy-en-brie
-sucyenbrie
 sud
 sudan
 sudbury
 sueca
+suede
 sueyoshichō-ninokata
-sueyoshichōninokata
 suez
 sufal
 sufalat
@@ -19459,6 +18921,7 @@ suihua
 suileng
 suining
 suisan
+suisse
 suisun
 suita
 suitland
@@ -19500,7 +18963,6 @@ sulur
 sulya
 sulzbach
 sulzbach-rosenberg
-sulzbachrosenberg
 sulūq
 sumare
 sumaré
@@ -19535,7 +18997,6 @@ sundern
 sundsvall
 sunel
 sung
-sungai
 sungailiat
 sunggal
 sungho
@@ -19591,23 +19052,23 @@ suvorov
 suvorovskaya
 suwa
 suwanee
-suwayda’
+suwayda'
 suwayf
 suwayq
 suwałki
 suwon-si
-suwonsi
 suzaka
 suzano
 suzhou
 suzuka
 suzun
 suzzara
+suède
 svalyava
 svatove
 svay
 svendborg
-sverdlovs’k
+sverdlovs'k
 svetlanovskiy
 svetlograd
 svetlyy
@@ -19616,7 +19077,7 @@ sviblovo
 svilengrad
 svishtov
 svitavy
-svitlovods’k
+svitlovods'k
 svobodnyy
 svobody
 svyetlahorsk
@@ -19631,20 +19092,21 @@ switzerland
 swords
 sycamore
 sydney
-syevyerodonets’k
+syevyerodonets'k
 syke
 sykies
 sykiés
 syktyvkar
 sylhet
 sylvania
-synel’nykove
+synel'nykove
 syosset
 syracuse
 syria
 syriam
-sysert’
-syzran’
+syrie
+sysert'
+syzran'
 szamotuły
 szarvas
 szazhalombatta
@@ -19672,6 +19134,8 @@ ségou
 séguéla
 sélestat
 sélibaby
+sénégal
+séoul
 sérres
 sétif
 sông
@@ -19696,6 +19160,10 @@ sūrat
 sūratgarh
 sūsangerd
 sơn
+t'aebaek
+t'ongch'on-up
+ta'if
+ta'izz
 taal
 taastrup
 tabaco
@@ -19714,6 +19182,7 @@ tabuk
 tacambaro
 tacarigua
 tachira
+tachkent
 tacna
 tacoma
 tacoronte
@@ -19722,6 +19191,7 @@ tacurong
 tadepalle
 tadepallegūdem
 tadif
+tadjikistan
 tadjoura
 tadla
 tadmaït
@@ -19729,7 +19199,6 @@ tadmur
 tadotsu
 tadpatri
 taesal-li
-taesalli
 tafi
 tafo
 taft
@@ -19749,12 +19218,14 @@ taguig
 tagum
 tahara
 tahe
+tahiti
 tahla
 tahlequah
 tahoe
 tahoua
 tahta
 tai
+tai'an
 taichung
 taihe
 taikang
@@ -19764,14 +19235,12 @@ taiobeiras
 taipei
 taiping
 taisen-ri
-taisenri
 taishan
 taitung
 taiwan
 taixing
 taiyuan
 taizhou
-tai’an
 taj
 tajerouine
 tajikistan
@@ -19798,7 +19267,6 @@ takehara
 takelsa
 takeo
 takeochō-takeo
-takeochōtakeo
 takestan
 taketoyo
 takharim
@@ -19810,6 +19278,8 @@ takoma
 takoradi
 takum
 tal
+tal'menka
+tal'ne
 tala
 talacogon
 talagang
@@ -19852,8 +19322,6 @@ taloda
 taloqan
 talwandi
 talwara
-tal’menka
-tal’ne
 tam
 tamale
 tamalous
@@ -19884,7 +19352,6 @@ tampin
 tampon
 tamra
 tamuning-tumon-harmon
-tamuningtumonharmon
 tamworth
 tan
 tan-tan
@@ -19932,15 +19399,14 @@ tank
 tanout
 tanque
 tansen
-tantan
 tantou
 tantoyuca
 tanuku
 tanuma
 tanushimarumachi-toyoki
-tanushimarumachitoyoki
 tanza
 tanzania
+tanzanie
 taoru
 taounate
 taourirt
@@ -19968,6 +19434,7 @@ tarancon
 taranto
 tarauaca
 tarawa
+tarawa-sud
 taraz
 tarbes
 taree
@@ -19982,7 +19449,6 @@ tarija
 tarikere
 tarime
 tarko-sale
-tarkosale
 tarkwa
 tarlac
 tarma
@@ -20009,14 +19475,12 @@ tasek
 tasgaon
 tash-kumyr
 tashkent
-tashkumyr
 tashtagol
 tasikmalaya
 tasköpru
 tasköprü
 tasova
 tassin-la-demi-lune
-tassinlademilune
 tata
 tatabanya
 tataouine
@@ -20025,7 +19489,6 @@ tatebayashi
 tateyama
 tatsuno
 tatsunochō-tominaga
-tatsunochōtominaga
 tatui
 tatvan
 tau
@@ -20063,12 +19526,11 @@ taytay
 tayu
 taza
 tazoult-lambese
-tazoultlambese
-ta‘izz
-ta’if
 tbilisi
+tbilissi
 tbilisskaya
 tbêng
+tchad
 tchamba
 tchaourou
 tchibanga
@@ -20103,6 +19565,7 @@ teghra
 tegina
 tegucigalpa
 teguise
+teheran
 tehran
 tehri
 tehuacan
@@ -20122,7 +19585,7 @@ tekkalakote
 tekkali
 tekkeköy
 teknaf
-tekstil’shchiki
+tekstil'shchiki
 tel
 tela
 telabastagan
@@ -20208,7 +19671,7 @@ ternate
 terneuzen
 terni
 ternitz
-ternopil’
+ternopil'
 terrace
 terracina
 terrassa
@@ -20225,7 +19688,6 @@ tesistan
 tessaoua
 tessenderlo
 teste-de-buch
-testedebuch
 tete
 tetouan
 tetovo
@@ -20246,6 +19708,7 @@ tha
 thaba
 thai
 thailand
+thailande
 thakhek
 thakhèk
 thakurdwara
@@ -20273,18 +19736,19 @@ thaton
 thatta
 thawrah
 thayetmyo
+thaïlande
 the
 thenia
 theniet
 thenkasi
 thessaloniki
 thetford-mines
-thetfordmines
 theunissen
 thiais
 thiene
 thies
 thika
+thimphou
 thimphu
 thionville
 thiruthani
@@ -20304,12 +19768,10 @@ thomazeau
 thong
 thongwa
 thonon-les-bains
-thononlesbains
 thornbury
 thornlie
 thornton
 thornton-cleveleys
-thorntoncleveleys
 thorold
 thot
 thoubal
@@ -20380,6 +19842,7 @@ timisoara
 timizart
 timmins
 timon
+timor oriental
 timoteo
 tin
 tinaquillo
@@ -20448,7 +19911,6 @@ tizayuca
 tizi
 tizi-n-tleta
 tizimin
-tizintleta
 tiznit
 tiébo
 tiên
@@ -20469,13 +19931,12 @@ tlemcen
 toamasina
 toba
 tobias
-tobol’sk
+tobol'sk
 tobruk
 tocache
 tochapan
 tochigi
 tochio-honchō
-tochiohonchō
 tocoa
 tocopilla
 tocumen
@@ -20498,6 +19959,7 @@ toktogul
 tokushima
 tokuyama
 tokyo
+tol'yatti
 toledo
 tolentino
 tolga
@@ -20505,7 +19967,6 @@ toliara
 tolosa
 toluca
 tolú
-tol’yatti
 tomakomai
 tomar
 tomares
@@ -20556,7 +20017,6 @@ topľou
 tor
 torbalı
 torbat-e
-torbate
 torcy
 tordera
 torez
@@ -20581,7 +20041,6 @@ torremaggiore
 torremolinos
 torrent
 torreon
-torrepacheco
 torres
 torrevieja
 torrington
@@ -20663,7 +20122,6 @@ treinta
 trelew
 trelleborg
 tremblay-en-france
-tremblayenfrance
 tremembe
 tremembé
 trencin
@@ -20672,7 +20130,6 @@ trenggalek
 trent
 trento
 trentola-ducenta
-trentoladucenta
 trenton
 treptow
 tres
@@ -20692,7 +20149,9 @@ trinec
 trinidad
 trinidad & tobago
 trinite
+trinite-et-tobago
 trinité
+trinité-et-tobago
 triolet
 tripoli
 triunfo
@@ -20700,7 +20159,6 @@ trnava
 trois-rivieres
 trois-rivières
 troisdorf
-troisrivières
 troitsk
 troitskaya
 trollhättan
@@ -20732,6 +20190,7 @@ trà
 três
 trëkhgornyy
 trì
+ts'khinvali
 tsaratanana
 tsaritsyno
 tserkva
@@ -20744,7 +20203,6 @@ tsirang
 tsiribihina
 tsiroanomandidy
 tsotsin-yurt
-tsotsinyurt
 tsqaltubo
 tsu
 tsubame
@@ -20756,14 +20214,12 @@ tsukumiura
 tsuma
 tsuruga
 tsurugi-asahimachi
-tsurugiasahimachi
 tsuruoka
 tsurusaki
 tsushima
 tsuyama
-tsyurupyns’k
+tsyurupyns'k
 tsévié
-ts’khinvali
 tua
 tual
 tualatin
@@ -20791,6 +20247,7 @@ tui
 tukums
 tukuyu
 tukwila
+tul'chyn
 tula
 tulancingo
 tulangan
@@ -20809,7 +20266,6 @@ tultitlan
 tulua
 tulun
 tulungagung
-tul’chyn
 tum
 tumaco
 tumba
@@ -20830,6 +20286,7 @@ tungkal
 tuni
 tunis
 tunisia
+tunisie
 tunja
 tuntum
 tupaciguara
@@ -20857,15 +20314,17 @@ turkey
 turkmenabat
 turkmenbasy
 turkmenistan
+turkménistan
 turku
 turlock
 turmero
 turnhout
 turnovo
 turnu
+turquie
 turrialba
 tursunzoda
-turtkul’
+turtkul'
 turzii
 tuscaloosa
 tustin
@@ -20904,11 +20363,11 @@ tân
 târgoviste
 târgu
 târgu-mures
-târgumures
 târnaveni
 tây
 täby
 tébessa
+téhéran
 tékane
 télimélé
 téra
@@ -20927,9 +20386,6 @@ tōkamachi
 tōno
 tūkrah
 tūndla
-t’aebaek
-t’ongch’on-up
-t’ongch’onup
 uairen
 uairén
 ualog
@@ -20974,7 +20430,6 @@ ueda
 ueki
 uelzen
 ueno-ebisumachi
-uenoebisumachi
 uenohara
 uetersen
 ufa
@@ -20989,7 +20444,6 @@ uherské
 uherský
 uige
 uijeongbu-si
-uijeongbusi
 uitenhage
 uithoorn
 ujar
@@ -21006,7 +20460,6 @@ ulaangom
 ulan
 ulan-ude
 ulanhot
-ulanude
 ulhasnagar
 uliastay
 ulis
@@ -21017,7 +20470,7 @@ ulu
 ulundi
 ulyanovsk
 uman
-uman’
+uman'
 umarga
 umaria
 umarkhed
@@ -21060,7 +20513,6 @@ uno
 unquillo
 unter
 unter-falkenstein
-unterfalkenstein
 unterfranken
 unterhaching
 unterkrozingen
@@ -21086,7 +20538,6 @@ urbandale
 urdaneta
 urengoy
 ureshinomachi-shimojuku
-ureshinomachishimojuku
 urganch
 urgut
 uriangato
@@ -21103,7 +20554,6 @@ uruaçu
 uruguaiana
 uruguay
 urus-martan
-urusmartan
 uruçuca
 uryupinsk
 urziceni
@@ -21117,32 +20567,24 @@ ush-tyube
 ushibuka
 ushiku
 ushirombo
-ushtyube
 ushuaia
 usilampatti
 usinsk
 uslar
-usman’
-usol’ye-sibirskoye
-usol’yesibirskoye
+usman'
+usol'ye-sibirskoye
 ussuriysk
+ust'-dzheguta
+ust'-ilimsk
+ust'-katav
+ust'-kut
+ust'-labinsk
 ust-kamenogorsk
 usta
 uster
 ustka
-ustkamenogorsk
 ustron
 ustyug
-ust’-dzheguta
-ust’-ilimsk
-ust’-katav
-ust’-kut
-ust’-labinsk
-ust’dzheguta
-ust’ilimsk
-ust’katav
-ust’kut
-ust’labinsk
 usuki
 usulutan
 utara
@@ -21207,7 +20649,6 @@ valabhipur
 valadares
 valasske
 valasské
-vald'or
 valdagno
 valdarno
 valday
@@ -21226,7 +20667,6 @@ valenzano
 valença
 valera
 valette-du-var
-valetteduvar
 valinhos
 valjevo
 valkeakoski
@@ -21265,7 +20705,6 @@ vandavasi
 vanderbijlpark
 vandœuvre-les-nancy
 vandœuvre-lès-nancy
-vandœuvrelèsnancy
 vangaindrano
 vangviang
 vanino
@@ -21298,6 +20737,7 @@ varkaus
 varna
 varnsdorf
 varpalota
+varsovie
 varto
 varvara
 vary
@@ -21306,7 +20746,7 @@ varzim
 vasa
 vasco
 vasconcelos
-vasil’yevo
+vasil'yevo
 vasind
 vaslui
 vassouras
@@ -21323,10 +20763,8 @@ vattalkundu
 vatutine
 vatutino
 vaudreuil-dorion
-vaudreuildorion
 vaughan
 vaulx-en-velin
-vaulxenvelin
 vaureal
 vauréal
 vavatenina
@@ -21340,7 +20778,6 @@ vec-liepaja
 vechelde
 vechi
 vechta
-vecliepaja
 vecses
 vecsés
 vedaraniyam
@@ -21356,6 +20793,7 @@ veghel
 veinticinco
 vejalpur
 vejle
+vel'sk
 velasco
 velbert
 veldhoven
@@ -21377,9 +20815,7 @@ vellmar
 vellore
 velp
 velsen-zuid
-velsenzuid
 velur
-vel’sk
 vemalwada
 venado
 venaria
@@ -21427,7 +20863,6 @@ verkhnyaya
 verl
 vermelha
 verneuil-sur-seine
-verneuilsurseine
 vernier
 vernon
 vero
@@ -21436,7 +20871,6 @@ verona
 verrettes
 verrieres-le-buisson
 verrières-le-buisson
-verrièreslebuisson
 versailles
 versmold
 vertientes
@@ -21499,13 +20933,11 @@ viernheim
 viersen
 viertel
 vierzon
-vietnam
 view
 vigan
 vigevano
 vigia
 vigneux-sur-seine
-vigneuxsurseine
 vignola
 vigo
 vihari
@@ -21525,8 +20957,6 @@ vilagarcia
 vilalba
 vilanova
 vilar
-vilareal
-vilaseca
 vilassar
 vilbel
 vilhena
@@ -21559,35 +20989,24 @@ villazon
 ville
 villefontaine
 villefranche-sur-saône
-villefranchesursaône
 villejuif
 villemomble
 villena
-villenave-d’ornon
-villenaved’ornon
+villenave-d'ornon
 villeneuve-d'ascq
 villeneuve-la-garenne
 villeneuve-le-roi
 villeneuve-saint-georges
 villeneuve-sur-lot
-villeneuved'ascq
-villeneuvelagarenne
-villeneuveleroi
-villeneuvesaintgeorges
-villeneuvesurlot
 villeparisis
 villepinte
 villers-les-nancy
 villers-lès-nancy
-villerslèsnancy
 villeta
 villeurbanne
 villiers-le-bel
 villiers-sur-marne
-villierslebel
-villierssurmarne
 villingen-schwenningen
-villingenschwenningen
 villupuram
 vilnius
 vilshofen
@@ -21621,7 +21040,6 @@ viroflay
 virovitica
 virudunagar
 viry-châtillon
-virychâtillon
 virú
 visaginas
 visakhapatnam
@@ -21645,8 +21063,6 @@ vitre
 vitrolles
 vitry-le-françois
 vitry-sur-seine
-vitrylefrançois
-vitrysurseine
 vitré
 vittoria
 vittorio
@@ -21655,6 +21071,7 @@ vivida
 vizianagaram
 vizinhos
 viçosa
+viêt nam
 viña
 viñales
 việt
@@ -21678,6 +21095,7 @@ vohipaho
 voi
 voinjama
 voiron
+vol'sk
 volendam
 volgodonsk
 volgograd
@@ -21687,8 +21105,7 @@ volksrust
 volla
 volnovakha
 volochëk
-volodymyr-volyns’kyy
-volodymyrvolyns’kyy
+volodymyr-volyns'kyy
 vologda
 volokolamsk
 volos
@@ -21697,7 +21114,6 @@ volturno
 voluntari
 volzhsk
 volzhskiy
-vol’sk
 vondrozo
 voorburg
 voorhout
@@ -21706,19 +21122,19 @@ voorst
 vor
 vorgashor
 vorkuta
-vorob’yovo
+vorob'yovo
 voronezh
-vose’
+vose'
 voskresensk
 vostochnoe
 vostryakovo
 votkinsk
 votorantim
 votuporanga
-vovchans’k
+vovchans'k
 voznesensk
 voúla
-vrangel’
+vrangel'
 vranje
 vranov
 vratsa
@@ -21743,12 +21159,11 @@ vuyyūru
 vwawa
 vyara
 vyatskiye
+vyaz'ma
 vyazemskiy
 vyazniki
-vyaz’ma
 vyborg
 vykhino-zhulebino
-vykhinozhulebino
 vyksa
 vynohradiv
 vyselki
@@ -21765,10 +21180,8 @@ västervik
 växjö
 véal
 vélez-malaga
-vélezmalaga
 vélingara
 vélizy-villacoublay
-vélizyvillacoublay
 vénissieux
 véroia
 vésinet
@@ -21822,7 +21235,6 @@ waldkraiburg
 waldorf
 waldsee
 waldshut-tiengen
-waldshuttiengen
 walid
 waling
 waliso
@@ -21840,7 +21252,6 @@ walsrode
 waltham
 walton
 walton-on-thames
-waltononthames
 waltrop
 walvis
 wamba
@@ -21954,7 +21365,6 @@ weingarten
 weinheim
 weining
 weinstadt-endersbach
-weinstadtendersbach
 weinzierl
 weirton
 weiterstadt
@@ -22033,7 +21443,6 @@ westmount
 weston
 weston-super-mare
 westonaria
-westonsupermare
 westphalen
 westport
 wete
@@ -22063,7 +21472,6 @@ whitney
 whitstable
 whittier
 whittier-los
-whittierlos
 why
 whyalla
 wichian
@@ -22091,7 +21499,6 @@ wildwood
 wilhelmshaven
 wilhelmstadt
 wilkes-barre
-wilkesbarre
 wilkinsburg
 willebroek
 willemstad
@@ -22128,7 +21535,6 @@ winschoten
 winsen
 winsford
 winston-salem
-winstonsalem
 winter
 winterhude
 winterswijk
@@ -22176,7 +21582,6 @@ wolfsburg
 wollongong
 wolmaransstad
 woluswali-ye
-woluswaliye
 wolvega
 wolverhampton
 wombwell
@@ -22253,7 +21658,6 @@ wągrowiec
 włochy
 włocławek
 xai-xai
-xaixai
 xalapa
 xam
 xankandi
@@ -22264,6 +21668,7 @@ xativa
 xay
 xaçmaz
 xenia
+xi'an
 xiamen
 xiangcheng
 xiangtan
@@ -22322,7 +21727,6 @@ xiulin
 xiuyan
 xiuying
 xixiang
-xi’an
 xochimilco
 xochitepec
 xonacatlan
@@ -22368,7 +21772,6 @@ yamaga
 yamagata
 yamaguchi
 yamazakichō-nakabirose
-yamazakichōnakabirose
 yambio
 yambol
 yamethin
@@ -22379,7 +21782,6 @@ yamūn
 yanacancha
 yanagawa
 yanagawamachi-saiwaichō
-yanagawamachisaiwaichō
 yanai
 yanam
 yanamalakuduru
@@ -22392,7 +21794,7 @@ yangchun
 yangcun
 yanggu
 yangiobod
-yangiqo‘rg‘on
+yangiqo'rg'on
 yangirabot
 yangiyer
 yangiyul
@@ -22433,7 +21835,6 @@ yarumal
 yasenevo
 yashan
 yashio-shi
-yashioshi
 yashiro
 yashkino
 yasnogorsk
@@ -22448,7 +21849,6 @@ yateley
 yateras
 yatou
 yatsuomachi-higashikumisaka
-yatsuomachihigashikumisaka
 yatsushiro
 yauco
 yautepec
@@ -22465,8 +21865,8 @@ yebaishou
 yecapixtla
 yecla
 yefremov
+yegor'yevsk
 yegorlykskaya
-yegor’yevsk
 yehud
 yehuda
 yei
@@ -22474,7 +21874,7 @@ yekaterinburg
 yekepa
 yelabuga
 yelahanka
-yelan’
+yelan'
 yelenendorf
 yelets
 yelizavetinskaya
@@ -22540,15 +21940,12 @@ yolöten
 yomra
 yonago
 yonan-up
-yonanup
 yonezawa
 yong
 yong-dong
 yongchuan
-yongdong
 yongfeng
 yonggwang-up
-yonggwangup
 yonkers
 yonmu
 yono
@@ -22561,11 +21958,9 @@ yorkville
 yoro
 yorosso
 yoshida-kasugachō
-yoshidakasugachō
 yoshii
 yoshikawa
 yoshkar-ola
-yoshkarola
 yot
 yotsukaidō
 youhao
@@ -22595,7 +21990,6 @@ yujing
 yukon
 yuksekova
 yuktae-dong
-yuktaedong
 yukuhashi
 yulin
 yuma
@@ -22606,13 +22000,12 @@ yunfu
 yunguyo
 yunmeng
 yunyang
+yur'yev-pol'skiy
 yurecuaro
 yurga
 yurimaguas
 yuriria
 yurécuaro
-yur’yev-pol’skiy
-yur’yevpol’skiy
 yushu
 yuta
 yutan
@@ -22624,14 +22017,13 @@ yuza
 yuzawa
 yuzhne
 yuzhno-sakhalinsk
-yuzhnosakhalinsk
 yuzhnoukrains'k
-yuzhnoural’sk
+yuzhnoural'sk
 yuzhnoye
 yuzhnyy
 yverdon-les-bains
-yverdonlesbains
 yylanly
+yémen
 yên
 yüksekova
 yōkaichiba
@@ -22659,8 +22051,8 @@ zafarwal
 zafra
 zagazig
 zaghouan
+zagor'ye
 zagora
-zagor’ye
 zagreb
 zahab
 zahedan
@@ -22682,11 +22074,12 @@ zaltbommel
 zama
 zamania
 zambia
+zambie
 zamboanga
 zambrow
 zamky
 zamora
-zamoskvorech’ye
+zamoskvorech'ye
 zamośc
 zand
 zandvoort
@@ -22722,7 +22115,7 @@ zarzal
 zarzis
 zaventem
 zavodoukovsk
-zavolzh’ye
+zavolzh'ye
 zawiercie
 zawiya
 zawiyah
@@ -22758,7 +22151,7 @@ zeralda
 zerbst
 zeribet
 zernograd
-zestap’oni
+zestap'oni
 zevenaar
 zeya
 zeynalabdin
@@ -22785,7 +22178,6 @@ zhashkiv
 zheleznodorozhnyy
 zheleznogorsk
 zheleznogorsk-ilimskiy
-zheleznogorskilimskiy
 zheleznovodsk
 zhengjiatun
 zhengzhou
@@ -22925,16 +22317,22 @@ zürich
 écija
 écully
 édessa
+égypte
 élancourt
+émirats arabes unis
 épernay
 épinal
 épinay-sur-seine
-épinaysurseine
+équateur
 équeurdreville-hainneville
-équeurdrevillehainneville
 éragny
 érd
+érythrée
 étampes
+états-unis
+éthiopie
 évora
 évreux
 évry
+îles cook
+îles marshall
