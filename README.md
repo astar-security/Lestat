@@ -2,8 +2,6 @@
 ![](https://3.bp.blogspot.com/-PF5wQWEREK0/U_DS_eJM8nI/AAAAAAAAAVw/ack4TeHRyME/s1600/033.jpg)  
 Check robustness of your (their) Active Directory accounts passwords
 
-See the wiki for the complete guide : https://github.com/astar-security/Lestat/wiki  
-
 ## What it does
 You give it a file of `user:password` lines that you cracked.  
 It will give you:
