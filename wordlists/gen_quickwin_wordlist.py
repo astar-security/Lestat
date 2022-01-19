@@ -11,7 +11,7 @@ import itertools
 # CONST #
 #########
 
-export_filename = 'company.wordlist'
+export_filename = 'quickwin.wordlist'
 
 leet_swap = {
         's':['5','$'],
@@ -19,25 +19,15 @@ leet_swap = {
         'a':['4','@'],
         'o':['0'],
         'i':['1','!'],
-        'g':['9'],
-        't':['7']
         }
 
 common_special = [
         "!",
-        "@",
-        "$",
-        "%",
-        "&",
-        "*",
-        "?",
         ".",
         ""
         ]
 
 common_words = [
-        "pw",
-        "pwd",
         "admin",
         "pass",
         "adm",
@@ -51,16 +41,15 @@ common_numeric.update( [str(i) for i in range(2010, int(time.strftime("%Y"))+1)]
 common_numeric.update( ["2k"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
 # 2K10 -> now
 common_numeric.update( ["2K"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
+# 10 -> now
+common_numeric.update( [str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
 # 0 -> 9
 common_numeric.update( [str(i) for i in range(10)] )
-# 00 -> 99
-common_numeric.update( [str(i).zfill(2) for i in range(100)] )
 # common numbers
-common_numeric.update( ['123', '1234'] )
+common_numeric.update( ['01', '123', '1234'] )
 
 common_prefix = set()
 common_suffix = set()
-common_complete = set()
 
 ########
 # COOK #
@@ -84,10 +73,6 @@ def nickname_variation(word):
             res.add( parts[0] + parts[1][0] )
             # ch-toulouse => chtoulouse
             res.add( ''.join(parts) )
-        for part in parts:
-            if len(part) > 1:
-                # treat each part as a specific word
-                res.update( nickname_variation(part) )
 
     # if the word is atomic
     else:
@@ -120,37 +105,6 @@ def combine(words, nicks):
     res = set()
     res |= case_variation(words)
     res |= case_variation(nicks)
-    if len(nicks) != 0:
-        for n in nicks:
-            for p in itertools.product([n], words):
-                res |= case_combination(p)
-            for p in itertools.product(words, [n]):
-                res |= case_combination(p)
-    for p in itertools.permutations(words, 2):
-        res |= case_combination(p)
-    return res
-
-def case_combination(t):
-    res = set()
-    word1, word2 = t
-    # lower lower
-    res.add(f'{word1}{word2}')
-    # lower Capi
-    res.add(f'{word1}{word2.capitalize()}')
-    # lower UPPER
-    res.add(f'{word1}{word2.upper()}')
-    # Capi lower
-    res.add(f'{word1.capitalize()}{word2}')
-    # Capi Capi
-    res.add(f'{word1.capitalize()}{word2.capitalize()}')
-    # Capi UPPER
-    res.add(f'{word1.capitalize()}{word2.upper()}')
-    # UPPER lower
-    res.add(f'{word1.upper()}{word2}')
-    # UPPER Capi
-    res.add(f'{word1.upper()}{word2.capitalize()}')
-    # UPPER UPPER
-    res.add(f'{word1.upper()}{word2.upper()}')
     return res
 
 def case_variation(words):
@@ -163,29 +117,20 @@ def case_variation(words):
 def leet_variation(words):
     global leet_swap
     res = set()
-    first_pass = []
 
     for word in words:
         res.add(word)
         if word.isalpha() and len(set(word)) > 1 and len(word) > 2:
-            needles = [c for c in leet_swap.keys() if c in word.lower()]
-            for i in range(len(needles)):
-                nee1 = needles[i]
+            need = [c for c in leet_swap.keys() if c in word.lower()]
+            for i in range(len(need)):
+                nee1 = need[i]
                 for sub in leet_swap[nee1]:
-                    first_pass.append(re.sub(nee1, sub, word, flags=re.I))
-                res |= set(first_pass)
-                for j in range(i+1,len(needles)):
-                    nee2 = needles[j]
-                    for word2 in first_pass:
-                        for sub in leet_swap[nee2]:
-                            res.add(re.sub(nee2, sub, word2, flags=re.I))
-                first_pass = []
+                    res.add(re.sub(nee1, sub, word, flags=re.I))
     return res
 
 def compute_fix():
     global common_prefix
     global common_suffix
-    global common_complete
     global common_numeric
     global common_special
     global common_words
@@ -193,21 +138,22 @@ def compute_fix():
     # pre compute the lists of prefixes and suffixes
     common_prefix = case_variation(leet_variation(common_words))
     common_suffix = set([n + s for n in common_numeric for s in common_special])
-    common_complete = set(itertools.product(common_prefix, common_suffix))
 
-    log.info(f"[*] {len(common_prefix)} prefix computed, {len(common_suffix)} suffix computed, {len(common_complete)} prefix+suffix computed")
+    log.info(f"[*] {len(common_prefix)} prefix computed, {len(common_suffix)} suffix computed")
 
 
-def common_variation(words, f):
-    global common_complete
+def common_variation(words):
     global common_prefix
     global common_suffix
 
+    res = set()
     with click.progressbar(words) as wordsbar:
         for word in wordsbar:
-            print(*[word + fix[0] + fix[1] + '\n' + fix[0] + word + fix[1] for fix in common_complete],
-                    sep='\n', file=f)
-
+            for fix in common_prefix:
+                res.add(fix + word)
+            for fix in common_suffix:
+                res.add(word + fix)
+    return res
 
 ########
 # MAIN #
@@ -230,7 +176,7 @@ def import_words(f, n):
 @click.option('-n/--nickname', default=False, help='Treat the first word of the list as the company name and compute nickname variations over it')
 @click.argument('wordsfile')
 def main(wordsfile, n):
-    """Combine and mangle words about a company to create a wordlist"""
+    """Combine and mangle words about a company to create a quickwin wordlist. We recommend using name - place - activity - number"""
     words = set()
     log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
 
@@ -240,8 +186,8 @@ def main(wordsfile, n):
         log.info("[*] Computing prefixes and suffixes...")
         compute_fix()
 
-        # second we combine words two by two and compute case variations
-        log.info("[*] Combining words...")
+        # second we compute case variations
+        log.info("[*] Computing case variations...")
         words = combine(words, nicks)
         log.info(f"[+] {len(words)} combinations\n{list(words)}...")
 
@@ -250,14 +196,17 @@ def main(wordsfile, n):
         words = leet_variation(words)
         log.info(f"[+] {len(words)} leet variations computed\n{list(words)[:50]}...")
 
+        # 4th we combine words and suffixes/prefixes
+        log.info("[*] Adding suffixes and prefixes...")
+        words = common_variation(words)
+        log.info(f"[+] {len(words)} final password candidates computed\n{list(words)[:50]}...")
+
         # opening the output file for writing
         with open(export_filename, 'w') as fo:
-            # finally we add prefixes and suffixes
-            log.info("[*] Adding prefixes and suffixes...")
-            common_variation(words, fo)
-            log.info(f"[+] {len(words)*len(common_complete)*2} prefixes and suffixes added")
-
-        log.info(f"[+] Export complete to {export_filename}, all is finished")
+            log.info("[*] Writing...")
+            for word in words:
+                fo.write(word+'\n')
+            log.info(f"[+] Export complete to {export_filename}, all is finished")
 
 
 if __name__ == '__main__':
