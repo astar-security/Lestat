@@ -4,7 +4,6 @@ import time
 import re
 import logging as log
 import click
-import string
 import itertools
 
 #########

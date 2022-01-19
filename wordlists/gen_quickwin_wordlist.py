@@ -4,8 +4,6 @@ import time
 import re
 import logging as log
 import click
-import string
-import itertools
 
 #########
 # CONST #
@@ -13,46 +11,8 @@ import itertools
 
 export_filename = 'quickwin.wordlist'
 
-leet_swap = {
-        's':['5','$'],
-        'e':['3'],
-        'a':['4','@'],
-        'o':['0'],
-        'i':['1','!'],
-        }
-
-common_special = [
-        "!",
-        ".",
-        ""
-        ]
-
-common_words = [
-        "admin",
-        "pass",
-        "adm",
-        ""
-        ]
-
-common_numeric = set([''])
-# 2010 -> now
-common_numeric.update( [str(i) for i in range(2010, int(time.strftime("%Y"))+1)] )
-# 2k10 -> now
-common_numeric.update( ["2k"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
-# 2K10 -> now
-common_numeric.update( ["2K"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
-# 10 -> now
-common_numeric.update( [str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
-# 0 -> 9
-common_numeric.update( [str(i) for i in range(10)] )
-# common numbers
-common_numeric.update( ['01', '123', '1234'] )
-
-common_prefix = set()
-common_suffix = set()
-
 ########
-# COOK #
+# UTIL #
 ########
 
 def nickname_variation(word):
@@ -65,10 +25,11 @@ def nickname_variation(word):
     # if compound name
     if re.match(r'.*[-\ \._]', word):
         parts = re.split(r'[\-\ \._]',word)
+        res.update(parts)
         # general electric => ge
         res.add( ''.join([i[0:1] for i in parts]) )
         # if there are two parts
-        if len(parts) ==2:
+        if len(parts) == 2:
             # jc-decaud => jcd
             res.add( parts[0] + parts[1][0] )
             # ch-toulouse => chtoulouse
@@ -101,23 +62,18 @@ def nickname_variation(word):
 
     return res
 
-def combine(words, nicks):
-    res = set()
-    res |= case_variation(words)
-    res |= case_variation(nicks)
-    return res
 
-def case_variation(words):
+def case_variation(words, deep):
     res = set()
     for word in words:
-        res.update( [word, word.upper(), word.capitalize()] )
+        variation = [word, word.upper(), word.capitalize(), word.capitalize().swapcase()]
+        res.update( variation[0:deep] )
     return res
 
 
-def leet_variation(words):
-    global leet_swap
+def leet_variation(words, leet_swap, deep):
     res = set()
-
+    first_pass = []
     for word in words:
         res.add(word)
         if word.isalpha() and len(set(word)) > 1 and len(word) > 2:
@@ -125,81 +81,244 @@ def leet_variation(words):
             for i in range(len(need)):
                 nee1 = need[i]
                 for sub in leet_swap[nee1]:
-                    res.add(re.sub(nee1, sub, word, flags=re.I))
+                    first_pass.append(re.sub(nee1, sub, word, flags=re.I))
+                res |= set(first_pass)
+                if deep == 2:
+                    for j in range(i+1, len(need)):
+                        nee2 = need[j]
+                        for word2 in first_pass:
+                            for sub in leet_swap[nee2]:
+                                res.add(re.sub(nee2, sub, word2, flags=re.I))
+                first_pass = []
     return res
 
-def compute_fix():
-    global common_prefix
-    global common_suffix
-    global common_numeric
-    global common_special
-    global common_words
-
-    # pre compute the lists of prefixes and suffixes
-    common_prefix = case_variation(leet_variation(common_words))
-    common_suffix = set([n + s for n in common_numeric for s in common_special])
-
-    log.info(f"[*] {len(common_prefix)} prefix computed, {len(common_suffix)} suffix computed")
 
 
-def common_variation(words):
-    global common_prefix
-    global common_suffix
-
+def common_variation(words, prefixes, suffixes, deep):
+    """apply common prefixes and suffixes to the root words"""
     res = set()
     with click.progressbar(words) as wordsbar:
         for word in wordsbar:
-            for fix in common_prefix:
-                res.add(fix + word)
-            for fix in common_suffix:
-                res.add(word + fix)
+            for p in prefixes:
+                res.add(p + word)
+                if deep == 2:
+                    for s in suffixes:
+                        res.add(p + word + s)
+                        res.add(word + p + s)
+                        res.add(word + '_' + p + s)
+            if deep == 1:
+                for s in suffixes:
+                    res.add(word + s)
     return res
+
+
+########
+# MODE #
+########
+
+def tiny(f):
+    """Get the approximative 10 most likely passwords"""
+    words = set()
+    
+    numeric = ['', '1']
+    special =  ['', '!']
+    
+    for line in f.read().splitlines():
+        # if a number is given, it is added to the numeric suffixes
+        if line.isdigit():
+            numeric.append(line)
+        else:
+            words.add( line.lower() )
+    log.info(f"[*] {len(words)} words imported: {' '.join(list(words))}")
+ 
+    suffixes = set([n + s for n in numeric for s in special])
+
+    res = set()
+    res = case_variation(words, 3)
+    log.info(f"[*] {len(res)} candidates after case variation: {' '.join(list(res)[:50])}")
+    res = common_variation(res, [], suffixes, 1)
+    log.info(f"[*] {len(res)} candidates after adding suffixes: {' '.join(list(res)[:50])}")
+    return res 
+
+def short(f):
+    """Get the approximative 100 most likely passwords"""
+    words = set()
+    
+    numeric = ['', '1', '01', '123']
+    special =  ['', '!']
+    leet = {'a':['4'], 'e':['3'], 'i':['1'], 'o':['0']}
+    
+    for line in f.read().splitlines():
+        # if a number is given, it is added to the numeric suffixes
+        if line.isdigit():
+            numeric.append(line)
+        else:
+            words.add( line.lower() )
+    log.info(f"[*] {len(words)} words imported: {' '.join(list(words))}")
+
+    suffixes = set([n + s for n in numeric for s in special])
+
+    res = set()
+    res = case_variation(words, 3)
+    log.info(f"[*] {len(res)} candidates after case variation: {' '.join(list(res)[:50])}")
+    res2 = leet_variation(res, leet, 1)
+    log.info(f"[*] {len(res2)} candidates after leet substitution: {' '.join(list(res2)[:50])}")
+    res2 = common_variation(res2, [], special, 1)
+    # we avoid to have numbers from numeric AND leet
+    res = common_variation(res, [], suffixes, 1) | res2
+    log.info(f"[*] {len(res)} candidates after adding suffixes: {' '.join(list(res)[:50])}")
+    return res 
+
+def common(f):
+    """Get the approximative 1000 most likely passwords"""
+    words = set()
+   
+    tags = ['', 'adm', 'admin']
+    numeric = set(['', '1', '01', '123'])
+    # 2015 -> now
+    numeric.update( [str(i) for i in range(2015, int(time.strftime("%Y"))+1)] )
+    # 2k15 -> now
+    numeric.update( ["2k"+str(i)[-2:] for i in range(2015, int(time.strftime("%Y"))+1)] )
+    # 2K15 -> now
+    numeric.update( ["2K"+str(i)[-2:] for i in range(2015, int(time.strftime("%Y"))+1)] )
+    # 0 -> 9 and 00 -> 09
+    numeric.update( [str(i) for i in range(10)] )
+    numeric.update( [str(i).zfill(2) for i in range(10)] )
+    special =  ['', '!', '.']
+    leet_num = {'a':['4'], 'e':['3'], 'i':['1'], 'o':['0']}
+    leet_spe =  {'a':['@'], 'i':['!'], 's':['$']}
+
+    for line in f.read().splitlines():
+        # if a number is given, it is added to the numeric suffixes
+        if line.isdigit():
+            numeric.add(line)
+        else:
+            words.add( line.lower() )
+    log.info(f"[*] {len(words)} words imported: {' '.join(list(words))}")
+    
+    prefixes = case_variation(tags, 3)
+    suffixes = set([n + s for n in numeric for s in special])
+
+    res = set()
+    res = case_variation(words, 3)
+    log.info(f"[*] {len(res)} candidates after case variation: {' '.join(list(res)[:50])}")
+    res_num = leet_variation(res, leet_num, 1)
+    res_spe = leet_variation(res, leet_spe, 1)
+    log.info(f"[*] {len(res_num|res_spe)} candidates after leet substitution: {' '.join(list(res_num|res_spe)[:50])}")
+    res = common_variation(res, prefixes, suffixes, 1) | common_variation(res_num, prefixes, special, 1) | common_variation(res_spe, prefixes, numeric, 1) 
+    log.info(f"[*] {len(res)} candidates after adding prefixes and suffixes: {' '.join(list(res)[:50])}")
+    return res 
+
+
+def extended(f):
+    """Get the approximative 25 000 most likely passwords"""
+    words = set()
+
+    tags = ['', 'adm', 'admin']
+    numeric = set(['', '123', '1234'])
+    # 2015 -> now
+    numeric.update( [str(i) for i in range(2015, int(time.strftime("%Y"))+1)] )
+    # 2k15 -> now
+    numeric.update( ["2k"+str(i)[-2:] for i in range(2015, int(time.strftime("%Y"))+1)] )
+    # 2K15 -> now
+    numeric.update( ["2K"+str(i)[-2:] for i in range(2015, int(time.strftime("%Y"))+1)] )
+    # 0 -> 9 and 00 -> now and 60 -> 99
+    numeric.update( [str(i) for i in range(10)] )
+    numeric.update( [str(i)[-2:] for i in range(2000, int(time.strftime("%Y"))+1)] )
+    numeric.update( [str(i).zfill(2) for i in range(60, 100)] )
+    special =  ['', '!', '.', '*']
+    leet = {'a':['4', '@'], 'e':['3'], 'i':['1', '!'], 'o':['0'], 's':['$'], 't':['7']}
+
+    name = f.readline().strip().lower()
+    words.add(name)
+    nicks = nickname_variation(name)
+    log.info(f"[*] first word is assumed to be a name, {len(nicks)} nicknames were computed: {' '.join(list(nicks))}")
+    for line in f.read().splitlines():
+        # if a number is given, it is added to the numeric suffixes
+        if line.isdigit():
+            numeric.add(line)
+        else:
+            words.add( line.lower() )
+    log.info(f"[*] {len(words|nicks)} words imported: {' '.join(list(words|nicks))}")
+
+    prefixes = case_variation(tags, 3)
+    suffixes = set([n + s for n in numeric for s in special])
+
+    res = set()
+    res = case_variation(words, 4)
+    # we do this to avoid leet variation over nicknames
+    res2 = res | case_variation(nicks, 3)
+    log.info(f"[*] {len(res2)} candidates after case variation: {' '.join(list(res2)[:50])}")
+    res2 |= leet_variation(res, leet, 2)
+    log.info(f"[*] {len(res2)} candidates after leet substitution: {' '.join(list(res2)[:50])}")
+    res = common_variation(res2, prefixes, suffixes, 1)
+    del(res2)
+    log.info(f"[*] {len(res)} candidates after adding prefixes and suffixes: {' '.join(list(res)[:50])}")
+    return res 
+
+
+def insane(f):
+    """Get the most likely passwords"""
+    words = set()
+
+    tags = ['', 'adm', 'admin', 'adm', 'pwd', 'pass']
+    numeric = set(['', '123', '1234'])
+    # 2010 -> now
+    numeric.update( [str(i) for i in range(2010, int(time.strftime("%Y"))+1)] )
+    # 2k10 -> now
+    numeric.update( ["2k"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
+    # 2K10 -> now
+    numeric.update( ["2K"+str(i)[-2:] for i in range(2010, int(time.strftime("%Y"))+1)] )
+    # 0 -> 9 and 00 -> 99
+    numeric.update( [str(i) for i in range(10)] )
+    numeric.update( [str(i).zfill(2) for i in range(0, 100)] )
+    special =  ['', '!', '.', '*', '@', '$', '%', '?']
+    leet = {'a':['4', '@'], 'e':['3'], 'i':['1', '!'], 'o':['0'], 's':['5', '$'], 't':['7'], 'g':['9']}
+
+    name = f.readline().strip().lower()
+    words.add(name)
+    nicks = nickname_variation(name)
+    log.info(f"[*] first word is assumed to be a name, {len(nicks)} nicknames were computed: {' '.join(list(nicks))}")
+    for line in f.read().splitlines():
+        # if a number is given, it is added to the numeric suffixes
+        if line.isdigit():
+            numeric.add(line)
+        else:
+            words.add( line.lower() )
+    log.info(f"[*] {len(words|nicks)} words imported: {' '.join(list(words|nicks))}")
+
+    prefixes = case_variation(leet_variation(tags, leet, 1), 3)
+    suffixes = set([n + s for n in numeric for s in special])
+
+    res = set()
+    res = case_variation(words, 4)
+    res |= case_variation(nicks, 3)
+    log.info(f"[*] {len(res)} candidates after case variation: {' '.join(list(res)[:50])}")
+    res |= leet_variation(res, leet, 2)
+    log.info(f"[*] {len(res)} candidates after leet substitution: {' '.join(list(res)[:50])}")
+    res = common_variation(res, prefixes, suffixes, 2)
+    log.info(f"[*] {len(res)} candidates after adding prefixes and suffixes: {' '.join(list(res)[:50])}")
+    return res 
+
 
 ########
 # MAIN #
 ########
 
-def import_words(f, n):
-    global common_numeric
-    words = set()
-    nicks = set()
-    if n:
-        nicks |= nickname_variation(f.readline().strip().lower())
-    for line in f.read().splitlines():
-        if line.isdigit():
-            common_numeric.add( line )
-        else:
-            words.add( line.lower() )
-    return words, nicks
-
 @click.command()
-@click.option('-n/--nickname', default=False, help='Treat the first word of the list as the company name and compute nickname variations over it')
+@click.option('--mode', default="common", help='indicate the number of passwords to generate: tiny (around 10), short (around 100), common (around 1000), extended (around 25 000), insane (as many as necessary). Default is common')
 @click.argument('wordsfile')
-def main(wordsfile, n):
-    """Combine and mangle words about a company to create a quickwin wordlist. We recommend using name - place - activity - number"""
+def main(wordsfile, mode):
+    """Mangle words about a short set to create a quickwin wordlist."""
+    if mode not in ('tiny', 'short', 'common', 'extended', 'insane'):
+        log.error("[!] Incorrect mode. Choices are tiny, short, common, extended, insane") 
+        exit(1)
     words = set()
     log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
 
     with open(wordsfile) as f:
-        words, nicks = import_words(f,n)
-        log.info(f"[*] {len(words)+len(nicks)} words imported \n{words|nicks}")
-        log.info("[*] Computing prefixes and suffixes...")
-        compute_fix()
-
-        # second we compute case variations
-        log.info("[*] Computing case variations...")
-        words = combine(words, nicks)
-        log.info(f"[+] {len(words)} combinations\n{list(words)}...")
-
-        # third we compute leet variations
-        log.info("[*] Computing leet variations...")
-        words = leet_variation(words)
-        log.info(f"[+] {len(words)} leet variations computed\n{list(words)[:50]}...")
-
-        # 4th we combine words and suffixes/prefixes
-        log.info("[*] Adding suffixes and prefixes...")
-        words = common_variation(words)
-        log.info(f"[+] {len(words)} final password candidates computed\n{list(words)[:50]}...")
+        words = eval(f"{mode}(f)")
+        log.info(f"[+] {len(words)} final password candidates computed")
 
         # opening the output file for writing
         with open(export_filename, 'w') as fo:
