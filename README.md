@@ -67,7 +67,7 @@ When finished, get the result in the raw form of a login:password file (one per 
 john --format=NT --show DOMAIN_HASHES.txt> | cut -d: -f 1,2 > JOHN_RESULT.txt
 ```
 
-### Loot for pentesters:
+### Loot:
 Directly see if you cracked enabled admin accounts :
 ```
 $ python3 LesterTheLooter.py --priv JOHN_RESULT.txt USERS_INFO.txt
@@ -84,21 +84,9 @@ $ python3 LesterTheLooter.py --priv JOHN_RESULT.txt USERS_INFO.txt
 [+]	enabled      enterprise admins    b.gates                  VaccineApple!
 [+]	disabled     account operators    e.philippe               Prosac2k19
 ```
-Two CSV files are produced: `users_compromised.csv` and `group_compromised.csv`. They contain the full results.
+Three CSV files are produced: `lestat.csv`, `users_compromised.csv` and `group_compromised.csv`. They contain the full results.
 
 _NOTE: the tool will ignore every line which does not have at least one ':' separator. If more than one ':' is detected, it will only retain the first and the second fields and ignore the rest. So, the direct result of `john --format=NT --show DOMAIn_HASHES.txt` will be correctly parsed (but you will see many warning)_
-
-### Loot for SysAdmin:
-Get some stats in addition of the CSV files :  
-```
-$ python3 LesterTheLooter.py --stats JOHN_RESULT.txt USERS_INFO.txt
-```
-A CSV file `lestat.csv` is produced.
-
-You can get comprehensive stats if you configured the wordlists (see [here](https://github.com/astar-security/Lestat/wiki/GetWordlists)):
-```
-python3 LesterTheLooter.py --wordlists <PATH_TO_WORDLISTS> --stats JOHN_RESULT.txt USERS_INFO.txt
-```
 
 ### Be proud
 PNG charts can be generated from the `lestat.csv` file:  
