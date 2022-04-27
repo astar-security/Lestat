@@ -53,8 +53,8 @@ def derivate(moments):
     derivated = set('')
     with click.progressbar(moments) as momentsbar:
         for moment in momentsbar:
-            # Add the 3 letters variation too : january -> jan
-            shortnames = [moment, moment[:3]]
+            # Add the 3 and 4 letters variation too : january -> jan, janu
+            shortnames = [moment, moment[:3], moment[:4]]
             derivated.update(shortnames)
             # uppercase: JANUARY JAN
             derivated.update(map(str.upper,shortnames))
