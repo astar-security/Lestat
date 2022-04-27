@@ -88,7 +88,7 @@ def update_ntlm(ntlm, res, reason):
 
 def strat_empty(ntlm):
     log.info("[*] Testing empty passwords...")
-    candidates = ('')
+    candidates = ['']
     ntlm, cpt = johnIt(ntlm, candidates, "empty")
     log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
     return ntlm
@@ -118,7 +118,7 @@ def strat_top1M(ntlm):
 
 def strat_numbers(ntlm):
     log.info("[*] Testing numbers from 0 to 99999999...")
-    res = cook_numbers(8, None, passwd2NTLM, ntlm['safe']) 
+    res = cook_numbers(7, None, passwd2NTLM, ntlm['safe']) 
     return update_ntlm(ntlm, res, "digits only")
 
 def strat_names(ntlm):

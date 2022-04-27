@@ -33,10 +33,6 @@ def exportCharts(csvfilename, chartpath, transparency):
             values = [ int(field['compromised accounts']), int(field['safe accounts']) ]
             labels = [ 'compromised accounts', 'safe accounts' ]
             colors = [ '#dd0000', '#00c800' ]
-            if field['unsafe accounts'] != '0' :
-                values.append( int(field['unsafe accounts']) )
-                labels.append( 'unsafe accounts' )
-                colors.append( '#ff0000' )
             ax.pie(values, labels=labels, colors=colors, autopct=lambda p : '{:,.0f}% ({:,.0f})'.format(p,p * sum(values)/100), wedgeprops={"edgecolor":"white",'linewidth': 1, 'linestyle': 'solid', 'antialiased': True} )
             ax.set_title(f"Overall results for {name}")
             plt.tight_layout()
@@ -44,29 +40,31 @@ def exportCharts(csvfilename, chartpath, transparency):
             print("[+] Overall results chart created")
 
             # reason of compromise
-            if 'passwords in top 10 most common' in field:
+            if 'password is empty' in field:
                 fig, ax = plt.subplots()
-                reasons = [('passwords empty', '#bb0000'), 
-                    ('passwords based on username', '#bb0000'),
-                    ('passwords in top 10 most common', '#bb0000'),
-                    ('passwords based on company name', '#bb0000'),
-                    ('passwords in top 1000 most common', '#ff0000'),
-                    ('passwords as username extrapolation', '#ff0000'),
-                    ('passwords related to company context', '#ff0000'),
-                    ('passwords with 4 characters or less', '#ff0000'),
-                    ('passwords in top 1M most common', '#ff6400'),
-                    ('passwords with 6 characters or less', '#ff6400'),
-                    ('passwords with 2 charsets or less', '#ff6400'),
-                    ('passwords present in global wordlists', '#ffc800'),
-                    ('passwords present in locale wordlists', '#ffc800'),
-                    ('passwords leaked', '#ffc800'),
-                    ('passwords weakness undetermined', '#ffc800')]
+                reasons = [('password is empty', '#bb0000'), 
+                    ('password is login', '#bb0000'),
+                    ('password is company name', '#bb0000'),
+                    ('password is in top10', '#bb0000'),
+                    ('password is in top1000', '#ff0000'),
+                    ('password is firstname', '#ff0000'),
+                    ('password is digits only', '#ff0000'),
+                    ('password is date', '#ff0000'),
+                    ('password is place', '#ff0000'),
+                    ('password is in top1M', '#ff6400'),
+                    ('password is company context', '#ff6400'),
+                    ('password is login derived', '#ff6400'),
+                    ('password is few characters', '#ff6400'),
+                    ('password is common', '#ffc800'),
+                    ('password is predictable', '#ffc800'),
+                    ('password is leaked', '#ffc800'),
+                    ('password is undetermined', '#ffc800')]
                 values = []
                 labels = []
                 colors = []
                 for r in reasons:
                     num = int( field[ r[0] ]) 
-                    if num / (int(field['compromised accounts'])+int(field['unsafe accounts']))*100 >=1:
+                    if num / (int(field['compromised accounts']))*100 >=1:
                         values.append( num )
                         labels.append( r[0][9:] )
                         colors.append( r[1] )
@@ -122,11 +120,11 @@ def exportCharts(csvfilename, chartpath, transparency):
             # robustness
             if 'passwords in top 10 most common' in field:
                 fig, ax = plt.subplots()
-                resist = [ 'passwords resist some seconds', 
-                            'passwords resist some minutes', 
-                            'passwords resist some hours',
-                            'passwords resist some days',
-                            'passwords resist some years' ]
+                resist = [ 'password resists some seconds', 
+                            'password resists some minutes', 
+                            'password resists some hours',
+                            'password resists some days',
+                            'password resists some years' ]
                 f0, f1, f2, f3, f4 = int(field[resist[0]]), int(field[resist[1]]), int(field[resist[2]]), int(field[resist[3]]), int(field[resist[4]])
                 start = [ 0, f0 ]
                 ax.barh( [""], [ f0 ], height=0.1, color='#bb0000', label='seconds' )
