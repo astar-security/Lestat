@@ -18,6 +18,10 @@ log.basicConfig(format=' %(asctime)s %(message)s', datefmt='%H:%M:%S', level=log
 
 dictpath = "/usr/share/dict/words"
 
+#########
+# UTILS #
+#########
+
 def downloadWordlist(wordlist):
     log.info("[*] Requesting wordlist...")
     r = requests.get(wordlist)
@@ -26,6 +30,14 @@ def downloadWordlist(wordlist):
     log.info("[+] wordlist downloaded")
     candidates = r.text.split("\n")
     return candidates
+
+def cleanUsername(user):
+    if '@' in user:
+        return user.split('@')[0]
+    elif '\\' in user:
+        return user.split('\\')[1]
+    else:
+        return user
 
 def readHashFile(hashfile):
     ntlm = {"cracked":{}, "safe":{}}
@@ -93,6 +105,20 @@ def strat_empty(ntlm):
     log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
     return ntlm
 
+def strat_login(ntlm):
+    log.info("[*] Testing login as password...")
+    candidates = ['']
+    for accounts in ntlm['safe'].values():
+        for account in accounts:
+            clean = cleanUsername(account)
+            for i in range(1,len(clean)+1):
+                candidates.append(clean[0:i])
+                candidates.append(clean[0:i].upper())
+                candidates.append(clean[0:i].capitalize())
+    ntlm, cpt = johnIt(ntlm, candidates, "login")
+    log.info(f"[*] {cpt} new passwords cracked, {len(ntlm['safe'])} remaining")
+    return ntlm
+
 def strat_top10(ntlm):
     log.info("[*] Testing top 10 most common passwords...")
     candidates = ('1234', '123456', '12345678', 'password', 'Password', 'Passw0rd', 'test', '123123', 'abc123')
@@ -151,6 +177,7 @@ def strat_words(ntlm):
 
 def crack(ntlm):
     ntlm = strat_empty(ntlm)
+    ntlm = strat_login(ntlm)
     ntlm = strat_top10(ntlm)
     ntlm = strat_top1000(ntlm)
     ntlm = strat_top1M(ntlm)
