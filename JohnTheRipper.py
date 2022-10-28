@@ -207,7 +207,7 @@ def export(ntlm, outfile):
 @click.command()
 @click.argument('HASH_FILE')
 def main(hash_file):
-    outfile = "testyyy"
+    outfile = "JOHN_RESULT.txt"
     ntlm = readHashFile(hash_file)
     ntlm = crack(ntlm)
     export(ntlm, outfile)
