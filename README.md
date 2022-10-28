@@ -55,7 +55,13 @@ impacket-secretsdump -system SYSTEM -ntds ntds.dit LOCAL > DOMAIN_HASHES.txt
 ---
 
 ### Hack with your favorite tool
-Take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) the `DOMAIN_HASHES.txt` file with you favorite tool (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)).  
+
+You can use the proposed `jonhTheRipper.py` script which perform attacks on common and predictable passwords:
+```
+python3 JohnTheRipper.py DOMAIN_HASHES.txt
+```
+
+For pure bruteforce enumeration, take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) the `DOMAIN_HASHES.txt` file with you favorite tool (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)).  
 Here are examples with `john-the-ripper`:
 ```
 john --format=NT --wordlist=rockyou.txt DOMAIN_HASHES.txt
