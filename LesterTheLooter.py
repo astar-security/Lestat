@@ -6,6 +6,7 @@ import csv
 from collections import Counter
 from termcolor import colored
 import xlsxwriter
+from TonyTheTagger import *
 
 #########
 # Const #
@@ -29,27 +30,6 @@ PRIVILEGED_GROUPS = [
         "server operators"
         ]
 
-# numbers present time to crack in an online bruteforce attack with OSINT: 0=seconds, 1=minutes, 2=hours, 3=days
-robustness = {
-    "empty": 0,
-    "login": 0,
-    "company name": 0,
-    "in top10": 0,
-    "in top1000": 1,
-    "firstname": 1,
-    "digits only": 1,
-    "date": 1,
-    "place": 1,
-    "in top1M": 2,
-    "company context": 2,
-    "login derived": 2,
-    "few characters": 2,
-    "common": 3,
-    "predictable": 3,
-    "leaked": 3,
-    "undetermined": 3
-    }
-
 
 #########
 # Utils #
@@ -57,19 +37,22 @@ robustness = {
 
 
 def beautifyName(person):
-    """remove domain prefix like mydomain\\user and lowercase everything"""
+    """remove domain prefix/suffix and lowercase everything"""
     person = person.lower()
+    dom = ''
+    # astar.org\\jdupond
     if '\\' in person:
-        person = person.split('\\')[1]
+        dom, person = person.split('\\')
+    # jdupond@astar.org
     if '@' in person:
-        person = person.split('@')[0]
-    return person
+        person, dom = person.split('@')
+    return person, dom
 
 def isPriv(elem, groups=None):
+    """check clues about an element (a user or a group) being privileged"""
     global PRIVILEGED_GROUPS
-    """check clues about an element (user or group) being privileged"""
     suspected_admin = "adm" in elem and "administratif" not in elem
-    # if elem is a user and groups a list
+    # if elem is a user, variable "groups" is a list
     if groups:
         for i in groups:
             if i in PRIVILEGED_GROUPS:
@@ -80,7 +63,7 @@ def isPriv(elem, groups=None):
            return "likely admin"
         else:
             return None
-    # if elem is a group and groups is empty
+    # if elem is a group, variable "groups" is empty
     else:
         if elem in PRIVILEGED_GROUPS:
             return elem
@@ -88,24 +71,6 @@ def isPriv(elem, groups=None):
             return "likely"
         else:
             return None
-
-def getCharsets(passwd):
-    """give the composition of the password : l=lowercase u=uppercase n=numeric s=symbol"""
-    cs = ''
-    if any([i for i in passwd if i in string.ascii_lowercase]):
-        cs += 'l'
-    if any([i for i in passwd if i in string.ascii_uppercase]):
-        cs += 'u'
-    if any([i for i in passwd if i in string.digits]):
-        cs += 'd'
-    if any([i for i in passwd if i in string.punctuation]):
-        cs += 'p'
-    return cs
-
-def getRoot(word):
-    """obtain root of a password or username"""
-    remove = str.maketrans('', '', string.digits+string.punctuation)
-    return word.lower().translate(remove)
 
 def getThatRobust(compromised, level):
     """ask for the list of users with a specific level of robustness/reason"""
@@ -127,11 +92,10 @@ def parsePassfile(pass_file):
     """get the user:pass"""
     """check robustness indicator"""
     """check if the leakTheWeak module was used on the john file"""
-    global robustness
     compromised = {}
     with open(pass_file, "r") as f:
         john = f.read().splitlines()
-
+        domains = set()
         for line in john:
             person = line.split(':')
             reason = "undetermined"
@@ -146,8 +110,10 @@ def parsePassfile(pass_file):
                     print(f"[!] Line ignored in {pass_file} file (not a valid robustness keyword): {line}. Available keywords are {robustness.keys()}")
                     continue
                 reason = person[2]
-            compromised[beautifyName(person[0])] = {"password":person[1], "groups":[], "status":[], "lastchange":"", "lastlogon":"", "robustness":robustness[reason], "reason":reason, "priv":None}
-    return compromised
+            bname, dom = beautifyName(person[0])
+            domains.add(dom)
+            compromised[bname] = {"password":person[1], "groups":[], "status":[], "lastchange":"", "lastlogon":"", "robustness":3, "reason":reason, "priv":None}
+    return compromised, domains
 
 def parseUserfile(user_file):
     """check domain users info file's format"""
@@ -168,7 +134,7 @@ def parseUserfile(user_file):
     return res
 
 def populateUsers(compromised, users):
-    """complete info about users compromised by join using the domain users info file"""
+    """complete info about users compromised by using the domain users info file"""
     for p in users:
         if p["samaccountname"] in compromised:
             compromised[p["samaccountname"]]["groups"] = p["memberof"].split(', ')
@@ -274,7 +240,7 @@ def exportExcel(compromised, compromised_groups, stats, excelpath):
     likely_format = workbook.add_format({'text_wrap': True, 'align': 'vcenter', 'bg_color': '#ff6400'})
     uc = workbook.add_worksheet('Users Compromised')
     uc.set_row(0, None, firstline_format)
-    uc.autofilter(0,0,0,8)
+    uc.autofilter(0,0,0,9)
     uc.freeze_panes(1, 0)
     for col, text in enumerate(['Username', 'Password', 'Status', 'Last logon', 'Last change', '# groups', 'Groups', 'Sensitivity', 'Robustness', 'Reason']):
         uc.write(0, col, text)
@@ -445,8 +411,7 @@ def statPattern(passwords, status):
 
 def statRobustness(compromised, status):
     """produce data for robustness stats"""
-    global robustness
-    rob = {i:0 for i in robustness.keys()}
+    rob = {v['reason']:v['robustness'] for v in compromised.values()}
     macrorob = {0:0, 1:0, 2:0, 3:0}
     for acc, info in compromised.items():
         if status == 'all' or 'account_disabled' not in info["status"]:
@@ -531,7 +496,7 @@ def produceStats(users, compromised):
             stat['password resists some days']    = macrorob[3]
             stat['password resists some years']   = synth['safe']
             # init
-            for reason in robustness:
+            for reason in rob:
                 stat[f"password is {reason}"] = 0
             # populate
             for reason, value in rob.items():
@@ -559,8 +524,10 @@ def main():
 
     print(f"[*] Importing john result from {args.JOHN_FILE} and domain info from {args.USERS_FILE}")
     users = parseUserfile(args.USERS_FILE)
-    cu = parsePassfile(args.JOHN_FILE)
+    cu, dom = parsePassfile(args.JOHN_FILE)
     populateUsers(cu, users)
+    print("[*] Assigning robustness")
+    populateRobustness(cu, dom)
     print("[*] Computing groups information")
     cg = populateGroups(cu)
     print(f"[*] Exporting data to {user_out} and {group_out}")
