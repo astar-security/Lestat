@@ -1,24 +1,52 @@
 # Lestat
+
 ![](https://3.bp.blogspot.com/-PF5wQWEREK0/U_DS_eJM8nI/AAAAAAAAAVw/ack4TeHRyME/s1600/033.jpg)  
-Check robustness of your (their) Active Directory accounts passwords
+Lestat is a framework for performing password robustness analysis.  
+It is dedicated to be used by two main populations :
+- Pentesters who want to quickly identify valuable accounts from the ones they compromised
+- Pentesters who want to easily restitute some stats about password quality of the company
+- Sysadmins who want to test the robustness of the employees' passwords
 
 ## What it does
-You give it a file of `user:password` lines that you cracked.  
-It will give you:
-- the list of the domain groups of each craked account
-- an indicator about whether a cracked account is admin or not
-- the status of each cracked account: ACCOUNT_DISABLED or ACCOUNT_ENABLED
-- the list of all the domain groups compromised through the cracked accounts (no false positive due to disabled users)
-- a comprehensive set of stats about the passwords cracked (length distribution, charset, robustness evaluation, most frequent pattern, ...)
+
+Mainly, Lestat does analysis about a list of already cracked accounts :
+
+- Distinguishing disabled accounts
+- Distinguishing highly privileged accounts
+- Giving a reflective view : "user to groups compromised" and "group to members compromised"
+- Providing a comprehensive set of stats and charts about the password cracked (length distribution, charset, robustness evaluation, most frequent pattern, ...)
+
+Also, Lestat provides facilities to perform :
+
+- Domain's users information exfiltration
+- Domain's users hashes exfiltration
+- Wordlists generation for dictionnary attacks
+- Domain's users passwords cracking
+
+But it is not the main goal.
 
 ## Requirement
-`ldapdomaindump` is required for domain users info compilation.  
-`impacket` is required for remote hash extraction.
+
+```
+#For domain users info compilation.  
+pip install ldapdomaindump
+# For remote hash extraction.
+pip install impacket
+# For wordlist generation
+pip install click
+```
 
 ## Basic Usage
-### Get the data
 
-Use the automated script with a domain admin account to dump the required data:
+Lestat needs two inputs :
+
+- The `domain_users.grep` file from ldapdomaindump
+- A file containing all the cracked accounts with `user:password` lines
+
+### Get those inputs
+
+Lestat provides an automated script to obtains those inputs.  
+Feed it with a domain admin account to dump the required data:
 ```
 python3 RobbTheRobber.py --user <USERNAME> --password <PASSWORD> --domain <DOMAIN>
 # the --password can be omitted, then it will be prompted
@@ -40,11 +68,11 @@ ldapdomaindump -u <DOMAIN>\\<USER> -p <PASSWORD> --no-html --no-json ldap://<DC_
 Only the `domain_users.grep` file is needed (you can rename it `USERS_INFO.txt` to comply with the examples of this documentation).
 
 Second, we need the `NTDS.dit` file of the Domain Controller with its `SYSTEM` key.  
-If the AV prevent the automated script to run, connect with RDP to the DC and run:
+Connect with RDP to the DC and run:
 ```
 cmd.exe /c ntdsutil "ac i ntds" "ifm" "create full c:\temp\robb" q q
 ```
-Then, move these two files to your machine:
+Then, get these two files to your machine:
 - C:\temp\robb\Active Directory\ntds.dit
 - C:\temp\robb\registry\SYSTEM
 
@@ -61,11 +89,20 @@ You can use the proposed `jonhTheRipper.py` script which perform attacks on comm
 python3 JohnTheRipper.py DOMAIN_HASHES.txt
 ```
 
-For pure bruteforce enumeration, take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) the `DOMAIN_HASHES.txt` file with you favorite tool (with or without [wordlists](https://github.com/astar-security/Lestat/wiki/GetWordlists)).  
+For pure bruteforce enumeration, take 2 or 3 days [cracking](https://github.com/astar-security/Lestat/wiki/Crack_with_john) the `DOMAIN_HASHES.txt` file with you favorite tool.    
 Here are examples with `john-the-ripper`:
 ```
 john --format=NT --wordlist=rockyou.txt DOMAIN_HASHES.txt
 john --format=NT --fork=8 DOMAIN_HASHES.txt
+```
+
+You can also use the wordlists provided by lestat in the wordlists directory :
+
+```
+python3 gen_names_wordlist.py
+python3 gen_dates_wordlist.py
+python3 gen_places_wordlist.py
+...
 ```
 
 When finished, get the result in the raw form of a login:password file (one per line):
