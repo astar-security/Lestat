@@ -94,13 +94,21 @@ Three CSV files are produced: `lestat.csv`, `users_compromised.csv` and `group_c
 
 _NOTE: the tool will ignore every line which does not have at least one ':' separator. If more than one ':' is detected, it will only retain the first and the second fields and ignore the rest. So, the direct result of `john --format=NT --show DOMAIn_HASHES.txt` will be correctly parsed (but you will see many warning)_
 
+### Restitute
+
+Produce a easy to read Excel file with all the information compiled :
+
+```
+$ python3 LesterTheLooter.py --xlsx JOHN_RESULT.txt USERS_INFO.txt
+```
+
 ### Be proud
 PNG charts can be generated from the `lestat.csv` file:  
 ```
 python3 GregTheGrapher.py -w charts --transparent lestat.csv 
 ```
 
-It is recommended to present the result in a Excel file. Import `users_compromised.csv` in one sheet, `group_compromised.csv` in a second one and use the pictures for a dedicated summary sheet:
+We suggest that you import them into the generated Excel file :
 
 ![](https://camo.githubusercontent.com/aa8c35cdb071322f9c0e0d3c0dae9d5bef295cfabaa01115159e640badafffde/68747470733a2f2f626f6e6e792e61737461722e6f72672f6578616d706c655f6c65737461742e706e67)
 
