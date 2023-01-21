@@ -3,6 +3,7 @@
 import time
 import logging as log
 import click
+from variations import *
 
 # init logging format
 log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
@@ -36,23 +37,6 @@ def compute_suffixes():
     suffixes = set(suffixes)
     return suffixes
 
-def asciize(name):
-    asciize = str.maketrans("àäâąãảạầằẩắéèëêệěēếėęìïîḯĩıịĭỉòöôõōơộốőơờúùüûūůủüưýỹÿỳğçłśșňñľđḑḏðẕźżḩḥẖťṭț",
-                            "aaaaaaaaaaaeeeeeeeeeeiiiiiiiiiooooooooooouuuuuuuuuyyyygclssnnlddddzzzhhhttt")
-    asciize2 = str.maketrans({"œ":"oe", "ß":"ss", "æ":"ae"})
-    return name.translate(asciize).translate(asciize2)
-
-def unseparate(name):
-    separator = (' ', '/', '-', ' & ', "'")
-    unseparate = str. maketrans('','',(" /-&'"))
-    res = [name.translate(unseparate)]
-    for i in separator:
-        if len((s := name.split(i))) > 1:
-            res += s
-            res.append(''.join([i[0:1] for i in s]))
-            res.append(''.join(s))
-            res.append(''.join(map(str.capitalize,s)))
-    return res
 
 def derivate(places):
     log.info("[*] Computing places derivation...")
@@ -62,15 +46,13 @@ def derivate(places):
             # remove accent
             asciized = asciize(place)
             # shortnames for eg: france, fr
-            shortnames = [place, place[:2], asciized]
+            derivated.update([place, place[:2], asciized])
             # évry-sur-seine -> évrysurseine
-            shortnames += unseparate(place)
-            shortnames += unseparate(asciized)
-            derivated.update(shortnames)
-            # uppercase
-            derivated.update(map(str.upper,shortnames))
-            # capitalize
-            derivated.update(map(str.capitalize,shortnames))
+            derivated |= nickname(place, 1)
+            if asciized != place:
+                derivated |= nickname(asciized, 1)
+            # case
+            derivated |= case(derivated, 3)
     log.info("[+] Derivation finished")
     if '' in derivated:
         derivated.remove('')

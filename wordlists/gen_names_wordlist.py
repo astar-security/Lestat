@@ -3,6 +3,7 @@
 import time
 import logging as log
 import click
+from variations import *
 
 # init logging format
 log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
@@ -15,23 +16,6 @@ def ingest_names(input_file):
     log.info("[+] Input file imported")
     return names
 
-def asciize(name):
-    asciize = str.maketrans("àäâąãảạầằẩắéèëêệěēếėęìïîḯĩıịĭỉòöôõōơộốőơờúùüûūůủüưýỹÿỳğçłśșňñľđḑḏðẕźżḩḥẖťṭț",
-                            "aaaaaaaaaaaeeeeeeeeeeiiiiiiiiiooooooooooouuuuuuuuuyyyygclssnnlddddzzzhhhttt")
-    asciize2 = str.maketrans({"œ":"oe", "ß":"ss", "æ":"ae"})
-    return name.translate(asciize).translate(asciize2)
-
-def unseparate(name):
-    separator = (' ', '/', '-', ' & ', "'")
-    unseparate = str. maketrans('','',(" /-&'"))
-    res = [name.translate(unseparate)]
-    for i in separator:
-        if len((s := name.split(i))) > 1:
-            res += s
-            res.append(''.join([i[0:1] for i in s]))
-            res.append(''.join(s))
-            res.append(''.join(map(str.capitalize,s)))
-    return res
 
 def compute_suffixes():
     suffixes = ['']
@@ -62,17 +46,10 @@ def derivate(names):
             # remove accent
             asciized = asciize(name)
             # shortnames for eg Nicolas: nicolas, nic, nico, nini
-            shortnames = [name, name[:3], name[:4], name[:2] + name[:2], asciized]
-            # jean-paul -> jeanpaul
-            shortnames += unseparate(name)
-            shortnames += unseparate(asciized)
-            derivated.update(shortnames)
-            # uppercase: NICOLAS, NIC, NICO, NINI
-            derivated.update(map(str.upper,shortnames))
-            # capitalize: Nicolas, Nic, Nico, Nini
-            derivated.update(map(str.capitalize,shortnames))
-            # first lower then upper: nICOLAS, nIC, nICO, nINI
-            derivated.update([i[0:1] + i[1:].upper() for i in shortnames])
+            derivated |= nickname(name, 1)
+            if asciized != name:
+                derivated |= nickname(asciized, 1)
+            derivated = case(derivated, 4)
     log.info("[+] Derivation finished")
     return derivated
 

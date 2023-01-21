@@ -6,6 +6,7 @@ import logging as log
 import click
 import string
 import itertools
+from variations import *
 
 #########
 # CONST #
@@ -63,93 +64,6 @@ common_complete = set()
 # COOK #
 ########
 
-def nickname_variation(word):
-    res = set()
-    res.add( word )
-    l = len( word )
-
-    # usefull for shortnames and cleaned names
-    consonants = str.maketrans('','','aeiouy')
-    root = str.maketrans('', '', string.digits + string.punctuation)
-
-    # if compound name
-    if re.match(r'.*[-\ \._]', word):
-        parts = re.split(r'[\-\ \._]',word)
-        # if all the part are made of letters
-        if all([i.isalpha() for i in parts]):
-            # j-l.lemenchon => jll; paul.bismuth => pb
-            res.add( ''.join([i[0:1] for i in parts]) )
-            # if there is two parts
-            if len(parts) ==2:
-                # trigram: gustave.limace => gli
-                res.add( parts[0][0:1] + parts[1][0:2] )
-                # if the 1st part is made of initials
-                if len(parts[0]) < 3 :
-                    # jm-levag => jml; fx.demaison => fxd
-                    res.add( parts[0] + parts[1][0] )
-                    # ch-toulouse => chtoulouse
-                    res.add( ''.join(parts) )
-        for part in parts:
-            if len(part) > 1:
-                # d.soria => soria
-                res.update( nickname_variation(part) )
-
-    # if the word is atomic
-    else:
-        # cleaned: confcall_9 => confcall
-        cleaned = word.translate(root)
-        if len(cleaned) > 1:
-            res.add( cleaned )
-
-        # shortnames
-        if l > 3 and word.isalpha() :
-            # nicolas => nic
-            res.add( word[:3] )
-            # nicolas => nico
-            res.add( word[:4] )
-            # ffuyons => fuyons
-            res.add( word[1:] )
-            # if the name start with a consonant and a voyel
-            if word[0] not in 'aeiou' and word[1] in 'aeiou':
-                # nicolas => nini
-                res.add( word[:2] + word[:2] )
-            # if the name start with a consonant
-            if word[0] not in 'aeiou':
-            # nicolas => nc
-                cons = word.translate(consonants)[0:2]
-                if len(cons) > 1:
-                    res.add( cons )
-
-    return res
-
-def case_variation(words):
-    res = set()
-    for word in words:
-        res.update( [word, word.upper(), word.capitalize()] )
-    return res
-
-
-def leet_variation(words):
-    global leet_swap
-    res = set()
-    first_pass = []
-
-    for word in words:
-        res.add(word)
-        if word.isalpha() and len(set(word)) > 1 and len(word) > 2:
-            needles = [c for c in leet_swap.keys() if c in word.lower()]
-            for i in range(len(needles)):
-                nee1 = needles[i]
-                for sub in leet_swap[nee1]:
-                    first_pass.append(re.sub(nee1, sub, word, flags=re.I))
-                res |= set(first_pass)
-                for j in range(i+1,len(needles)):
-                    nee2 = needles[j]
-                    for word2 in first_pass:
-                        for sub in leet_swap[nee2]:
-                            res.add(re.sub(nee2, sub, word2, flags=re.I))
-                first_pass = []
-    return res
 
 def compute_fix(birthdate):
     global common_prefix
@@ -158,6 +72,7 @@ def compute_fix(birthdate):
     global common_numeric
     global common_special
     global common_words
+    global leet_swap
 
     if birthdate:
         for day in range(1,32):
@@ -165,7 +80,7 @@ def compute_fix(birthdate):
                 common_numeric.add(f"{day:02}{month:02}" if birthdate == "DDMM" else f"{month:02}{day:02}")
 
     # pre compute the lists of prefixes and suffixes
-    common_prefix = set(case_variation(leet_variation(common_words)))
+    common_prefix = set(case(leet(common_words, 2, leet_swap), 4))
     common_suffix = [n + s for n in common_numeric for s in common_special]
     common_complete = list(itertools.product(common_prefix, common_suffix))
     
@@ -211,6 +126,7 @@ def import_users(f, raw, enabled):
 @click.argument('userfile') 
 def main(userfile, r, e, birthdates):
     """Mangle users from a ldapdomaindump file (domain_users.grep) to create a wordlist"""
+    global leet_swap
     words = set()
     log.basicConfig(format='%(asctime)s %(message)s', datefmt='%H:%M:%S', level=log.INFO)
 
@@ -226,16 +142,16 @@ def main(userfile, r, e, birthdates):
         with click.progressbar(users) as usersbar:
             log.info("[*] Computing nicknames...")
             for line in usersbar:
-                mangling |= nickname_variation(line)
+                mangling |= nickname(line, 2)
         log.info(f"[+] {len(mangling)} nicknames computed\n{list(mangling)[:50]}...")
 
         # second we compute leet and case variations
         log.info("[*] Computing leet variations...")
-        mangling = leet_variation(mangling)
+        mangling = leet(mangling, 2, leet_swap)
         log.info(f"[+] {len(mangling)} leet variations computed\n{list(mangling)[:50]}...")
 
         log.info("[*] Computing case variations...")
-        mangling = case_variation(mangling)
+        mangling = case(mangling, 4)
         log.info(f"[+] {len(mangling)} case variations computed\n{list(mangling)[:50]}...")
 
         # opening the output file for writing
