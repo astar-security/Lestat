@@ -4,6 +4,7 @@ import argparse
 import csv
 import matplotlib.pyplot as plt
 import os
+import TonyTheTagger
 
 
 def exportCharts(csvfilename, chartpath, transparency):
@@ -42,33 +43,24 @@ def exportCharts(csvfilename, chartpath, transparency):
             # reason of compromise
             if 'password is empty' in field:
                 fig, ax = plt.subplots()
-                reasons = [('password is empty', '#bb0000'), 
-                    ('password is login', '#bb0000'),
-                    ('password is company name', '#bb0000'),
-                    ('password is in top10', '#bb0000'),
-                    ('password is in top1000', '#ff0000'),
-                    ('password is firstname', '#ff0000'),
-                    ('password is digits only', '#ff0000'),
-                    ('password is date', '#ff0000'),
-                    ('password is place', '#ff0000'),
-                    ('password is in top1M', '#ff6400'),
-                    ('password is company context', '#ff6400'),
-                    ('password is login derived', '#ff6400'),
-                    ('password is few characters', '#ff6400'),
-                    ('password is common', '#ffc800'),
-                    ('password is predictable', '#ffc800'),
-                    ('password is leaked', '#ffc800'),
-                    ('password is undetermined', '#ffc800')]
+                reason_colors = {0: '#bb0000',
+                                 1: '#ff0000',
+                                 2: '#ff6400',
+                                 3: '#ffc800'}
+                reasons = []
                 values = []
                 labels = []
                 colors = []
+                for r, c in TonyTheTagger.resistance.items():
+                    if f"password is {r}" in field:
+                        reasons.append((r, reason_colors[c]))
                 for r in reasons:
-                    num = int( field[ r[0] ]) 
+                    num = int( field[ f"password is {r[0]}" ]) 
                     if num / (int(field['compromised accounts']))*100 >=1:
                         values.append( num )
-                        labels.append( r[0][9:] )
+                        labels.append( r[0] )
                         colors.append( r[1] )
-                ax.pie(values, labels=labels, colors=colors, autopct='%1i%%', wedgeprops={"edgecolor":"white",'linewidth': 1, 'linestyle': 'solid', 'antialiased': True} )
+                ax.pie(values, labels=labels, colors=colors, autopct=lambda p : '{:,.0f}% ({:,.0f})'.format(p,p * sum(values)/100), wedgeprops={"edgecolor":"white",'linewidth': 1, 'linestyle': 'solid', 'antialiased': True} )
                 ax.set_title(f"Reasons of weakness for {name}")
                 plt.tight_layout()
                 plt.savefig(f"{chartpath}/weaknesses_{name}.png", bbox_inches='tight', transparent=transparency)
