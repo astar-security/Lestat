@@ -5,7 +5,12 @@ import string
 import requests
 from wordlists.variations import *
 
-# numbers are time to crack in an online bruteforce attack with OSINT: 0=seconds, 1=minutes, 2=hours, 3=days, 4=years
+# numbers are time to crack in an online bruteforce attack with OSINT: 
+# 0=seconds, 
+# 1=minutes, 
+# 2=hours, 
+# 3=days, 
+# 4=years (reserved for not cracked passwords)
 resistance = {
         "empty": 0,
         "login": 0,
@@ -18,7 +23,7 @@ resistance = {
         "top1M": 2,
         "short": 2,
         "simple": 3,
-        "common": 3
+        "leaked": 3
         }
 
 #########
@@ -41,11 +46,15 @@ def attributeReason(cu, user, reason):
 
 def downloadWordlist(wordlist):
     print("[*] Requesting wordlist...")
-    r = requests.get(wordlist)
-    if not r.ok:
-        print("[!] download failed")
-    print("[+] wordlist downloaded")
-    candidates = r.text.split("\n")
+    candidates = []
+    try:
+        r = requests.get(wordlist)
+        if r.ok:
+            print("[+] wordlist downloaded")
+            candidates = r.text.split("\n")
+    except Exception as e:
+        print(f"[!] Download failed : {e}")
+        print(f"[!] Robustness based on top 1M known passwords cannot be computed")
     return candidates
 
 def unleet(name):
@@ -86,9 +95,12 @@ def populateRobustness(cu, domains):
     separators = r'[\-\'\ \._&/]'
     domlist = set()
     for dom in domains:
-        domlist.update(re.split(separators, dom.split('.')[0].lower()))
+        if dom != '':
+            domlist.update(re.split(separators, dom.split('.')[0].lower()))
 
-    for user, val in cu.items() :
+    for user, val in cu.items():
+        if val['reason'] is not 'undetermined':
+            continue
         passw = val['password'].lower()
         d1 = similar(None, user, unleet(passw)).ratio()
         d2 = similar(None, user, getRoot(passw)).ratio()
@@ -116,26 +128,27 @@ def populateRobustness(cu, domains):
         # check top 1000 most common
         elif passw in top1M[0:1000]:
             attributeReason(cu, user, 'top1000')
-        # check robustness against exhaustive attack
+        # check robustness against exhaustive attack (less than 2 hours)
         elif effort/10000 < 60*60*2 :
             attributeReason(cu, user, 'tiny')
         # check login derivation
         elif d1 > 0.75 or d2 > 0.75:
             attributeReason(cu, user, 'login derivation')
-        # check company derivation
+        # check company derivation (0.75 is arbitrary)
         elif any([i for i in dom_distances if i > 0.75]):
             attributeReason(cu, user, 'company derivation')
         # check top 1 million most common
         elif passw in top1M:
             attributeReason(cu, user, 'top1M')
-        # check robustness against exhaustive attack
+        # check robustness against exhaustive attack (less than 2 days)
         elif effort/10000 < 60*60*24*2 :
             attributeReason(cu, user, 'short')
-        # check robustness against exhaustive attack
+        # check robustness against exhaustive attack (less than 2 years)
         elif effort/10000 < 60*60*24*365*2 :
             attributeReason(cu, user, 'simple')
+        # consider that the default case is when the password was cracked from a wordlist of known passwords
         else:
-            attributeReason(cu, user, 'common')            
+            attributeReason(cu, user, 'leaked')            
 
 
 

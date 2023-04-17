@@ -4,7 +4,7 @@ import argparse
 import csv
 import matplotlib.pyplot as plt
 import os
-import TonyTheTagger
+import re
 
 
 def exportCharts(csvfilename, chartpath, transparency):
@@ -41,30 +41,29 @@ def exportCharts(csvfilename, chartpath, transparency):
             print("[+] Overall results chart created")
 
             # reason of compromise
-            if 'password is empty' in field:
-                fig, ax = plt.subplots()
-                reason_colors = {0: '#bb0000',
-                                 1: '#ff0000',
-                                 2: '#ff6400',
-                                 3: '#ffc800'}
-                reasons = []
-                values = []
-                labels = []
-                colors = []
-                for r, c in TonyTheTagger.resistance.items():
-                    if f"password is {r}" in field:
-                        reasons.append((r, reason_colors[c]))
-                for r in reasons:
-                    num = int( field[ f"password is {r[0]}" ]) 
+            fig, ax = plt.subplots()
+            reason_colors = {"seconds": '#bb0000',
+                             "minutes": '#ff0000',
+                             "hours": '#ff6400',
+                             "days": '#ffc800'}
+            values = []
+            labels = []
+            colors = []
+            regex = r"cracked because (.+?) \((.+?)\)"
+            for f in field:
+                match = re.search(regex, f)
+                if match:
+                    num = (int(field[f]))
+                    # on néglige les valeurs trop peu significatives
                     if num / (int(field['compromised accounts']))*100 >=1:
-                        values.append( num )
-                        labels.append( r[0] )
-                        colors.append( r[1] )
-                ax.pie(values, labels=labels, colors=colors, autopct=lambda p : '{:,.0f}% ({:,.0f})'.format(p,p * sum(values)/100), wedgeprops={"edgecolor":"white",'linewidth': 1, 'linestyle': 'solid', 'antialiased': True} )
-                ax.set_title(f"Reasons of weakness for {name}")
-                plt.tight_layout()
-                plt.savefig(f"{chartpath}/weaknesses_{name}.png", bbox_inches='tight', transparent=transparency)
-                print("[+] Reasons of weakness chart created")
+                        values.append(num)
+                        labels.append(match.group(1))
+                        colors.append(reason_colors[match.group(2)])
+            ax.pie(values, labels=labels, colors=colors, autopct=lambda p : '{:,.0f}% ({:,.0f})'.format(p,p * sum(values)/100), wedgeprops={"edgecolor":"white",'linewidth': 1, 'linestyle': 'solid', 'antialiased': True} )
+            ax.set_title(f"Reasons of weakness for {name}")
+            plt.tight_layout()
+            plt.savefig(f"{chartpath}/weaknesses_{name}.png", bbox_inches='tight', transparent=transparency)
+            print("[+] Reasons of weakness chart created")
 
             # cracked passwords by charset
             fig, ax = plt.subplots()
@@ -110,41 +109,48 @@ def exportCharts(csvfilename, chartpath, transparency):
             print("[+] Cracked passwords per length chart created")
 
             # robustness
-            if 'passwords in top 10 most common' in field:
-                fig, ax = plt.subplots()
-                resist = [ 'password resists some seconds', 
-                            'password resists some minutes', 
-                            'password resists some hours',
-                            'password resists some days',
-                            'password resists some years' ]
-                f0, f1, f2, f3, f4 = int(field[resist[0]]), int(field[resist[1]]), int(field[resist[2]]), int(field[resist[3]]), int(field[resist[4]])
-                start = [ 0, f0 ]
-                ax.barh( [""], [ f0 ], height=0.1, color='#bb0000', label='seconds' )
-                ax.barh( [""], [ f1 ], height=0.1, color='#ff0000', label='minutes', left=start[-1] )
-                start.append( start[-1] + f1 )
-                ax.barh( [""], [ f2 ], height=0.1, color='#ff6400', label='hours', left=start[-1] )
-                start.append( start[-1] + f2 )
-                ax.barh( [""], [ f3 ], height=0.1, color='#ffc800', label='days', left=start[-1] )
-                start.append( start[-1] + f3 )
-                ax.barh( [""], [ f4 ], height=0.1, color='#00c800', label='years', left=start[-1] )
-                # the following line is juste here because this is the only way I found to not have
-                # a very thick horizontal bar : if every bar is 0.1 height, they take all the place
-                # shame on me
-                ax.barh( [""], [0], height=0.5)
-                ax.set_title(f"Password resistance against hacker ({name})")
-                ax.legend(bbox_to_anchor=(0.5, -0.2), loc="lower center", ncol=5)
-                for spine in plt.gca().spines.values():
-                    spine.set_visible(False)
-                plt.savefig(f"{chartpath}/pass_resistance_{name}.png", bbox_inches="tight", transparent=transparency)
-                print("[+] Password resistance chart created")
+            fig, ax = plt.subplots()
+            resist = [ 'password resists some seconds', 
+                        'password resists some minutes', 
+                        'password resists some hours',
+                        'password resists some days',
+                        'password resists some years' ]
+            f0, f1, f2, f3, f4 = int(field[resist[0]]), int(field[resist[1]]), int(field[resist[2]]), int(field[resist[3]]), int(field[resist[4]])
+            start = [ 0, f0 ]
+            ax.barh( [""], [ f0 ], height=0.1, color='#bb0000', label='seconds' )
+            ax.text( f0//2, 0, f0, ha='center', va='center', color='black')
+            ax.barh( [""], [ f1 ], height=0.1, color='#ff0000', label='minutes', left=start[-1] )
+            ax.text( f0+f1//2, 0, f1, ha='center', va='center', color='black')
+            start.append( start[-1] + f1 )
+            ax.barh( [""], [ f2 ], height=0.1, color='#ff6400', label='hours', left=start[-1] )
+            ax.text( start[-1]+f2//2, 0, f2, ha='center', va='center', color='black')
+            start.append( start[-1] + f2 )
+            ax.barh( [""], [ f3 ], height=0.1, color='#ffc800', label='days', left=start[-1] )
+            ax.text( start[-1]+f3//2, 0, f3, ha='center', va='center', color='black')
+            start.append( start[-1] + f3 )
+            ax.barh( [""], [ f4 ], height=0.1, color='#00c800', label='years', left=start[-1] )
+            ax.text( start[-1]+f4//2, 0, f4, ha='center', va='center', color='black')
+            # the following line is juste here because this is the only way I found to not have
+            # a very thick horizontal bar : if every bar is 0.1 height, they take all the place
+            # shame on me
+            ax.barh( [""], [0], height=0.5)
+            ax.set_title(f"Password resistance against hacker ({name})")
+            ax.legend(bbox_to_anchor=(0.5, -0.2), loc="lower center", ncol=5)
+            for spine in plt.gca().spines.values():
+                spine.set_visible(False)
+            plt.savefig(f"{chartpath}/pass_resistance_{name}.png", bbox_inches="tight", transparent=transparency)
+            print("[+] Password resistance chart created")
 
             # most frequent passwords
             fig, ax = plt.subplots()
             values = []
             labels = []
             for i in range(10):
-                values.append(int(field[f"{i+1}th frequent password"].split(':',1)[0]))
-                labels.append(field[f"{i+1}th frequent password"].split(':',1)[1])
+                try:
+                    values.append(int(field[f"{i+1}th frequent password"].split(':',1)[0]))
+                    labels.append(field[f"{i+1}th frequent password"].split(':',1)[1])
+                except:
+                    continue
             if max_top == 0:
                 max_top = max(values)
             values.reverse()
@@ -164,8 +170,11 @@ def exportCharts(csvfilename, chartpath, transparency):
             values = []
             labels = []
             for i in range(10):
-                values.append(int(field[f"{i+1}th frequent pattern"].split(':',1)[0]))
-                labels.append(field[f"{i+1}th frequent pattern"].split(':',1)[1])
+                try:
+                    values.append(int(field[f"{i+1}th frequent pattern"].split(':',1)[0]))
+                    labels.append(field[f"{i+1}th frequent pattern"].split(':',1)[1])
+                except:
+                    continue
             if max_top_p == 0:
                 max_top_p = max(values)
             values.reverse()

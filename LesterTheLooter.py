@@ -3,6 +3,7 @@
 import string
 import argparse
 import csv
+import json
 from collections import Counter
 from termcolor import colored
 import xlsxwriter
@@ -30,6 +31,7 @@ PRIVILEGED_GROUPS = [
         "server operators"
         ]
 
+robkeys = ["seconds", "minutes", "hours", "days"]
 
 #########
 # Utils #
@@ -92,6 +94,7 @@ def parsePassfile(pass_file):
     """get the user:pass"""
     """check robustness indicator"""
     """check if the leakTheWeak module was used on the john file"""
+    global robkeys
     compromised = {}
     with open(pass_file, "r") as f:
         john = f.read().splitlines()
@@ -99,21 +102,35 @@ def parsePassfile(pass_file):
         for line in john:
             person = line.split(':')
             reason = "undetermined"
+            robustness = 3
             lpers = len(person)
             if lpers < 2:
                 print(f"[!] Line ignored in {pass_file} file (not a valid user:password form): {line}")
                 continue
-            if lpers > 3:
-                print(f"[!] Line used but seems to contain more than only a user:password:robustness form: {line}")
-            if lpers == 3:
-                if person[2] not in robustness:
-                    print(f"[!] Line ignored in {pass_file} file (not a valid robustness keyword): {line}. Available keywords are {robustness.keys()}")
+            if lpers > 4 or lpers ==3 :
+                print(f"[!] Line used but seems to contain more than only a user:password form (or user:password:robustness:reason form): {line}")
+            if lpers == 4:
+                if person[2] not in robkeys:
+                    print(f"[!] Line ignored in {pass_file} file. It seems you submitted a form of user:password:robustness:reason but robustness is not a valid keyword ({robkeys}): {line}.")
                     continue
-                reason = person[2]
+                robustness = robkeys.index(person[2])
+                reason = person[3]
             bname, dom = beautifyName(person[0])
             domains.add(dom)
-            compromised[bname] = {"password":person[1], "groups":[], "status":[], "lastchange":"", "lastlogon":"", "robustness":3, "reason":reason, "priv":None}
+            compromised[bname] = {"password":person[1], "groups":[], "status":[], "lastchange":"", "lastlogon":"", "robustness":robustness, "reason":reason, "priv":None, "description":""}
+    print(f"[*] Company name can sometimes be infered from domain name : {domains}")
     return compromised, domains
+
+def parseUserfileFromJSON(user_file):
+    """Check domain users information can be imported"""
+    with open(user_file) as f:
+        try:
+            data = json.load(f)
+            return data
+        except Exception as e:
+            print(f"[!] Impossible to import domain users information from {user_file} : {e}")
+            exit(1)
+
 
 def parseUserfile(user_file):
     """check domain users info file's format"""
@@ -133,6 +150,33 @@ def parseUserfile(user_file):
             res.append(dict(zip(col, info)))
     return res
 
+def populateUsersFromJSON(compromised, users):
+    """complete info about users compromised by using the domain users info file"""
+    primary = { 513: "domain users", 512: "domain admins", 514: "domain guests", 
+               521: "enterprise domain controllers", 518: "schema admins", 519: "enterprise admins",
+               572: "denied rodc password replication group"}
+    for p in users:
+        name = p['attributes']['sAMAccountName'][0].lower()
+        if name in compromised :
+            compromised[name]['lastchange'] = p['attributes']['pwdLastSet'][0]
+            if 'lastLogonTimestamp' in p['attributes']:
+                compromised[name]['lastlogon'] = p['attributes']['lastLogonTimestamp'][0]
+            ac = p['attributes']['userAccountControl'][0]
+            compromised[name]['status'] = "disabled" if bin(ac)[-2] == '1' else "enabled"
+            compromised[name]['groups'] = [ primary[p['attributes']['primaryGroupID'][0]] ]
+            if 'memberOf' in p['attributes']:
+                for group in p['attributes']['memberOf']:
+                    compromised[name]['groups'].append(group.split(',')[0].split('CN=')[1].lower())
+            if 'description' in p['attributes']:
+                compromised[name]['description'] = p['attributes']['description'][0]
+    # check privilege
+    for acc, info in compromised.items():
+        if len(info["groups"]) == 0:
+            print(f"[!] {acc} not consolidated from domain users info")
+        else:
+            info["priv"] = isPriv(acc, info['groups'])
+
+
 def populateUsers(compromised, users):
     """complete info about users compromised by using the domain users info file"""
     for p in users:
@@ -142,6 +186,7 @@ def populateUsers(compromised, users):
             compromised[p["samaccountname"]]["lastlogon"] = p["lastlogon"]
             compromised[p["samaccountname"]]["groups"].append(p["primarygroupid"])
             compromised[p["samaccountname"]]["status"] = p["useraccountcontrol"].split(', ')
+            compromised[p["samaccountname"]]["description"] = p["description"]
     # check privilege
     for acc, info in compromised.items():
         if len(info["groups"]) == 0:
@@ -176,8 +221,8 @@ def populateGroups(compromised):
 
 def exportUsers(compromised, output, priv):
     """write consolidated info about users into CSV format with ; separator"""
-    if priv :
-        print("[*] Privileged accounts compromised are listed below:")
+    print(f"[*] {'Privileged' if priv else 'All'} enabled accounts compromised are listed below:")
+    global robkeys
     with open(output, 'w') as f:
         w = None
         for acc, info in compromised.items() :
@@ -189,13 +234,13 @@ def exportUsers(compromised, output, priv):
             user['num groups'] = len( info['groups'] )
             user['groups'] = ', '.join( info['groups'] )
             user['sensitive'] = info['priv'] if info['priv'] else "unknown"
-            user['robustness'] = ["seconds", "minutes", "hours", "days"][info['robustness']]
+            user['robustness'] = robkeys[info['robustness']]
             user['reason'] = info['reason']
-            if priv :
-                if user['status'] == "enabled" and user['sensitive'] != 'unknown':
-                    c = "white" if user['sensitive'] == "likely admin" else "red"
-                    print(colored(f"[+]\t{user['status'].ljust(12)} {user['sensitive'].ljust(20)} {user['name'].ljust(24)} {user['password']}", c))
-
+            if user['status'] == "enabled" and (not priv or user['sensitive'] != 'unknown') :
+                c = "yellow" if user['sensitive'] == "likely admin" else "red"
+                if user['sensitive'] == 'unknown':
+                    c = "white"
+                print(colored(f"[+]\t{user['status'].ljust(12)} {user['sensitive'].ljust(20)} {user['name'].ljust(24)} {user['password']}", c))
             if not w:
                 w = csv.DictWriter(f, user.keys(), delimiter=";")
                 w.writeheader()
@@ -203,13 +248,14 @@ def exportUsers(compromised, output, priv):
 
 def exportGroups(compromised_groups, output):
     """write consolidated info about groups into CSV format with ; separator"""
+    global robkeys
     with open(output, 'w') as f:
         w = None
         for gr, info in compromised_groups.items() :
             group = {"name": gr}
             group['members compromised'] = len( info['disabled'] ) + len( info['enabled'] )
             group['sensitive'] = info['priv'] if info['priv'] else "unknown"
-            group['robustness'] = ["seconds", "minutes", "hours", "days"][info['robustness']]
+            group['robustness'] = robkeys[info['robustness']]
             group['enabled members compromised'] = ', '.join( info['enabled'] )
             group['disabled members compromised'] = ', '.join( info['disabled'] )
 
@@ -228,6 +274,7 @@ def exportStats(stats, spath):
 
 
 def exportExcel(compromised, compromised_groups, stats, excelpath):
+    global robkeys
     workbook = xlsxwriter.Workbook(excelpath)
     firstline_format = workbook.add_format({'font_color': '#F4F5F5', 
                                         'align': 'vcenter', 
@@ -242,7 +289,7 @@ def exportExcel(compromised, compromised_groups, stats, excelpath):
     uc.set_row(0, None, firstline_format)
     uc.autofilter(0,0,0,9)
     uc.freeze_panes(1, 0)
-    for col, text in enumerate(['Username', 'Password', 'Status', 'Last logon', 'Last change', '# groups', 'Groups', 'Sensitivity', 'Robustness', 'Reason']):
+    for col, text in enumerate(['Username', 'Password', 'Status', 'Last logon', 'Last change', '# groups', 'Groups', 'Sensitivity', 'Robustness', 'Reason', 'Description']):
         uc.write(0, col, text)
     uc.set_column(0,0, 11)
     uc.set_column(1,1, 15)
@@ -254,6 +301,7 @@ def exportExcel(compromised, compromised_groups, stats, excelpath):
     uc.set_column(7,7, 11)
     uc.set_column(8,8, 9)
     uc.set_column(9,9, 11)
+    uc.set_column(10,10,80)
     line = 1
     for acc, info in compromised.items() :
         uc.write(line, 0, acc)
@@ -264,8 +312,9 @@ def exportExcel(compromised, compromised_groups, stats, excelpath):
         uc.write(line, 5, len(info['groups']))
         uc.write(line, 6, ', '.join(info['groups']))
         uc.write(line, 7, info['priv'] if info['priv'] else "unknown")
-        uc.write(line, 8, ["seconds", "minutes", "hours", "days"][info['robustness']])
+        uc.write(line, 8, robkeys[info['robustness']])
         uc.write(line, 9, info['reason'])
+        uc.write(line, 10, info['description'])
         if 'account_disabled' in info['status']:
             uc.set_row(line, None, disabled_format)
         elif info['priv'] == 'likely admin':
@@ -293,7 +342,7 @@ def exportExcel(compromised, compromised_groups, stats, excelpath):
         gc.write(line, 0, gr)
         gc.write(line, 1, len(info['disabled']) + len(info['enabled']))
         gc.write(line, 2, info['priv'] if info['priv'] else "unknown")
-        gc.write(line, 3, ["seconds", "minutes", "hours", "days"][info['robustness']])
+        gc.write(line, 3, robkeys[info['robustness']])
         gc.write(line, 4, ', '.join(info['enabled']))
         gc.write(line, 5, ', '.join(info['disabled']))
         if len(info['enabled']) == 0:
@@ -411,18 +460,18 @@ def statPattern(passwords, status):
 
 def statRobustness(compromised, status):
     """produce data for robustness stats"""
-    rob = {v['reason']:v['robustness'] for v in compromised.values()}
-    macrorob = {0:0, 1:0, 2:0, 3:0}
+    rob = {0:{}, 1:{}, 2:{}, 3:{}}
     for acc, info in compromised.items():
         if status == 'all' or 'account_disabled' not in info["status"]:
-            rob[info["reason"]] += 1
-            macrorob[info["robustness"]] += 1
-    return rob, macrorob
+            if info['reason'] not in rob[info['robustness']]:
+                rob[info['robustness']][info['reason']] = 0
+            rob[info['robustness']][info['reason']] += 1
+    return rob
 
 def produceStats(users, compromised):
     """ Compute stats """
 
-    global robustness
+    global robkeys
 
     passwords = getPass(compromised)
     stats = []
@@ -488,19 +537,13 @@ def produceStats(users, compromised):
             stat[f"{i+1}th frequent pattern"] = f"{pat[i][1]}:{pat[i][0].replace(';','[semicolon]')}" if i<l-1 else ":"
 
         # robustness
-        rob, macrorob = statRobustness(compromised, status)
-        if sum([macrorob[0], macrorob[1], macrorob[2]]) != 0:
-            stat['password resists some seconds'] = macrorob[0]
-            stat['password resists some minutes'] = macrorob[1]
-            stat['password resists some hours']   = macrorob[2]
-            stat['password resists some days']    = macrorob[3]
-            stat['password resists some years']   = synth['safe']
-            # init
-            for reason in rob:
-                stat[f"password is {reason}"] = 0
-            # populate
-            for reason, value in rob.items():
-                stat[f"password is {reason}"] = value
+        rob = statRobustness(compromised, status)
+        for i in range(len(robkeys)):
+            stat[f"password resists some {robkeys[i]}"] = sum(rob[i].values())
+        stat['password resists some years']   = synth['safe']
+        for robustness in rob:
+            for reason in rob[robustness]:
+                stat[f"cracked because {reason} ({robkeys[robustness]})"] = rob[robustness][reason]
 
         stats.append(dict(stat))
 
@@ -513,7 +556,7 @@ def main():
     parser.add_argument('USERS_FILE', action="store",
             help="The file containing the Domain users info (from ldapdomaindump: domain_users.grep)")
     parser.add_argument('--priv', action="store_true", default=False,
-            help='Specify that you want to display the list of enabled privileged users at the end of the process')
+            help='Specify that you want to display only the privileged users compromised (default is all)')
     parser.add_argument('--xlsx', action="store_true", default=False,
             help='Export in XLSX format in addition to CSV')
     args = parser.parse_args()
@@ -522,8 +565,9 @@ def main():
     group_out = "group_compromised.csv"
     stat_out = "lestat.csv"
 
-    print(f"[*] Importing john result from {args.JOHN_FILE} and domain info from {args.USERS_FILE}")
+    print(f"[*] Importing domain info from {args.USERS_FILE}")
     users = parseUserfile(args.USERS_FILE)
+    print(f"[*] Importing john result from {args.JOHN_FILE}")
     cu, dom = parsePassfile(args.JOHN_FILE)
     populateUsers(cu, users)
     print("[*] Assigning robustness")
