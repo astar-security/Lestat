@@ -236,11 +236,12 @@ def exportUsers(compromised, output, priv):
             user['sensitive'] = info['priv'] if info['priv'] else "unknown"
             user['robustness'] = robkeys[info['robustness']]
             user['reason'] = info['reason']
+            user['description'] = info['description']
             if user['status'] == "enabled" and (not priv or user['sensitive'] != 'unknown') :
                 c = "yellow" if user['sensitive'] == "likely admin" else "red"
                 if user['sensitive'] == 'unknown':
                     c = "white"
-                print(colored(f"[+]\t{user['status'].ljust(12)} {user['sensitive'].ljust(20)} {user['name'].ljust(24)} {user['password']}", c))
+                print(colored(f"[+]\t{user['status'].ljust(12)} {user['sensitive'].ljust(20)} {user['name'].ljust(24)} {user['password'].ljust(15)} {user['description']}", c))
             if not w:
                 w = csv.DictWriter(f, user.keys(), delimiter=";")
                 w.writeheader()
