@@ -109,10 +109,7 @@ def parsePassfile(pass_file):
                 continue
             if lpers > 4 or lpers ==3 :
                 print(f"[!] Line used but seems to contain more than only a user:password form (or user:password:robustness:reason form): {line}")
-            if lpers == 4:
-                if person[2] not in robkeys:
-                    print(f"[!] Line ignored in {pass_file} file. It seems you submitted a form of user:password:robustness:reason but robustness is not a valid keyword ({robkeys}): {line}.")
-                    continue
+            if lpers == 4 and person[2] in robkeys:
                 robustness = robkeys.index(person[2])
                 reason = person[3]
             bname, dom = beautifyName(person[0])
