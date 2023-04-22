@@ -8,6 +8,7 @@ from collections import Counter
 from termcolor import colored
 import xlsxwriter
 from TonyTheTagger import *
+from GregTheGrapher import *
 
 #########
 # Const #
@@ -56,7 +57,7 @@ def isPriv(elem, groups=None):
     suspected_admin = "adm" in elem and "administratif" not in elem
     # if elem is a user, variable "groups" is a list
     if groups:
-        for i in groups:
+        for i in sorted(groups, key=len):
             if i in PRIVILEGED_GROUPS:
                 return i
             if "adm" in i and "administratif" not in i:
@@ -216,9 +217,25 @@ def populateGroups(compromised):
 # Export #
 ##########
 
-def exportUsers(compromised, output, priv):
-    """write consolidated info about users into CSV format with ; separator"""
+def displayUsers(compromised, priv):
+    """Print main info about users compromised"""
     print(f"[*] {'Privileged' if priv else 'All'} enabled accounts compromised are listed below:")
+    print(f"\t{'STATUS'.ljust(9)} {'USERNAME'.ljust(22)} {'PASSWORD'.ljust(18)} {'SENSITIVE'.ljust(17)} {'#GROUPS'.ljust(8)} DESCRIPTION")
+    for acc, info in compromised.items() :
+        user = {"name": acc}
+        user['password'] = info['password']
+        user['status'] = 'disabled' if 'account_disabled' in info['status'] else 'enabled'
+        user['num groups'] = str(len( info['groups'] ))
+        user['sensitive'] = info['priv'] if info['priv'] else "unknown"
+        user['description'] = info['description']
+        if user['status'] == "enabled" and (not priv or user['sensitive'] != 'unknown') :
+            c = "yellow" if user['sensitive'] == "likely admin" else "red"
+            if user['sensitive'] == 'unknown':
+                c = "white"
+            print(colored(f"[+]\t{user['status'].ljust(9)} {user['name'].ljust(22)} {user['password'].ljust(18)} {user['sensitive'].ljust(17)} {user['num groups'].ljust(8)} {user['description']}", c))
+
+def exportUsers(compromised, output):
+    """write consolidated info about users into CSV format with ; separator"""
     global robkeys
     with open(output, 'w') as f:
         w = None
@@ -234,11 +251,6 @@ def exportUsers(compromised, output, priv):
             user['robustness'] = robkeys[info['robustness']]
             user['reason'] = info['reason']
             user['description'] = info['description']
-            if user['status'] == "enabled" and (not priv or user['sensitive'] != 'unknown') :
-                c = "yellow" if user['sensitive'] == "likely admin" else "red"
-                if user['sensitive'] == 'unknown':
-                    c = "white"
-                print(colored(f"[+]\t{user['status'].ljust(12)} {user['sensitive'].ljust(20)} {user['name'].ljust(24)} {user['password'].ljust(15)} {user['description']}", c))
             if not w:
                 w = csv.DictWriter(f, user.keys(), delimiter=";")
                 w.writeheader()
@@ -355,8 +367,8 @@ def exportExcel(compromised, compromised_groups, stats, excelpath):
     
     st = workbook.add_worksheet('Statistics')
     st.set_row(0, None, firstline_format)
-    st.set_row(1, None, passline_format)
-    st.set_row(2, None, passline_format)
+    for i in range(1,1000):
+        st.set_row(i, None, disabled_format)
     st.freeze_panes(1, 0)
     for col, text in enumerate(stats[0].keys()):
         st.write(0, col, text)
@@ -364,6 +376,16 @@ def exportExcel(compromised, compromised_groups, stats, excelpath):
         st.write(1, col, v)
     for col, v in enumerate(stats[1].values()):
         st.write(2, col, v)
+    charts = exportCharts(stats, "Fileless", False)
+    offset_col = 1
+    offset_row = 4
+    for field in charts:
+        for buffer in charts[field]:
+            st.insert_image(offset_row, offset_col, "", {'image_data': buffer})
+            offset_col += 10
+        offset_col = 1
+        offset_row += 25
+
     workbook.close()
 
 
@@ -555,8 +577,8 @@ def main():
             help="The file containing the Domain users info (from ldapdomaindump: domain_users.grep)")
     parser.add_argument('--priv', action="store_true", default=False,
             help='Specify that you want to display only the privileged users compromised (default is all)')
-    parser.add_argument('--xlsx', action="store_true", default=False,
-            help='Export in XLSX format in addition to CSV')
+    parser.add_argument('--csv', action="store_true", default=False,
+            help='Export in 3 CSV files instead of one XLSX')
     args = parser.parse_args()
 
     user_out = "users_compromised.csv"
@@ -572,15 +594,18 @@ def main():
     populateRobustness(cu, dom)
     print("[*] Computing groups information")
     cg = populateGroups(cu)
-    print(f"[*] Exporting data to {user_out} and {group_out}")
-    exportUsers(cu, user_out, args.priv)
-    exportGroups(cg, group_out)
-    print(f"[*] Computing stats and exporting to lestat.csv")
+    print("[*] Computing stats")
     st = produceStats(users, cu)
-    exportStats(st, stat_out)
-    if args.xlsx:
+    displayUsers(cu, args.priv)
+    if args.csv:
+        print(f"[*] Exporting to CSV format: {user_out}, {group_out} and  {stat_out}")
+        exportUsers(cu, user_out)
+        exportGroups(cg, group_out)
+        exportStats(st, stat_out)
+    else:
         print(f"[*] Exporting to XLSX format in lestat.xlsx")
         exportExcel(cu, cg, st, "lestat.xlsx")
+    print("[+] Export successful. All finished !")
 
 if __name__ == '__main__':
     main()
