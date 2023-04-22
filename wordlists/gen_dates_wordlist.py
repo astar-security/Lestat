@@ -20,9 +20,11 @@ seasons_nl = ['lente', 'zomer', 'herfst', 'winter' ]
 seasons_fr = ['printemps', 'ete', 'automne', 'hivers' ]
 seasons_es = ['primavera', 'verano', 'otono', 'invierno']
 # merge all the known months and seasons names
+months = set(months_en + months_fr + months_nl + months_es) 
 moments = set(months_en + months_fr + months_nl + months_es + seasons_en + seasons_fr + seasons_nl + seasons_es)
 
 def compute_suffixes():
+    global months
     suffixes = ['']
     birthdates = []
     special = ['', '!', '.', '$']
@@ -45,6 +47,18 @@ def compute_suffixes():
                         m+d+y, "-".join([m,d,y]), "/".join([m,d,y])]
                 # add 3112 3112! 3112. 3112$ and 1231 1231! 1231. 1231$ as suffixes
                 suffixes += [i+j for i in [d+m, m+d] for j in special]
+         # months in format january, february, ...
+        for m in months:
+            # days in format 1, 2, ...
+            for d in [str(i) for i in range(1,32)]:
+                # 2Novembre 2novembre 
+                birthdates += [ d+m, d+m.capitalize() ]
+                # add 2Novembre22 2novembre22 2novembre2022 2Novembre2022
+                birthdates += [ d+m.capitalize()+y[2:], d+m+y[2:], d+m+y, d+m.capitalize()+y]
+                # add 2Nov22 2nov22 2nov2022 2Nov2022
+                birthdates += [ d+m.capitalize()[:3]+y[2:], d+m[:3]+y[2:], d+m[:3]+y, d+m.capitalize()[:3]+y ]
+    # add special char at the end
+    birthdates += [ i+j for i in birthdates for j in special]
     suffixes = set(suffixes)
     bithdates = set(birthdates)
     return suffixes, birthdates
