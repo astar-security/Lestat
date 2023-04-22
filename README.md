@@ -13,8 +13,8 @@ Mainly, Lestat does analysis about a list of already cracked accounts :
 
 - Distinguishing disabled accounts
 - Distinguishing highly privileged accounts
-- Giving a reflective view : "user to groups compromised" and "group to members compromised"
-- Providing a comprehensive set of stats and charts about the password cracked (length distribution, charset, robustness evaluation, most frequent pattern, ...)
+- Providing a reflective view : "user compromised --> groups associated" and "group --> members compromised"
+- Providing a comprehensive set of stats and charts about the passwords cracked (length distribution, charset, robustness evaluation, most frequent pattern, ...)
 
 Also, Lestat provides facilities to perform :
 
