@@ -114,11 +114,13 @@ john --format=NT --show DOMAIN_HASHES.txt> | cut -d: -f 1,2 > JOHN_RESULT.txt
 Directly see if you cracked enabled admin accounts :
 ```
 $ python3 LesterTheLooter.py --priv JOHN_RESULT.txt USERS_INFO.txt
-[*] Importing john result from JOHN_RESULT.txt and domain info from USERS_INFO.txt
-[!] Line ignored in JOHN_RESULT.txt file (not a valid user:password form): 
-[!] Line ignored in JOHN_RESULT.txt file (not a valid user:password form): 124 password hashes cracked, 589 left
+[*] Importing domain info from USERS_INFO.txt
+[*] Importing john result from JOHN_RESULT.txt
+[*] Assigning robustness
+[*] Requesting wordlist...
+[+] Wordlist downloaded
 [*] Computing groups information
-[*] Exporting data to users_compromised.csv and group_compromised.csv
+[*] Computing stats
 [*] Privileged accounts compromised are listed below:
 [+]	disabled     domain admins        n.sarko                  Cecilia<3
 [+]	enabled      likely admin         f.maçon                  NOMondial2020!
@@ -126,8 +128,20 @@ $ python3 LesterTheLooter.py --priv JOHN_RESULT.txt USERS_INFO.txt
 [+]	enabled      domain admins        e.macron                 Macron2022!!!
 [+]	enabled      enterprise admins    b.gates                  VaccineApple!
 [+]	disabled     account operators    e.philippe               Prosac2k19
+	  STATUS    USERNAME        PASSWORD          SENSITIVE         #GROUPS  DESCRIPTION
+[+]	enabled   n.sarko         Cecilia<3         domain admins     6        to disable
+[+]	enabled   f.maçon         NOMondial2020!    likely admin      21987       
+[+]	enabled   adm.boloré      Y4tch4life        enterprise admins 17       
+[+]	enabled   e.macron        Macron2027!!!!    domain admins     10       
+[+]	enabled   b.gates         VaccineApple!     enterprise admins 8        
+[+]	enabled   e.philippe      Prosac2k19        account operators 3             
+[*] Exporting to XLSX format in lestat.xlsx
+[*] Making the charts for all accounts...
+[*] Making the charts for active accounts...
+[+] Export successful. All finished !
 ```
-Three CSV files are produced: `lestat.csv`, `users_compromised.csv` and `group_compromised.csv`. They contain the full results.
+All the data are exported to a unique XLSX file.  
+But you can also obtain three CSV files (`lestat.csv`, `users_compromised.csv` and `group_compromised.csv`) with the `--csv` option. 
 
 _NOTE: the tool will ignore every line which does not have at least one ':' separator. If more than one ':' is detected, it will only retain the first and the second fields and ignore the rest. So, the direct result of `john --format=NT --show DOMAIn_HASHES.txt` will be correctly parsed (but you will see many warning)_
 
@@ -136,17 +150,17 @@ _NOTE: the tool will ignore every line which does not have at least one ':' sepa
 Produce a easy to read Excel file with all the information compiled :
 
 ```
-$ python3 LesterTheLooter.py --xlsx JOHN_RESULT.txt USERS_INFO.txt
+$ python3 LesterTheLooter.py JOHN_RESULT.txt USERS_INFO.txt
 ```
 
 ### Be proud
-PNG charts can be generated from the `lestat.csv` file:  
+PNG charts are generated on the fly by LesterTheLooter and incoporated in the XLSX file.
+
+![](https://camo.githubusercontent.com/aa8c35cdb071322f9c0e0d3c0dae9d5bef295cfabaa01115159e640badafffde/68747470733a2f2f626f6e6e792e61737461722e6f72672f6578616d706c655f6c65737461742e706e67)
+
+You can also use the `GregTheGrapher.py` script in a standalone mode to generate charts from a `lestat.csv` file:  
 ```
 python3 GregTheGrapher.py -w charts --transparent lestat.csv 
 ```
-
-We suggest that you import them into the generated Excel file :
-
-![](https://camo.githubusercontent.com/aa8c35cdb071322f9c0e0d3c0dae9d5bef295cfabaa01115159e640badafffde/68747470733a2f2f626f6e6e792e61737461722e6f72672f6578616d706c655f6c65737461742e706e67)
 
 For any question/support about this project, please visit: [www.astar.org](https://www.astar.org).
