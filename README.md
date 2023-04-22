@@ -122,13 +122,7 @@ $ python3 LesterTheLooter.py --priv JOHN_RESULT.txt USERS_INFO.txt
 [*] Computing groups information
 [*] Computing stats
 [*] Privileged accounts compromised are listed below:
-[+]	disabled     domain admins        n.sarko                  Cecilia<3
-[+]	enabled      likely admin         f.maçon                  NOMondial2020!
-[+]	enabled      enterprise admins    adm.boloré               Y4tch4life
-[+]	enabled      domain admins        e.macron                 Macron2022!!!
-[+]	enabled      enterprise admins    b.gates                  VaccineApple!
-[+]	disabled     account operators    e.philippe               Prosac2k19
-	  STATUS    USERNAME        PASSWORD          SENSITIVE         #GROUPS  DESCRIPTION
+        STATUS    USERNAME        PASSWORD          SENSITIVE         #GROUPS  DESCRIPTION
 [+]	enabled   n.sarko         Cecilia<3         domain admins     6        to disable
 [+]	enabled   f.maçon         NOMondial2020!    likely admin      21987       
 [+]	enabled   adm.boloré      Y4tch4life        enterprise admins 17       
