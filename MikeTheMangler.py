@@ -123,14 +123,13 @@ def numbers(deep):
     # 0 -> 9
     res.update( [str(i) for i in range(10)] )
     if deep > 1 :
-        # 50 years ago -> now : 1988 and 88
-        res.update([str(i) for i in range(int(time.strftime("%Y"))-50, int(time.strftime("%Y"))+1)] )
-        res.update([str(i)[2:] for i in range(int(time.strftime("%Y"))-50, int(time.strftime("%Y"))+1)] )
-    if deep > 2 :
         # 00 -> 99
         res.update([str(i).zfill(2) for i in range(100)])
         # add special french DOM numbers
         res.update(['971', '972', '973', '974', '975', '976', '984', '986', '987', '988'])
+    if deep > 2 :
+        # 50 years ago -> now : 1988 and 88
+        res.update([str(i) for i in range(int(time.strftime("%Y"))-50, int(time.strftime("%Y"))+1)] )
         # 2k10 -> now
         res.update(["2k"+str(i)[2:] for i in range(2010,int(time.strftime("%Y"))+1)] )
         # 2K10 -> now
@@ -222,7 +221,7 @@ def affix(words, deep, prefixes, suffixes):
 @click.option('--nick', default=0, help='Guess shortname/nicknames: 0 disabled, 1 (jean-baptiste -> jean, baptiste, jb, jeanbaptiste), 2 (jean-baptiste -> JeanBaptiste, jba, jbaptiste, jeanb, bap, bapt, baba, jea, jeje), 3 (aptiste, bapti, bp, be, bpt, ean, jn)')
 @click.option('--case', default=0, help='Set the level of case variation: 0 (keep original), 1 (original + david), 2 (add David), 3 (add DAVID), 4 (add dAVID), 5 (all the possible variations)')
 @click.option('--leet', default=0, help='Set the number of substitutions: 0 disabled, 1 letter, 2 letters')
-@click.option('--num', default=0, help='Add numeric suffixes: 0 disabled, 1 (0->9 01 123), 2 (50 last years: 1988 and 88 formats), 3 (complete 00->99 and 2k18 years format), 4 (add birthdates), 5 (add english birthdates)')
+@click.option('--num', default=0, help='Add numeric suffixes: 0 disabled, 1 (0->9 + 01 123), 2 (00->99), 3 (50 last years in format 2018, 2k18 and 2K18), 4 (add birthdates), 5 (add english birthdates)')
 @click.option('--punc', default=0, help='Add punctuation: 0 disabled, 1 (!), 2 (add $ . -), 3 (add * ? & _)')
 @click.option('--pref', default=0, help='Add prefixes: 0 disabled, 1 (pass), 2 (add adm), 3 (add admin pwd)')
 @click.option('--comb', default=0, help='Add combinations between words: 0 (disabled), 1 (2x2 before case and nick variations), 2 (2x2 after nickname variation), 3 (2x2 after case computation), 4 (2x2 with separators - and _)')
