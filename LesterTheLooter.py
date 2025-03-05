@@ -548,13 +548,13 @@ def produceStats(users, compromised):
         occ = sorted(statFreq(passwords, status).items(), key=lambda x: x[1], reverse=True)
         l = len(occ)
         for i in range(10):
-            stat[f"{i+1}th frequent password"] = f"{occ[i][1]}:{occ[i][0].replace(';','[semicolon]')}" if i<l-1 else ":"
+            stat[f"{i+1}th frequent password"] = f"{occ[i][1]}:{occ[i][0].replace(';','[semicolon]')}" if i<l else ":"
 
         # pattern
         pat = sorted(statPattern(passwords, status).items(), key=lambda x: x[1], reverse=True)
         l = len(pat)
         for i in range(10):
-            stat[f"{i+1}th frequent pattern"] = f"{pat[i][1]}:{pat[i][0].replace(';','[semicolon]')}" if i<l-1 else ":"
+            stat[f"{i+1}th frequent pattern"] = f"{pat[i][1]}:{pat[i][0].replace(';','[semicolon]')}" if i<l else ":"
 
         # robustness
         rob = statRobustness(compromised, status)

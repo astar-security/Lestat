@@ -199,12 +199,11 @@ def frequentPasswords(field, chartpath, transparency, max_top):
     fig, ax = plt.subplots()
     values = []
     labels = []
-    for i in range(10):
-        try:
-            values.append(int(field[f"{i+1}th frequent password"].split(':',1)[0]))
-            labels.append(field[f"{i+1}th frequent password"].split(':',1)[1])
-        except:
-            continue
+    i = 1
+    while f"{i}th frequent password" in field and field[f"{i}th frequent password"] != ':':
+        values.append(int(field[f"{i}th frequent password"].split(':',1)[0]))
+        labels.append(field[f"{i}th frequent password"].split(':',1)[1])
+        i += 1
     if max_top == 0:
         max_top = max(values)
     values.reverse()
@@ -229,12 +228,11 @@ def frequentPatterns(field, chartpath, transparency, max_top_p):
     fig, ax = plt.subplots()
     values = []
     labels = []
-    for i in range(10):
-        try:
-            values.append(int(field[f"{i+1}th frequent pattern"].split(':',1)[0]))
-            labels.append(field[f"{i+1}th frequent pattern"].split(':',1)[1])
-        except:
-            continue
+    i = 1
+    while f"{i}th frequent pattern" in field and field[f"{i}th frequent pattern"] != ':':
+        values.append(int(field[f"{i}th frequent pattern"].split(':',1)[0]))
+        labels.append(field[f"{i}th frequent pattern"].split(':',1)[1])
+        i += 1
     if max_top_p == 0:
         max_top_p = max(values)
     values.reverse()

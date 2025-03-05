@@ -3,7 +3,7 @@
 from difflib import SequenceMatcher as similar
 import string
 import requests
-from wordlists.variations import *
+from MikeTheMangler import *
 
 # numbers are time to crack in an online bruteforce attack with OSINT: 
 # 0=seconds, 
@@ -48,9 +48,9 @@ def downloadWordlist(wordlist):
     print("[*] Requesting wordlist...")
     candidates = []
     try:
-        r = requests.get(wordlist)
+        r = requests.get(wordlist, timeout=10)
         if r.ok:
-            print("[+] wordlist downloaded")
+            print("[+] Wordlist downloaded")
             candidates = r.text.split("\n")
     except Exception as e:
         print(f"[!] Download failed : {e}")

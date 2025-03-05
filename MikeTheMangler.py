@@ -225,8 +225,9 @@ def affix(words, deep, prefixes, suffixes):
 @click.option('--punc', default=0, help='Add punctuation: 0 disabled, 1 (!), 2 (add $ . -), 3 (add * ? & _)')
 @click.option('--pref', default=0, help='Add prefixes: 0 disabled, 1 (pass), 2 (add adm), 3 (add admin pwd)')
 @click.option('--comb', default=0, help='Add combinations between words: 0 (disabled), 1 (2x2 before case and nick variations), 2 (2x2 after nickname variation), 3 (2x2 after case computation), 4 (2x2 with separators - and _)')
+@click.option('--mini', default=1, help='Only retains password a certain minimum length')
 @click.argument('word')
-def main(word, nick, case, leet, num, punc, pref, comb):
+def main(word, nick, case, leet, num, punc, pref, comb, mini):
     """
     Compute string variations over words (separated with comma) or a file with one word per line
     """
@@ -284,19 +285,21 @@ def main(word, nick, case, leet, num, punc, pref, comb):
         for word in words:
             for numeral in numerals:
                 # PassDavid1988
-                result.add(prefix + word + numeral)
+                if len(candidate := prefix + word + numeral) >= mini:
+                    result.add(candidate)
                 if punc :
                     for p in inter:
-                        if prefix != '':
+                        if prefix != '' and len(candidate := prefix + p + word + numeral) >= mini:
                             # Pass_David1988
-                            result.add(prefix + p + word + numeral)
-                        if numeral != '':
+                            result.add(candidate)
+                        if numeral != '' and len(candidate := prefix + word + p + numeral) >= mini:
                             # PassDavid_1988
-                            result.add(prefix + word + p + numeral)
+                            result.add(candidate)
                     for p in final:
-                        result.add(prefix + word + numeral + p)
-                        if punc > 1 and numeral != '':
-                            result.add(prefix + word + p + numeral)
+                        if len(candidate := prefix + word + numeral + p) >= mini:
+                            result.add(candidate)
+                        if punc > 1 and numeral != '' and len(candidate := prefix + word + p + numeral) >= mini:
+                            result.add(candidate)
 
     #result.update([prefix + word + numeral + p1 for prefix in prefixes for word in result for numeral in numerals for p1 in final])
     
